@@ -25,3 +25,52 @@ runcmd:
 - wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/requirements.txt
 - pip install -r requirements.txt
 - echo "-------> JoDeMiro finished."
+
+
+A Driverre felteszek egy Jupyter Notebookot is, onnan fogom vezérelni.
+
+```
+sudo su
+apt update && sudo apt -y upgrade
+apt-get autoremove
+pip install --upgrade pip
+pip install virtualenv
+exit
+virtualenv notebook
+cd notebook
+source bin/activate
+pip install jupyter
+```
+
+Passwordözzük le
+```
+jupyter notebook password
+```
+
+
+Csinálok neki egy indítót `run-jupyter.sh`
+```
+mkdir driver
+```
+
+Lerántom a Github repóból a korábbi munkámat. (nem akarom clonozni az egész repot)
+```
+cd driver
+wget https://raw.githubusercontent.com/JoDeMiro/SACI22/main/SACI22_019.ipynb?token=GHSAT0AAAAAABQUODNRU4T5FT4NTLT54CJ2YRHFPLQ
+cd ..
+```
+
+```
+touch run-jupyter.sh
+
+echo "#!/bin/bash" >> ~/run-jupyter.sh
+echo "source /home/ubuntu/notebook/bin/activate" >> ~/run-jupyter.sh
+echo "cd driver" >> ~/run-jupyter.sh
+echo "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --config=~/.jupyter/jupyter_notebook_config.py" >> ~/run-jupyter.sh
+
+chmod u+x run-jupyter.sh
+```
+
+
+
+
