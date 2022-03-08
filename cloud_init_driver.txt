@@ -19,8 +19,8 @@ write_files:
   content: |
     #!/bin/bash
     echo "---------------> Installing base tools (pip,venv) starts."
-    pip install --upgrade pip
-    pip install virtualenv
+    apt-get install -y python3-pip
+    apt-get install -y python3-venv
     echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
