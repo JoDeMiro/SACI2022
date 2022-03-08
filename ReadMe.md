@@ -15,6 +15,7 @@ A Driverre felteszek egy Jupyter Notebookot is, onnan fogom vezérelni.
 
 Passwordözzük le
 ```
+source notebook/bin/activate
 jupyter notebook password
 ```
 
