@@ -11,6 +11,7 @@ scikit-learn==1.0.2
 sklearn==0.0
 sklearn-pandas==1.8.0
 jupyter
+palette
 # ipykernel==4.10.1
 # ipython==5.5.0
 # ipython-genutils==0.2.0
