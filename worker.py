@@ -486,4 +486,10 @@ from waitress import serve
 def create_app():
    return app
 
+# -------------------------------------------
+# ezt majd így kell elindítani
+# waitress-serve --port=8080 --call hello:create_app
+#
+# https://stackoverflow.com/questions/51025893/flask-at-first-run-do-not-use-the-development-server-in-a-production-environmen
+# -------------------------------------------
 
