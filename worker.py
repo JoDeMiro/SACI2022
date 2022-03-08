@@ -480,10 +480,19 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def index():
     return 'Web App with Python Flask!'
 
+# -------
+
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_file():
+   if request.method == 'POST':
+      f = request.files['file']
+      f.save(secure_filename(f.filename))
+      return 'file uploaded successfully'
 
 
 
 
+# -------
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
