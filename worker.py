@@ -491,5 +491,8 @@ def create_app():
 # waitress-serve --port=8080 --call hello:create_app
 #
 # https://stackoverflow.com/questions/51025893/flask-at-first-run-do-not-use-the-development-server-in-a-production-environmen
+#
+# igy lehet ellenőrizni, hogy fut-e a flask
+# nc -vz 192.168.0.247 8080
 # -------------------------------------------
 
