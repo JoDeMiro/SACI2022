@@ -30,7 +30,7 @@ Privát Repo ugyhogy ez csak nekem és csak **tokennel** fog menni ami mindíg v
 
 ```
 cd driver
-wget https://raw.githubusercontent.com/JoDeMiro/SACI22/main/SACI22_019.ipynb?token=token -O SACI_019.ipynb
+wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/Driver/SACI22_019.ipynb
 cd ..
 ```
 
