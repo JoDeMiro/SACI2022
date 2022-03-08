@@ -34,7 +34,8 @@ print('                       UNZIP CSV DATA                          ')
 print('---------------------------------------------------------------')
 
 os.system('gzip -f -d ./Input/eurusd_minute_1000000.csv.gz')
-# os.system('wget https://raw.githubusercontent.com/JoDeMiro/Micado-Research/main/MLPPlot.py')
+os.system('mv ./Input/eurusd_minute_1000000.csv ./Input/eurusd_minute.csv')
+
 
 print('---------------------------------------------------------------')
 print('                       DATA READER CLASS                       ')
