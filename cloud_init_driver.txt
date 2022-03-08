@@ -10,36 +10,36 @@ write_files:
   content: |
     #!/bin/bash
     export USR='{{variables.username_os}}'
-    echo "==> Creating user \"$USR\" starts."
+    echo "---------------> Creating user \"$USR\" starts."
     adduser --disabled-password --gecos "" $USR
-    echo "==> Creating user \"$USR\" finished."
+    echo "---------------> Creating user \"$USR\" finished."
   permissions: '755'
 
 - path: /bin/jupyter-add-base-tools.sh
   content: |
     #!/bin/bash
-    echo "==> Installing base tools (pip,venv) starts."
+    echo "---------------> Installing base tools (pip,venv) starts."
     pip install --upgrade pip
     pip install virtualenv
-    echo "==> Installing base tools (pip,venv) finished."
+    echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
 - path: /bin/jupyter-install.sh
   content: |
     #!/bin/bash
-    echo "==> Install Jupyter, Tensorflow, Keras and MP lib components starts."
+    echo "---------------> Install Python stuffs for me"
     virtualenv notebook
     source notebook/bin/activate
     pip install wheel
     wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/requirements_driver.txt
     pip install -r requirements_driver.txt
-    echo "==> Install Jupyter, Tensorflow, Keras and MP lib components finished."
+    echo "---------------> Install Jupyter, Scikit, etc finished."
   permissions: '755'
 
 
 runcmd:
-- echo "-------> JoDeMiro Deployment starts."
+- echo "---------------> JoDeMiro Deployment starts."
 - /bin/jupyter-add-user.sh
 - /bin/jupyter-add-base-tools.sh
 - su - {{variables.username_os}} -c /bin/jupyter-install.sh
-- echo "-------> JoDeMiro Deployment finished."
+- echo "---------------> JoDeMiro Deployment finished."
