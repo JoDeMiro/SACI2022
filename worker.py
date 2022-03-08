@@ -13,7 +13,7 @@ print('---------------------------------------------------------------')
 import os
 import sys
 import pprint
-import sklearn
+# import sklearn
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
