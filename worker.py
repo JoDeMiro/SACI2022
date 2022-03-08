@@ -455,7 +455,19 @@ print('---------------------------------------------------------------')
 
 
 
+print('---------------------------------------------------------------')
+print('                       FÜGGVÉNYEK A FLASKHEZ                   ')
+print('---------------------------------------------------------------')
 
+from sklearn.neural_network import MLPRegressor
+import numpy as np
+import pickle
+import json
+import os
+
+def load_model():
+    clf = load('model.joblib')        # <-- betöltjük
+    print('# Model betöltve a joblib-ből')
 
 
 print('---------------------------------------------------------------')
@@ -473,17 +485,27 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
+# ------------
+
 @app.route('/')
 def index():
     return 'Web App with Python Flask!'
 
+# ------------
+
 @app.route('/uploader', methods = ['GET', 'POST'])
-def upload_file2():
+def upload_file():
    if request.method == 'POST':
       f = request.files['file']
       f.save(secure_filename(f.filename))
+      
+      # load model
+      load_model()
       return 'file uploaded successfully'
 
+# ------------
+
+# Feltöltöttük a filét valamit kezdeni kéne vele mondjuk töltsük be.
 
 
 
