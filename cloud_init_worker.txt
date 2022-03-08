@@ -40,7 +40,7 @@ write_files:
 
     git clone https://github.com/JoDeMiro/SACI2022.git
 
-    cd SACI20222
+    cd SACI2022/
     python3 worker.py
 
     echo "---------------> Get SACI2022 Project finished."
