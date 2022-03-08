@@ -1,30 +1,14 @@
 ReadMe.md
 
-sudo apt -y install openssh-client
+A Driver példányosításánál a cloud_init_driver.txt fájlt kell használni.
 
-wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/requirements.txt
-
-pip install -r requirements.txt
-
------
-Innen vettem az öteltet
-
-https://github.com/occopus/docs/blob/devel/tutorials/tensorflow-keras-jupyter/nodes/cloud_init_jupyter_server.yaml
 -----
 
 Ezzel a scripttel kell létrehozni a virtuális gépet
 
-#cloud-config
+Rá kell rakni még a Floating IP címet.
 
-packages:
-  - git
-  - openssh-client
-
-runcmd:
-- echo "-------> JoDeMiro starts."
-- wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/requirements.txt
-- pip install -r requirements.txt
-- echo "-------> JoDeMiro finished."
+Ha beléptem, akkor már minden telepítve van, de le kell jelszavazni a notebookot.
 
 
 A Driverre felteszek egy Jupyter Notebookot is, onnan fogom vezérelni.
