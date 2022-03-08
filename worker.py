@@ -210,3 +210,111 @@ data_reader.create_train_set()
 
 
 
+
+
+
+
+
+print('---------------------------------------------------------------')
+print('                       NN CLASS                                ')
+print('---------------------------------------------------------------')
+
+# ------------------------------------------------------------------------------    # <-- NN Class
+
+# Neural Network Class
+
+from warnings import simplefilter
+from sklearn.exceptions import ConvergenceWarning
+simplefilter("ignore", category=ConvergenceWarning)                                 # <-- kell a Convergencia Warning miatt
+simplefilter("ignore")                                                              # <-- a batch_size > n miatt kell ide
+
+import numpy as np
+from sklearn.neural_network import MLPRegressor
+
+# ------------------------------------------------------------------------------
+
+class NN():
+
+  def __init__(self, x_train, y_train):
+    self.mlp = None
+    self.x_train = x_train
+    self.y_train = y_train
+    self.prediction = None
+
+# ------------------------------------------------------------------------------
+  
+  def init_nn(self, _first = 15, _second = 5):
+    'Init Scikit Learn MLPRegressor'                                                 # <-- hogy létre jöjjenek a súlyok inicializálni kell
+    
+    np.random.seed(1)
+
+    mlp = MLPRegressor(hidden_layer_sizes=(_first, _second),
+                      activation='tanh',                                             # -------> ha (MinMax(-1,1) vagy StandardScaler())
+                      solver='sgd',
+                      batch_size=100000,                                             # <<-- v.017 bug fixed
+                      max_iter=1,                                                    # <-- sajnos legalább 1 kell hogy legyen
+                      shuffle=False,
+                      random_state=1,
+                      learning_rate_init=0.00000001,                                 # >- lehetőleg ne tanuljon semmit GD alapján
+                      validation_fraction=0.0,
+                      n_iter_no_change=99999999)
+    
+    # ----->                                                         Behoztam ide az első illesztést is, hogy meglegyenek neki a súlyok
+
+    np.random.seed(1)
+
+    y_random = np.zeros((self.y_train.shape[0])) * 110.01                           # --> tök random adaton tanítom, hogy még véletlenül se tanuljon
+
+    mlp.fit(self.x_train, y_random)                                                 # --> nem akarjuk mi semmire megtanítani csak kell az inithez
+
+    self.mlp = mlp
+    
+    return mlp
+
+# ------------------------------------------------------------------------------
+
+  def create_prediction(self):
+    'Saját adati alapján csinája meg a predcitiont'
+
+    self.prediction = self.mlp.predict(self.x_train)
+
+    return self.prediction
+
+print('---------------------------------------------------------------')
+print('                       NN CLASS TEST                           ')
+print('---------------------------------------------------------------')
+
+# ------------------------------------------------------------------------------
+
+nn = NN(x_train = data_reader.x_train, y_train = data_reader.y_train)
+
+nn.init_nn(_first = 15, _second = 5)
+
+# nn.mlp.coefs_                                                                     # <-- ha debuggolni kell
+
+
+# ------------------------------------------------------------------------------
+
+# Create Prediction
+
+mlp = nn.init_nn(2, 2)
+
+test_pred = mlp.predict(data_reader.x_train)                                        # teszt pred --> semmire nem fogjuk használni
+
+print(test_pred[0:5])
+
+test_pred = nn.mlp.predict(data_reader.x_train)                                     # init után direktben is el lehet érni az mlp.predict() függvényt
+
+print(test_pred[0:5])
+
+test_pred = nn.create_prediction()                                                  # csináltam neki egy saját fügvényt ami elvégzi az egész predictiont
+
+print(test_pred[0:5])
+
+# ------------------------------------------------------------------------------
+
+# A scikit-től eltérő súlyincializácóra van lehetőség létre hoztam rá egy
+# eljárást de nem használom. Ha mégis használni szeretném akkor a
+# SACI22 - 018.ipynb-ben megtalálható
+
+# ------------------------------------------------------------------------------
