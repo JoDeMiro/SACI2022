@@ -30,6 +30,13 @@ print('Sci-Kit Learn version:{}'.format(sklearn.__version__))
 
 
 print('---------------------------------------------------------------')
+print('                       UNZIP CSV DATA                          ')
+print('---------------------------------------------------------------')
+
+os.system('gzip -f -d ./Input/eurusd_minute_1000000.csv.gz')
+# os.system('wget https://raw.githubusercontent.com/JoDeMiro/Micado-Research/main/MLPPlot.py')
+
+print('---------------------------------------------------------------')
 print('                       DATA READER CLASS                       ')
 print('---------------------------------------------------------------')
 
