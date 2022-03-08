@@ -483,7 +483,7 @@ def index():
 # -------
 
 @app.route('/uploader', methods = ['GET', 'POST'])
-def upload_file():
+def upload_file2():
    if request.method == 'POST':
       f = request.files['file']
       f.save(secure_filename(f.filename))
