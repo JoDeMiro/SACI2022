@@ -469,6 +469,7 @@ import os
 def load_model():
     clf = joblib.load('model.joblib')        # <-- betöltjük
     print('# Model betöltve a joblib-ből')
+    print(clf.get_params())
 
 
 print('---------------------------------------------------------------')
