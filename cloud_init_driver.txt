@@ -26,6 +26,7 @@ write_files:
   content: |
     #!/bin/bash
     echo "---------------> Install Python stuffs for me."
+    pip3 install --upgrade pip
     pip3 install virtualenv
     ls -l /home/ubuntu/.local/bin
     export PATH=$PATH:/home/ubuntu/.local/bin
@@ -39,6 +40,6 @@ write_files:
 
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
-- su - ubuntu -c /bin/jupyter-add-base-tools.sh
+- /bin/jupyter-add-base-tools.sh
 - su - ubuntu -c /bin/jupyter-install.sh
 - echo "---------------> JoDeMiro Deployment finished."
