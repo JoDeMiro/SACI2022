@@ -9,7 +9,7 @@ write_files:
 - path: /bin/jupyter-add-user.sh
   content: |
     #!/bin/bash
-    export USR='{{variables.username_os}}'
+    export USR='ubuntu'
     echo "---------------> Creating user \"$USR\" starts."
     adduser --disabled-password --gecos "" $USR
     echo "---------------> Creating user \"$USR\" finished."
@@ -40,7 +40,7 @@ write_files:
 
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
-- /bin/jupyter-add-user.sh
-- /bin/jupyter-add-base-tools.sh
-- su - {{variables.username_os}} -c /bin/jupyter-install.sh
+- su - ubuntu -c /bin/jupyter-add-user.sh
+- su - ubuntu -c /bin/jupyter-add-base-tools.sh
+- su - ubuntu -c /bin/jupyter-install.sh
 - echo "---------------> JoDeMiro Deployment finished."
