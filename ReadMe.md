@@ -29,19 +29,6 @@ runcmd:
 
 A Driverre felteszek egy Jupyter Notebookot is, onnan fogom vezérelni.
 
-```
-sudo su
-apt update && sudo apt -y upgrade
-apt-get autoremove
-pip install --upgrade pip
-pip install virtualenv
-exit
-virtualenv notebook
-cd notebook
-source bin/activate
-pip install jupyter
-```
-
 Passwordözzük le
 ```
 jupyter notebook password
