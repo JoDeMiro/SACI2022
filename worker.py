@@ -446,3 +446,35 @@ result['gain']                          # <- get a value by a given key         
 
 
 
+print('---------------------------------------------------------------')
+print('                       RANDOMER CLASS                          ')
+print('---------------------------------------------------------------')
+
+# Na ezt a Driver fogja csinálni
+
+
+
+
+
+
+
+print('---------------------------------------------------------------')
+print('                       FLASK                                   ')
+print('---------------------------------------------------------------')
+
+
+
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/bemenet')
+def index():
+    return 'Web App with Python Flask!'
+
+app.run(host='0.0.0.0', port=81)
+
+
+
+
