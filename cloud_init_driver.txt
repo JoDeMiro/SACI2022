@@ -19,8 +19,6 @@ write_files:
   content: |
     #!/bin/bash
     echo "---------------> Installing base tools (pip,venv) starts."
-    apt-get install -y python3-pip
-    apt-get install -y python3-venv
     echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
@@ -28,19 +26,19 @@ write_files:
   content: |
     #!/bin/bash
     echo "---------------> Install Python stuffs for me."
-    python3 -m venv notebook
+    pip3 install virtualenv
+    ls -l /home/ubuntu/.local/bin
+    export PATH=$PATH:/home/ubuntu/.local/bin
+    virtualenv notebook
     source notebook/bin/activate
-    pip install --upgrade pip
-    pip install wheel
     wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/requirements_driver.txt
-    pip install -r requirements_driver.txt
+    pip3 install -r requirements_driver.txt
     echo "---------------> Install Jupyter, Scikit, etc finished."
   permissions: '755'
 
 
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
-- su - ubuntu -c /bin/jupyter-add-user.sh
 - su - ubuntu -c /bin/jupyter-add-base-tools.sh
 - su - ubuntu -c /bin/jupyter-install.sh
 - echo "---------------> JoDeMiro Deployment finished."
