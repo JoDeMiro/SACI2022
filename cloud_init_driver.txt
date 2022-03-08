@@ -15,15 +15,6 @@ write_files:
     echo "---------------> Creating user \"$USR\" finished."
   permissions: '755'
 
-- path: /bin/jupyter-add-user.sh
-  content: |
-    #!/bin/bash
-    export USR='{{variables.username_os}}'
-    echo "---------------> Creating user \"$USR\" starts."
-    adduser --disabled-password --gecos "" $USR
-    echo "---------------> Creating user \"$USR\" finished."
-  permissions: '755'
-
 - path: /bin/jupyter-add-base-tools.sh
   content: |
     #!/bin/bash
@@ -36,9 +27,10 @@ write_files:
 - path: /bin/jupyter-install.sh
   content: |
     #!/bin/bash
-    echo "---------------> Install Python stuffs for me"
-    virtualenv notebook
+    echo "---------------> Install Python stuffs for me."
+    python3 -m venv notebook
     source notebook/bin/activate
+    pip install --upgrade pip
     pip install wheel
     wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/requirements_driver.txt
     pip install -r requirements_driver.txt
