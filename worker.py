@@ -318,3 +318,131 @@ print(test_pred[0:5])
 # SACI22 - 018.ipynb-ben megtalálható
 
 # ------------------------------------------------------------------------------
+
+
+
+
+
+
+
+print('---------------------------------------------------------------')
+print('                       TRADER CLASS                            ')
+print('---------------------------------------------------------------')
+
+# ------------------------------------------------------------------------------    # <-- Trader Class
+
+# Trader Calculator Class
+
+import numpy as np
+
+class Trader():
+
+  def __init__(self, threshold, data_reader, debug = False):
+    self.threshold = threshold
+    self.data_reader = data_reader
+    self.debug = debug
+    print('__init__ Trader')
+
+  def calculator(self, pred):
+    buy   = pred > self.threshold
+    sell  = pred < self.threshold
+
+    sunique, scounts = np.unique(sell, return_counts=True)
+    sell_stat = dict(zip(sunique, scounts))
+
+    bunique, bcounts = np.unique(buy, return_counts=True)
+    buy_stat = dict(zip(bunique, bcounts))
+
+    lenght = pred.size
+
+    is_in_trade = False
+    is_in_buy = False
+    buy_count = 0
+    sell_count = 0
+    buy_price = []
+    sell_price = []
+    buy_index = []
+    sell_index = []
+    for i in range(lenght):
+      if buy[i] == True and is_in_trade == False:
+        buy_count += 1
+        buy_price.append(self.data_reader.y_train[i])
+        buy_index.append(i)
+        is_in_trade = True
+      
+      if sell[i] == True and is_in_trade == True:
+        sell_count += 1
+        sell_price.append(self.data_reader.y_train[i])
+        sell_index.append(i)
+        is_in_trade = False
+
+      if i == lenght - 1 and is_in_trade == True:                                       # <-- le kell zárni az utolsónál a vételt ha nyitva van
+        sell_count += 1
+        sell_price.append(self.data_reader.y_train[i])
+        sell_index.append(i)
+        is_in_trade = False
+    
+    gains = np.array(sell_price) - np.array(buy_price)
+    # print(gains)
+
+    gain = gains.sum()
+    # print(gain)
+
+    if (self.debug == True):
+      print('Summary :')
+      print('buy_stat = ', buy_stat)
+      print('sell_stat = ', sell_stat)
+      print('buy_count = ', buy_count)
+      print('sell_count = ', sell_count)
+      print('len(buy_price) = ', len(buy_price))
+      print('len(sell_price) = ', len(sell_price))
+      print('buy_price  = ', buy_price)
+      print('sell_price = ', sell_price)
+      print('buy_index  = ', buy_index)
+      print('sell_index = ', sell_index)
+      # print('gains      = ', gains)
+      print('gain       = ', gain)
+
+    self.result = {'buy_price': buy_price, 'sell_price': sell_price, 'buy_index': buy_index, 'sell_index': sell_index}
+
+    result = {'buy_stat': buy_stat.get(True), 'sell_stat': sell_stat.get(True), 'buy_count': buy_count, 'sell_count': sell_count, 'gain': gain}
+
+    return result
+
+
+print('---------------------------------------------------------------')
+print('                       TRADER CLASS TEST                       ')
+print('---------------------------------------------------------------')
+
+
+# ------------------------------------------------------------------------------    # <-- Test Trader Class
+
+new_trader = Trader(threshold = -0.0, data_reader = data_reader)                    # <-- Ebben a formában kell majd használni
+
+
+pred = nn.create_prediction()
+
+print(pred[0:5])
+
+result = new_trader.calculator(pred)                                                # <-- Ebben a formában kell majd használni
+
+result.keys()                           # <- get dict.keys
+result.get('gain')                      # <- get a value by a given key
+result['gain']                          # <- get a value by a given key             # <-- Ebben a formában kell majd használni
+
+# ------------------------------------------------------------------------------    # <-- Test has successed
+
+
+# A Trader osztályon még számos kereskedési eredményt lehet hadsznlni,
+# de ezeket most nem használom. Ha érdekel akkor a SACI22 - 018.ipynb
+# fájlban meg lehet találni
+
+
+# ------------------------------------------------------------------------------
+
+
+
+
+
+
+
