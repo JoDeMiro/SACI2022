@@ -58,7 +58,7 @@ Privát Repo ugyhogy ez csak nekem és csak tokennel fog menni ami mindíg vált
 
 ```
 cd driver
-wget https://raw.githubusercontent.com/JoDeMiro/SACI22/main/SACI22_019.ipynb?token=GHSAT0AAAAAABQUODNQX7QFU5VDKWJMGN3YYRHF3YQ -O SACI_019.ipynb
+wget https://raw.githubusercontent.com/JoDeMiro/SACI22/main/SACI22_019.ipynb?token=mokuskerek_token -O SACI_019.ipynb
 cd ..
 ```
 
