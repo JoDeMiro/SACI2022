@@ -54,7 +54,7 @@ mkdir driver
 ```
 
 Lerántom a Github repóból a korábbi munkámat. (nem akarom clonozni az egész repot)<br>
-Privát Repo ugyhogy ez csak nekem és csak tokennel fog menni ami mindíg változik (JoDeMiro)
+Privát Repo ugyhogy ez csak nekem és csak **tokennel** fog menni ami mindíg változik (JoDeMiro)
 
 ```
 cd driver
