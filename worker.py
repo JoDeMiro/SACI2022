@@ -173,3 +173,32 @@ class DataReader():
   def println(self):
     print('------------------------------------------------------------------------------')
 
+
+    
+print('---------------------------------------------------------------')
+print('                       TEST READER CLASS                       ')
+print('---------------------------------------------------------------')
+
+
+# ------------------------------------------------------------------------------
+
+data_reader = DataReader(nRowsRead=1000)                                        # <-- instantiate DataReader (set number of rows for data)
+
+df2 = data_reader.load_with_pandas(path = './input/eurusd_minute.csv')          # <-- read a particular files from disk (return with df, but also set self)
+
+data_reader.info()                                                              # <-- my own info() function
+
+data_reader.df2.info()                                                          # <-- call pandas built-in info() function
+
+data_reader.prepare_data()                                                      # <-- prepare is setter convert pandas to numpy and set target variable
+
+data_reader.show_dataset_info()
+
+data_reader.normalize_values()                                                  # <-- transform data between range (-1,1)
+
+data_reader.set_window(2)                                                       # <-- set window size
+
+data_reader.create_train_set()
+
+
+
