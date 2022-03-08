@@ -15,6 +15,15 @@ write_files:
     echo "---------------> Creating user \"$USR\" finished."
   permissions: '755'
 
+- path: /bin/jupyter-add-user.sh
+  content: |
+    #!/bin/bash
+    export USR='{{variables.username_os}}'
+    echo "---------------> Creating user \"$USR\" starts."
+    adduser --disabled-password --gecos "" $USR
+    echo "---------------> Creating user \"$USR\" finished."
+  permissions: '755'
+
 - path: /bin/jupyter-add-base-tools.sh
   content: |
     #!/bin/bash
