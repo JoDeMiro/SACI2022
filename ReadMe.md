@@ -54,6 +54,8 @@ mkdir driver
 ```
 
 Lerántom a Github repóból a korábbi munkámat. (nem akarom clonozni az egész repot)
+Privát Repo ugyhogy ez csak nekem és csak tokennel fog menni ami mindíg változik (JoDeMiro)
+
 ```
 cd driver
 wget https://raw.githubusercontent.com/JoDeMiro/SACI22/main/SACI22_019.ipynb?token=GHSAT0AAAAAABQUODNQX7QFU5VDKWJMGN3YYRHF3YQ -O SACI_019.ipynb
