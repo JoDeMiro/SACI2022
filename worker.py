@@ -184,7 +184,7 @@ print('---------------------------------------------------------------')
 
 data_reader = DataReader(nRowsRead=1000)                                        # <-- instantiate DataReader (set number of rows for data)
 
-df2 = data_reader.load_with_pandas(path = './input/eurusd_minute.csv')          # <-- read a particular files from disk (return with df, but also set self)
+df2 = data_reader.load_with_pandas(path = './Input/eurusd_minute.csv')          # <-- read a particular files from disk (return with df, but also set self)
 
 data_reader.info()                                                              # <-- my own info() function
 
