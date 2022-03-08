@@ -1,0 +1,16 @@
+#cloud-config
+
+packages:
+  - git
+  - openssh-client
+
+runcmd:
+- echo "-------> JoDeMiro starts."
+- pip install --upgrade pip
+- pip install virtualenv
+- virtualenv notebook
+- cd notebook
+- source bin/activate
+- wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/requirements_driver.txt
+- pip install -r requirements_driver.txt
+- echo "-------> JoDeMiro finished."
