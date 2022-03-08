@@ -462,11 +462,12 @@ print('---------------------------------------------------------------')
 from sklearn.neural_network import MLPRegressor
 import numpy as np
 import pickle
+import joblib
 import json
 import os
 
 def load_model():
-    clf = load('model.joblib')        # <-- betöltjük
+    clf = joblib.load('model.joblib')        # <-- betöltjük
     print('# Model betöltve a joblib-ből')
 
 
