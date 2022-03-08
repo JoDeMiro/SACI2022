@@ -29,7 +29,7 @@ Privát Repo ugyhogy ez csak nekem és csak **tokennel** fog menni ami mindíg v
 
 ```
 cd driver
-wget https://raw.githubusercontent.com/JoDeMiro/SACI22/main/SACI22_019.ipynb?token=mokuskerek_token -O SACI_019.ipynb
+wget https://raw.githubusercontent.com/JoDeMiro/SACI22/main/SACI22_019.ipynb?token=token -O SACI_019.ipynb
 cd ..
 ```
 
