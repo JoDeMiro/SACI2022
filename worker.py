@@ -621,9 +621,9 @@ def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _thres
     print('_window    =', _window)
     print('_threshold =', _threshold)
     
-    parameters.set_nRowsRead = _nRowsRead
-    parameters.set_window = _window
-    parameters.set_threshold = _threshold
+    parameters.set_nRowsRead(_nRowsRead)
+    parameters.set_window(_window)
+    parameters.set_threshold(_threshold)
     
     print(parameters)
     
