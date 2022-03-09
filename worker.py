@@ -530,18 +530,13 @@ def initialize_worker(parameters):
     Beállítunk a Workeren néhány objektumának a paramétereit.
     Úgy mint a Trader(threshod), vagy mint a DataReader(nRowsRead, window), vagy mint az NN(arch)
     '''
-    # Ide kerül minden amit egyszer meghív a driver aminek a hatására lefut ez a rész és létjrejönnek
-    # azok az objektumok amiket a teljes kisérlet során fog használni a worker.
-    # A Trader, Az NN, A DataReader
     
     print('-------------------------------INITIALIZE WORKER---------------------')
     
     # A parameters objektumból olvassuk ki a parametereket
     
     print(parameters)
-    print(parameters.nRowsRead)
-    print(parameters.window)
-    print(parameters.threshold)
+    print('\n')
     
     _nRowsRead = parameters.nRowsRead
     _window = parameters.window
@@ -580,13 +575,15 @@ def evaluate_model():
     Az evaluate_model() függvénynek akkor kell lefutnia amikor kap egy modelt a worker a drivertől
     kívűlről, másképp nem hívható.
     '''
-    print('# Model evaluation on Worker')
+    print('-------------------------------EVALUATE MODEL------------------------')
     
-    # ki kell keresnem, hogy mi kerül ide
-    # hogy zajlik az eredeti folyamat
-    # milyen osztályokat és példányokat olvas be a worker, hogy ez a folyamat megvalósuljon
-    # data_reader, trader, ...
-    # ellenőrizni, hogy valóban létre jöttek-e ezek a példányok, és valóban tárolják-e a hozzájuk tartozó információt
+    # melyik data_reader látja ez a függvény ha meghívom
+    print(data_reader)
+    data_reader.show_dataset_info()
+    
+    print('-------------------------------EVALUATE MODEL DONE-------------------')
+    
+    
     
     # Az initialize() megcsinálta nekünk a data_reader és a trader objektumokat
         
