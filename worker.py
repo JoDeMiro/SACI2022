@@ -17,10 +17,10 @@ class Parameters():
         self.threshold = _threshold
     
     def __str__(self):
-       return self.nRowsRead + " " + self.window + " " + self.threshold
+        return self.nRowsRead + " " + self.window + " " + self.threshold
 
 parameters = Parameters()
-# print(parameters) # <-- ha még üres akkor hibát dob
+print(parameters)
 
 
 
@@ -524,20 +524,25 @@ import os
 # Ezt úgy hozzuk létre, hogy csinálunk egy külön REST API-t a Parameters példányosítására és az értékeire
 # Ezt a példányt beállítjuk a programnak és utána csak settelni kell
 
-def initialize_params(_nRowsRead=1000, _window=2, _threshold = -0.0):
-    # Ezt fogjuk hívni amikor a Drivertől elöször kapott paramétereket kell inicializálni
-    # ha van ilye, például a Trader kap egy threshod értéket.
-    # vagy a neurális hálónak az architechturája ezek kerülnek ide, hogy majd innen olvassuk ki őket
-    pass
 
-def initialize_worker():
+def initialize_worker(parameters):
     # Ide kerül minden amit egyszer meghív a driver aminek a hatására lefut ez a rész és létjrejönnek
     # azok az objektumok amiket a teljes kisérlet során fog használni a worker.
     # A Trader, Az NN, A DataReader
     
-    data_reader = initialize_data_reader(_nRowsRead=1000, _window=2)                      # <-- Initialize data_reader
     
-    trader = Trader(threshold = -0.0, data_reader = data_reader)                    # <-- Initialize trader
+    print('# Initialize Worker')
+    
+    # A parameters objektumból olvassuk ki a parametereket
+    
+    _nRowsRead = parameters._nRowsRead
+    _window = parameters._window
+    _threshold = parameters._threshold
+    
+    data_reader = initialize_data_reader(_nRowsRead=_nRowsRead, _window=_window)                # <-- Initialize data_reader
+    
+    trader = Trader(threshold = _threshold, data_reader = data_reader)                    # <-- Initialize trader
+    # A tradert egyébként minden egyes számításnál inicializálni kell szóval nem ide kerül, de most itt hagyom
 
 
 
@@ -570,6 +575,7 @@ def evaluate_model():
     # A data_reader objektumot csak egyszer kell létrehozni, de a trader-t azt minden futásnál, ugyhogy példányosítsunk egyet
     
 
+    # Kapja meg a paramétereket a Parameters objektumból
     
     trader = Trader(threshold = -1.0, data_reader = data_reader)                        # <-- create a Trader (0.0 just a random choise)
 
@@ -600,6 +606,20 @@ app = Flask(__name__)
 def index():
     return 'Web App with Python Flask!'
 
+
+@app.route('/setup')
+def initialize_params(parameters, _nRowsRead=1000, _window=2, _threshold = -0.0):
+    '''
+    Bemenete az a Parameters objektum amit a program elején létrehoztunk,
+    illetve azok az értékek amelyekre be akarjuk ezt állítani
+    '''
+    
+    parameters.set_nRowsRead = _nRowsRead
+    parameters.set_window = _window
+    parameters.set_threshold = _threshold
+    
+    # Nem kell returnölnie nem akark visszakapni semmit ez egy setter
+    pass
 
 @app.route('/initilaize')
 def initialize():
