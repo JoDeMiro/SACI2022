@@ -519,12 +519,14 @@ class DataSender():
   def __init__(self):
     self.driver_ip_address = None
 
-  def send_to_driver(self, data):
+  def send_to_driver(self, data = None):
     '''
     Elküldi az Trader eredményét (result) a Drivernek
     Ez egy sima GET Request lesz amit a tuloldalon vár a Driver
     '''
     print('------------>>    send_to_driver(self, data)    data is sending to the driver')
+    print('------------>>    self.driver_ip_address', self.driver_ip_address)
+    
     pass
 
   def initialize_data_sender(self, driver_ip_address):
@@ -578,17 +580,11 @@ def initialize_worker(_parameters):
     
     global data_reader                                                                    # <-- hogy felül csapja a globálisat
     data_reader = initialize_data_reader(_nRowsRead=_nRowsRead, _window=_window)          # <-- Initialize data_reader
-    
-    
-    # trader = Trader(threshold = _threshold, data_reader = data_reader)                    # <-- Initialize trader
-    # A tradert egyébként minden egyes számításnál inicializálni kell szóval nem ide kerül, de most itt hagyom
-    # megpróbálkozni azzal, hogy ezt innen kiveszem
-    
+        
     global data_sender
     data_sender = DataSender()                                                            # <-- Initialize data_sender
     data_sender.initialize_data_sender('192.168.0.247')                                   # <-- set driver_ip_address
-    
-    
+
     
     print('-------------------------------INITIALIZE WORKER DONE----------------')
 
@@ -650,10 +646,16 @@ def evaluate_model(mlp):
     result = trader.calculator(pred)
     print(result)
     
+    # ki kéne venni a resultból, csak a 'gain' értéket
+    print('----------------aaaaaaaaaaaaa-----------------')
+    print(type(result)
+    print('-----------------oooooooooo-------------'
+    
     # küldjük el az eredményt a Drivernek
     #
     # ide kell írni egy függvényt ami küldő kiszervezni és itt meghívni.
-    # aaaaaaaa
+    data_sender.send_to_driver(data=None)
+    
     
     
     print('-------------------------------EVALUATE MODEL DONE-------------------')
