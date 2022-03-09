@@ -609,7 +609,8 @@ def evaluate_model(mlp):
     # majd a modell legyen ennek a függvénynek a bemenete
     
     # számolja ki a becslést
-    # pred = mlp.predict(data_reader.x_train)
+    pred = mlp.predict(data_reader.x_train)
+    print(pred)
     
     # mérje vissza a hibát, számolja ki a keresekedéseket
     # result = trader.calculator(pred)
