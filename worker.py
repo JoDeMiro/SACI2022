@@ -574,10 +574,13 @@ def evaluate_model():
     '''
     Az evaluate_model() függvénynek akkor kell lefutnia amikor kap egy modelt a worker
     a drivertől kívűlről, másképp nem hívható.
+    
+    A data_reader és a parameters objektumok amiket használ ez a függvény globalisok
     '''
+    
     print('-------------------------------EVALUATE MODEL------------------------')
     
-    # A globális data_readert látja ez a függvény
+    # A globalis data_readert látja ez a függvény
     data_reader.show_dataset_info()
     
     
@@ -585,13 +588,12 @@ def evaluate_model():
     
     # A data_reader objektumot csak egyszer kell létrehozni, de a trader-t azt minden futásnál, ugyhogy példányosítsunk egyet
     
-    ## aaaaaaaa
-    # látja a parameters globalis változót amit inicializáltunk?
-    print('---------ooooooooo------------')
+    # A globalis data_readert látja ez a függvény
+    print('---------IN EVALUATE MODEL, CREATE A TRADER------------')
     print(parameters)
-    print('------eeeeeeennnnnndddddd------')
-    
-    trader = Trader(threshold = -1.0, data_reader = data_reader)                        # <-- create a Trader (0.0 just a random choise)
+
+    threshold = parameters.threshold
+    trader = Trader(threshold = threshold, data_reader = data_reader)             # <-- create a Trader (0.0 just a random choise)
     
     
     print('-------------------------------EVALUATE MODEL DONE-------------------')
@@ -655,7 +657,6 @@ def initialize_params(_parameters=parameters, _nRowsRead=3000, _window=20, _thre
     # De ez a  beállított params legyen globális hogy mindenki lássa
     global parameters 
     parameters = _parameters
-    ## aaaaaa
     
     return 'initialize_params method has been called'
 
