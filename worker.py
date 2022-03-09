@@ -648,13 +648,14 @@ def evaluate_model(mlp):
     
     # ki kéne venni a resultból, csak a 'gain' értéket
     gain = result.get('gain')
-    print('gain =', gain)
-    print('-----------------oooooooooo------------------')
     
     # küldjük el az eredményt a Drivernek, Dev: tovább lehet fejleszteni, hogy az egész resultot küldje el
-    #
-    # ide kell írni egy függvényt ami küldő kiszervezni és itt meghívni.
     data_sender.send_to_driver(data=None)
+    # Most az van, hogy mivel a 'send_to_driver' még üres, meg kell vizsgálnom, hogy lehet átküldeni egy rest apinak egy értéket
+    # ez most egy kis olvasás.
+    # Ha ez megvan akkor itt csinálni a Workeren egy olyan végponotot amire tudok értékeket küldeni és ki is tudja onnan olvasni
+    # letesztelni, hogy megy egy, majd azt bent hagyni mint test eset
+    # És utána implementálni ide, hogy tudjon küldeni adatot a drivernek
     
     
     
