@@ -4,7 +4,9 @@ print('---------------------------------------------------------------')
 print('                         SET VARIABLE                          ')
 print('---------------------------------------------------------------')
 
-driver_ip_address = '192.168.0.247'
+driver_ip_address = '192.168.0.114'
+
+worker_ip_address = '192.168.0.247'
 
 
 
@@ -583,7 +585,7 @@ def initialize_worker(_parameters):
         
     global data_sender
     data_sender = DataSender()                                                            # <-- Initialize data_sender
-    data_sender.initialize_data_sender('192.168.0.247')                                   # <-- set driver_ip_address
+    data_sender.initialize_data_sender('192.168.0.114')                                   # <-- set driver_ip_address
 
     
     print('-------------------------------INITIALIZE WORKER DONE----------------')
@@ -695,13 +697,14 @@ def index():
     return 'Web App with Python Flask!'
 
 
-@app.route('/testpoint')
+@app.route('/testpoint', methods=['GET'])
 def testpoint():
     received_value = request.args.get('value')
     print('---------------------------------')
     print('received_value =', received_value)
     print('---------------------------------')
     return 'Web App with Python Flask!'
+
 
 @app.route('/setup')
 def initialize_params(_parameters=parameters, _nRowsRead=3000, _window=20, _threshold = -1000.0):
