@@ -567,6 +567,8 @@ def load_model():
     clf = joblib.load('model.joblib')                                                     # <-- betöltjük a modlet a filéből
     print('# Model betöltve a joblib-ből')
     print(clf.get_params())
+    
+    return clf
 
 
 
@@ -581,7 +583,8 @@ def evaluate_model():
     print('-------------------------------EVALUATE MODEL------------------------')
     
     # A globalis data_readert látja ez a függvény
-    data_reader.show_dataset_info()
+    # data_reader.show_dataset_info()
+    # Ellenőrizni szoktam vele, hogy az átálíotott és új data_reader objektumot látja-e az nRowsRead alapján tudom, hogy jó
     
     
     # Az initialize() megcsinálta nekünk a data_reader és a trader objektumokat
@@ -589,11 +592,27 @@ def evaluate_model():
     # A data_reader objektumot csak egyszer kell létrehozni, de a trader-t azt minden futásnál, ugyhogy példányosítsunk egyet
     
     # A globalis data_readert látja ez a függvény
-    print('---------IN EVALUATE MODEL, CREATE A TRADER------------')
+    print('---------IN EVALUATE MODEL, CREATES TRADER WITH PARAMETER------------')
     print(parameters)
 
     threshold = parameters.threshold
-    trader = Trader(threshold = threshold, data_reader = data_reader)             # <-- create a Trader (0.0 just a random choise)
+    trader = Trader(threshold = threshold, data_reader = data_reader)
+    
+    
+    # elöször is az NN alapján csinálunk egy predictiont
+    
+    # honnan jön a modell ami alapján a becslést csináljuk.?
+    # hát a függvényből ami ezt a függvéynt hívja meg!
+    # ezt a függvényt az upload() hívja
+    # elötte lefut a load_model()
+    # ami egyenlőre nem ad vissza semmit ezért azt átírni
+    # majd a modell legyen ennek a függvénynek a bemenete
+    
+    # számolja ki a becslést
+    pred = working_mlp.predict(data_reader.x_train)
+    
+    # mérje vissza a hibát, számolja ki a keresekedéseket
+    result = trader.calculator(pred)
     
     
     print('-------------------------------EVALUATE MODEL DONE-------------------')
