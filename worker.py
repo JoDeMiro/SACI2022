@@ -1,5 +1,10 @@
 # Worker file
 
+
+print('---------------------------------------------------------------')
+print('                         CREATE DAO                            ')
+print('---------------------------------------------------------------')
+
 class Parameters():
     
     def __init__(self):
@@ -509,6 +514,11 @@ print('---------------------------------------------------------------')
 
 
 
+
+
+
+
+
 print('---------------------------------------------------------------')
 print('                       FÜGGVÉNYEK A FLASKHEZ                   ')
 print('---------------------------------------------------------------')
@@ -520,10 +530,7 @@ import joblib
 import json
 import os
 
-# inkább úgy kéne megcsinálni, hogy van egy Parameters Class amit példányosítunk a prgoram elején
-# Ezt úgy hozzuk létre, hogy csinálunk egy külön REST API-t a Parameters példányosítására és az értékeire
-# Ezt a példányt beállítjuk a programnak és utána csak settelni kell
-
+# Van egy parameters objektum az elején azt adjuk át és olvassuk ki.
 
 def initialize_worker(parameters):
     '''
@@ -542,59 +549,58 @@ def initialize_worker(parameters):
     _window = parameters.window
     _threshold = parameters.threshold
     
-    global data_reader
+    global data_reader                                                                    # <-- hogy felül csapja a globálisat
     data_reader = initialize_data_reader(_nRowsRead=_nRowsRead, _window=_window)          # <-- Initialize data_reader
     
     
     trader = Trader(threshold = _threshold, data_reader = data_reader)                    # <-- Initialize trader
     # A tradert egyébként minden egyes számításnál inicializálni kell szóval nem ide kerül, de most itt hagyom
     
-    # ToDo:
-    # Le kéne ellenőrizni, hogy  a data_reader object tényleg jól jött-e létre.
-    # illetve azon gondolkozom, hogy szar az egész, mert hiába inicializálok én itt egy data_reader
-    # azt csak a függvény látja,
-    # vagy visszaadom és kiiratom egy data_readerbe amit az egész program lát
-    # vagy valami objektumot kéne kapnia a függvényemnek, amit módosít és nem ad vissza semmit
-    
-    
     print('-------------------------------INITIALIZE WORKER DONE----------------')
 
-
-
-
-    
     
 
 def load_model():
-    clf = joblib.load('model.joblib')                                   # <-- betöltjük a modlet a filéből
+    '''
+    A súlyok betöltéséért felel
+    '''
+    clf = joblib.load('model.joblib')                                                     # <-- betöltjük a modlet a filéből
     print('# Model betöltve a joblib-ből')
     print(clf.get_params())
 
-# most az jön, hogy ki kéne számolnia a workernek, hogy milyen eredményt adna az adott modell a belolvasott adatokon
+
 
 def evaluate_model():
     '''
-    Az evaluate_model() függvénynek akkor kell lefutnia amikor kap egy modelt a worker a drivertől
-    kívűlről, másképp nem hívható.
+    Az evaluate_model() függvénynek akkor kell lefutnia amikor kap egy modelt a worker
+    a drivertől kívűlről, másképp nem hívható.
     '''
     print('-------------------------------EVALUATE MODEL------------------------')
     
-    # melyik data_reader látja ez a függvény ha meghívom
-    print(data_reader)
+    # A globális data_readert látja ez a függvény
     data_reader.show_dataset_info()
+    
+    
+    # Az initialize() megcsinálta nekünk a data_reader és a trader objektumokat
+    
+    # A data_reader objektumot csak egyszer kell létrehozni, de a trader-t azt minden futásnál, ugyhogy példányosítsunk egyet
+    
+    ## aaaaaaaa
+    # látja a parameters globalis változót amit inicializáltunk?
+    print('---------ooooooooo------------')
+    print(parameters)
+    print('------eeeeeeennnnnndddddd------')
+    
+    trader = Trader(threshold = -1.0, data_reader = data_reader)                        # <-- create a Trader (0.0 just a random choise)
+    
     
     print('-------------------------------EVALUATE MODEL DONE-------------------')
     
     
     
-    # Az initialize() megcsinálta nekünk a data_reader és a trader objektumokat
-        
-    # A data_reader objektumot csak egyszer kell létrehozni, de a trader-t azt minden futásnál, ugyhogy példányosítsunk egyet
+  
     
-
-    # Kapja meg a paramétereket a Parameters objektumból
     
-    trader = Trader(threshold = -1.0, data_reader = data_reader)                        # <-- create a Trader (0.0 just a random choise)
 
     
     
@@ -646,6 +652,11 @@ def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _thres
     print('-------------------------------SETUP DONE----------------------------')
     
     # Nem kell returnölnie nem akark visszakapni semmit ez egy setter
+    # De ez a  beállított params legyen globális hogy mindenki lássa
+    global parameters 
+    parameters = parameters
+    ## aaaaaa
+    
     return 'initialize_params method has been called'
 
 @app.route('/initilaize')
