@@ -620,13 +620,15 @@ def initialize_params(parameters=parameters, _nRowsRead=1000, _window=2, _thresh
     parameters.set_window = _window
     parameters.set_threshold = _threshold
     
+    print(parameters)
+    
     print('-------------------------------SETUP DONE----------------------------')
     
     # Nem kell returnölnie nem akark visszakapni semmit ez egy setter
     return 'initialize_params method has been called'
 
 @app.route('/initilaize')
-def initialize(parameters):
+def initialize(parameters=parameters):
     initialize_worker()
     return 'Worker initilize method has been called'
 
