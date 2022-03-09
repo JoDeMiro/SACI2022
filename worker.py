@@ -1,5 +1,12 @@
 # Worker file
 
+print('---------------------------------------------------------------')
+print('                         SET VARIABLE                          ')
+print('---------------------------------------------------------------')
+
+driver_ip_address = '192.168.0.247'
+
+
 
 print('---------------------------------------------------------------')
 print('                         CREATE DAO                            ')
@@ -501,7 +508,23 @@ result['gain']                          # <- get a value by a given key         
 
 
 
+print('---------------------------------------------------------------')
+print('                       DATA SENDER CLASS                       ')
+print('---------------------------------------------------------------')
 
+from matplotlib.image import NonUniformImage
+
+class DataSender():
+
+  def __init__(self, driver_ip_address):
+    self.driver_ip_address = driver_ip_address
+
+  def send_to_driver(self, data):
+    '''
+    Elküldi az Trader eredményét (result) a Drivernek
+    Ez egy sima GET Request lesz amit a tuloldalon vár a Driver
+    '''
+    pass
 
 
 
@@ -615,6 +638,11 @@ def evaluate_model(mlp):
     # mérje vissza a hibát, számolja ki a keresekedéseket
     result = trader.calculator(pred)
     print(result)
+    
+    # küldjük el az eredményt a Drivernek
+    #
+    # ide kell írni egy függvényt ami küldő kiszervezni és itt meghívni.
+    # aaaaaaaa
     
     
     print('-------------------------------EVALUATE MODEL DONE-------------------')
