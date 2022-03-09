@@ -572,7 +572,7 @@ def load_model():
 
 
 
-def evaluate_model():
+def evaluate_model(mlp):
     '''
     Az evaluate_model() függvénynek akkor kell lefutnia amikor kap egy modelt a worker
     a drivertől kívűlről, másképp nem hívható.
@@ -609,10 +609,10 @@ def evaluate_model():
     # majd a modell legyen ennek a függvénynek a bemenete
     
     # számolja ki a becslést
-    pred = working_mlp.predict(data_reader.x_train)
+    # pred = mlp.predict(data_reader.x_train)
     
     # mérje vissza a hibát, számolja ki a keresekedéseket
-    result = trader.calculator(pred)
+    # result = trader.calculator(pred)
     
     
     print('-------------------------------EVALUATE MODEL DONE-------------------')
@@ -693,10 +693,10 @@ def upload_file():
       f.save(secure_filename(f.filename))
       
       # load model
-      load_model()
+      mlp = load_model()
       
       # el lehetne kezdeni kiszámolni ez alapján az eredményt
-      evaluate_model()
+      evaluate_model(mlp)
       
       return 'file uploaded successfully'
 
