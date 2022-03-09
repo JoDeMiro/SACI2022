@@ -623,7 +623,7 @@ def initialize_params(parameters, _nRowsRead=1000, _window=2, _threshold = -0.0)
     print('-------------------------------SETUP DONE----------------------------')
     
     # Nem kell returnölnie nem akark visszakapni semmit ez egy setter
-    pass
+    return 'initialize_params method has been called'
 
 @app.route('/initilaize')
 def initialize(parameters):
