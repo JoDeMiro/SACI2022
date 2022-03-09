@@ -496,7 +496,11 @@ import joblib
 import json
 import os
 
-def initialize_params():
+# inkább úgy kéne megcsinálni, hogy van egy Parameters Class amit példányosítunk a prgoram elején
+# Ezt úgy hozzuk létre, hogy csinálunk egy külön REST API-t a Parameters példányosítására és az értékeire
+# Ezt a példányt beállítjuk a programnak és utána csak settelni kell
+
+def initialize_params(_nRowsRead=1000, _window=2, _threshold = -0.0):
     # Ezt fogjuk hívni amikor a Drivertől elöször kapott paramétereket kell inicializálni
     # ha van ilye, például a Trader kap egy threshod értéket.
     # vagy a neurális hálónak az architechturája ezek kerülnek ide, hogy majd innen olvassuk ki őket
@@ -507,7 +511,7 @@ def initialize_worker():
     # azok az objektumok amiket a teljes kisérlet során fog használni a worker.
     # A Trader, Az NN, A DataReader
     
-    data_reader = initialize_data_reader(_nRowsRead=1000, _window=2)                # <-- Initialize data_reader
+    data_reader = initialize_data_reader(_nRowsRead=1000, _window=2)                      # <-- Initialize data_reader
     
     trader = Trader(threshold = -0.0, data_reader = data_reader)                    # <-- Initialize trader
 
@@ -525,6 +529,10 @@ def load_model():
 # most az jön, hogy ki kéne számolnia a workernek, hogy milyen eredményt adna az adott modell a belolvasott adatokon
 
 def evaluate_model():
+    '''
+    Az evaluate_model() függvénynek akkor kell lefutnia amikor kap egy modelt a worker a drivertől
+    kívűlről, másképp nem hívható.
+    '''
     print('# Model evaluation on Worker')
     
     # ki kell keresnem, hogy mi kerül ide
@@ -533,8 +541,19 @@ def evaluate_model():
     # data_reader, trader, ...
     # ellenőrizni, hogy valóban létre jöttek-e ezek a példányok, és valóban tárolják-e a hozzájuk tartozó információt
     
-    # 1. van-e Trader osztályunk?
-    #    Van.
+    # Az initialize() megcsinálta nekünk a data_reader és a trader objektumokat
+        
+    # A data_reader objektumot csak egyszer kell létrehozni, de a trader-t azt minden futásnál, ugyhogy példányosítsunk egyet
+    
+
+    
+    trader = Trader(threshold = -1.0, data_reader = data_reader)                        # <-- create a Trader (0.0 just a random choise)
+
+    
+    
+    
+    
+    
 
 print('---------------------------------------------------------------')
 print('                       FLASK                                   ')
