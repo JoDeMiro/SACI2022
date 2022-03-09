@@ -647,13 +647,11 @@ def evaluate_model(mlp):
     print(result)
     
     # ki kéne venni a resultból, csak a 'gain' értéket
-    print('----------------aaaaaaaaaaaaa-----------------')
-    print(type(result))
-    print(result.keys())
     gain = result.get('gain')
+    print('gain =', gain)
     print('-----------------oooooooooo------------------')
     
-    # küldjük el az eredményt a Drivernek
+    # küldjük el az eredményt a Drivernek, Dev: tovább lehet fejleszteni, hogy az egész resultot küldje el
     #
     # ide kell írni egy függvényt ami küldő kiszervezni és itt meghívni.
     data_sender.send_to_driver(data=None)
