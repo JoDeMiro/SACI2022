@@ -614,15 +614,19 @@ def initialize_params(parameters, _nRowsRead=1000, _window=2, _threshold = -0.0)
     illetve azok az értékek amelyekre be akarjuk ezt állítani
     '''
     
+    print('-------------------------------SETUP---------------------------------')
+    
     parameters.set_nRowsRead = _nRowsRead
     parameters.set_window = _window
     parameters.set_threshold = _threshold
+    
+    print('-------------------------------SETUP DONE----------------------------')
     
     # Nem kell returnölnie nem akark visszakapni semmit ez egy setter
     pass
 
 @app.route('/initilaize')
-def initialize():
+def initialize(parameters):
     initialize_worker()
     return 'Worker initilize method has been called'
 
