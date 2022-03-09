@@ -650,7 +650,7 @@ def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _thres
 
 @app.route('/initilaize')
 def initialize(parameters=parameters, _data_reader = data_reader):
-    initialize_worker(parameters=parameters)
+    initialize_worker(parameters=parameters, _data_reader = data_reader)
     return 'Worker initilize method has been called'
 
 # ------------
