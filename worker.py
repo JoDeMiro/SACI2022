@@ -3,9 +3,9 @@
 class Parameters():
     
     def __init__(self):
-        self.nRowsRead = None
-        self.window = None
-        self.threshold = None
+        self.nRowsRead = 1000
+        self.window = 2
+        self.threshold = -0.0
     
     def set_nRowsRead(self, _nRowsRead):
         self.nRowsRead = _nRowsRead
@@ -16,11 +16,11 @@ class Parameters():
     def set_threshold(self, _threshold):
         self.threshold = _threshold
     
-    # def __str__(self):
-    #     return self.nRowsRead + " " + self.window + " " + self.threshold
+    def __str__(self):
+        return self.nRowsRead + " " + self.window + " " + self.threshold
 
 parameters = Parameters()
-# print(parameters)
+print(parameters)
 
 
 
