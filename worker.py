@@ -608,7 +608,7 @@ def index():
 
 
 @app.route('/setup')
-def initialize_params(parameters, _nRowsRead=1000, _window=2, _threshold = -0.0):
+def initialize_params(parameters=parameters, _nRowsRead=1000, _window=2, _threshold = -0.0):
     '''
     Bemenete az a Parameters objektum amit a program elején létrehoztunk,
     illetve azok az értékek amelyekre be akarjuk ezt állítani
