@@ -663,6 +663,7 @@ def upload_file():
       load_model()
       
       # el lehetne kezdeni kiszámolni ez alapján az eredményt
+      evaluate_model()
       
       return 'file uploaded successfully'
 
