@@ -525,7 +525,7 @@ import os
 # Ezt a példányt beállítjuk a programnak és utána csak settelni kell
 
 
-def initialize_worker(parameters):
+def initialize_worker(parameters, _data_reader):
     '''
     Beállítunk a Workeren néhány objektumának a paramétereit.
     Úgy mint a Trader(threshod), vagy mint a DataReader(nRowsRead, window), vagy mint az NN(arch)
@@ -543,6 +543,8 @@ def initialize_worker(parameters):
     _threshold = parameters.threshold
     
     data_reader = initialize_data_reader(_nRowsRead=_nRowsRead, _window=_window)          # <-- Initialize data_reader
+    
+    _data_reader = data_reader
     
     trader = Trader(threshold = _threshold, data_reader = data_reader)                    # <-- Initialize trader
     # A tradert egyébként minden egyes számításnál inicializálni kell szóval nem ide kerül, de most itt hagyom
@@ -647,7 +649,7 @@ def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _thres
     return 'initialize_params method has been called'
 
 @app.route('/initilaize')
-def initialize(parameters=parameters):
+def initialize(parameters=parameters, _data_reader = data_reader):
     initialize_worker(parameters=parameters)
     return 'Worker initilize method has been called'
 
