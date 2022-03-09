@@ -643,18 +643,18 @@ def initialize_params(_parameters=parameters, _nRowsRead=3000, _window=20, _thre
     print('_window    =', _window)
     print('_threshold =', _threshold)
     
-    parameters.set_nRowsRead(_nRowsRead)
-    parameters.set_window(_window)
-    parameters.set_threshold(_threshold)
+    _parameters.set_nRowsRead(_nRowsRead)
+    _parameters.set_window(_window)
+    _parameters.set_threshold(_threshold)
     
-    print(parameters)
+    print(_parameters)
     
     print('-------------------------------SETUP DONE----------------------------')
     
     # Nem kell returnölnie nem akark visszakapni semmit ez egy setter
     # De ez a  beállított params legyen globális hogy mindenki lássa
     global parameters 
-    parameters = parameters
+    parameters = _parameters
     ## aaaaaa
     
     return 'initialize_params method has been called'
