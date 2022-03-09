@@ -12,6 +12,7 @@ sklearn==0.0
 sklearn-pandas==1.8.0
 jupyter
 palettable
+waitress
 # ipykernel==4.10.1
 # ipython==5.5.0
 # ipython-genutils==0.2.0
