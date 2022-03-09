@@ -16,8 +16,8 @@ class Parameters():
     def set_threshold(self, _threshold):
         self.threshold = _threshold
     
-    def __str__(self):
-        return self.nRowsRead + " " + self.window + " " + self.threshold
+    # def __str__(self):
+    #     return self.nRowsRead + " " + self.window + " " + self.threshold
 
 parameters = Parameters()
 print(parameters)
