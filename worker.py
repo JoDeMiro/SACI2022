@@ -526,23 +526,34 @@ import os
 
 
 def initialize_worker(parameters):
+    '''
+    Beállítunk a Workeren néhány objektumának a paramétereit.
+    Úgy mint a Trader(threshod), vagy mint a DataReader(nRowsRead, window), vagy mint az NN(arch)
+    '''
     # Ide kerül minden amit egyszer meghív a driver aminek a hatására lefut ez a rész és létjrejönnek
     # azok az objektumok amiket a teljes kisérlet során fog használni a worker.
     # A Trader, Az NN, A DataReader
     
-    
-    print('# Initialize Worker')
+    print('-------------------------------INITIALIZE WORKER---------------------')
     
     # A parameters objektumból olvassuk ki a parametereket
+    
+    print(parameters)
+    print(parameters.nRowsRead)
+    print(parameters.window)
+    print(parameters.threshold)
     
     _nRowsRead = parameters._nRowsRead
     _window = parameters._window
     _threshold = parameters._threshold
     
-    data_reader = initialize_data_reader(_nRowsRead=_nRowsRead, _window=_window)                # <-- Initialize data_reader
+    data_reader = initialize_data_reader(_nRowsRead=_nRowsRead, _window=_window)          # <-- Initialize data_reader
     
     trader = Trader(threshold = _threshold, data_reader = data_reader)                    # <-- Initialize trader
     # A tradert egyébként minden egyes számításnál inicializálni kell szóval nem ide kerül, de most itt hagyom
+    
+    
+    print('-------------------------------INITIALIZE WORKER DONE----------------')
 
 
 
@@ -616,7 +627,6 @@ def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _thres
     
     print('-------------------------------SETUP---------------------------------')
     
-    print('megkaja-e a függvényben megadott értéket vagy sem????')
     print('_nRowsRead =', _nRowsRead)
     print('_window    =', _window)
     print('_threshold =', _threshold)
@@ -634,7 +644,7 @@ def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _thres
 
 @app.route('/initilaize')
 def initialize(parameters=parameters):
-    initialize_worker()
+    initialize_worker(parameters=parameters)
     return 'Worker initilize method has been called'
 
 # ------------
