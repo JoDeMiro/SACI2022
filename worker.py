@@ -17,10 +17,10 @@ class Parameters():
         self.threshold = _threshold
     
     def __str__(self):
-        return self.nRowsRead + " " + self.window + " " + self.threshold
+       return self.nRowsRead + " " + self.window + " " + self.threshold
 
 parameters = Parameters()
-print(parameters)
+# print(parameters) # <-- ha még üres akkor hibát dob
 
 
 
