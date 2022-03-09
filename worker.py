@@ -580,7 +580,7 @@ def initialize_worker(_parameters):
     data_reader = initialize_data_reader(_nRowsRead=_nRowsRead, _window=_window)          # <-- Initialize data_reader
     
     
-    trader = Trader(threshold = _threshold, data_reader = data_reader)                    # <-- Initialize trader
+    # trader = Trader(threshold = _threshold, data_reader = data_reader)                    # <-- Initialize trader
     # A tradert egyébként minden egyes számításnál inicializálni kell szóval nem ide kerül, de most itt hagyom
     # megpróbálkozni azzal, hogy ezt innen kiveszem
     
