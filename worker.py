@@ -209,6 +209,36 @@ data_reader.set_window(2)                                                       
 data_reader.create_train_set()
 
 
+print('---------------------------------------------------------------')
+print('                       INITIALIZE DATA_READER                  ')
+print('---------------------------------------------------------------')
+
+def initialize_data_reader(_nRowsRead=1000, _window=2):
+    '''
+    Létrehoz egy data readder objektumot előkészíti és azt adja vissza
+    '''
+
+    data_reader = DataReader(nRowsRead=_nRowsRead)                              # <-- instantiate DataReader (set number of rows for data)
+    df2 = data_reader.load_with_pandas(path = './Input/eurusd_minute.csv')      # <-- read files disk (return with df, but also set self)
+
+    data_reader.info()                                                          # <-- my own info() function
+    # data_reader.df2.info()                                                      # <-- call pandas built-in info() function
+    data_reader.prepare_data()                                                  # <-- prepare is setter convert pd to np, set target var.
+
+    # data_reader.show_dataset_info()
+    data_reader.normalize_values()                                              # <-- transform data between range (-1,1)
+    data_reader.set_window(_window)                                             # <-- set window size
+    data_reader.create_train_set()
+    
+    return data_reader
+
+
+
+
+
+
+
+
 
 
 
@@ -466,11 +496,45 @@ import joblib
 import json
 import os
 
+def initialize_params():
+    # Ezt fogjuk hívni amikor a Drivertől elöször kapott paramétereket kell inicializálni
+    # ha van ilye, például a Trader kap egy threshod értéket.
+    # vagy a neurális hálónak az architechturája ezek kerülnek ide, hogy majd innen olvassuk ki őket
+    pass
+
+def initialize_worker():
+    # Ide kerül minden amit egyszer meghív a driver aminek a hatására lefut ez a rész és létjrejönnek
+    # azok az objektumok amiket a teljes kisérlet során fog használni a worker.
+    # A Trader, Az NN, A DataReader
+    
+    data_reader = initialize_data_reader(_nRowsRead=1000, _window=2)                # <-- Initialize data_reader
+    
+    trader = Trader(threshold = -0.0, data_reader = data_reader)                    # <-- Initialize trader
+
+
+
+
+    
+    
+
 def load_model():
-    clf = joblib.load('model.joblib')        # <-- betöltjük
+    clf = joblib.load('model.joblib')                                   # <-- betöltjük a modlet a filéből
     print('# Model betöltve a joblib-ből')
     print(clf.get_params())
 
+# most az jön, hogy ki kéne számolnia a workernek, hogy milyen eredményt adna az adott modell a belolvasott adatokon
+
+def evaluate_model():
+    print('# Model evaluation on Worker')
+    
+    # ki kell keresnem, hogy mi kerül ide
+    # hogy zajlik az eredeti folyamat
+    # milyen osztályokat és példányokat olvas be a worker, hogy ez a folyamat megvalósuljon
+    # data_reader, trader, ...
+    # ellenőrizni, hogy valóban létre jöttek-e ezek a példányok, és valóban tárolják-e a hozzájuk tartozó információt
+    
+    # 1. van-e Trader osztályunk?
+    #    Van.
 
 print('---------------------------------------------------------------')
 print('                       FLASK                                   ')
@@ -493,6 +557,12 @@ app = Flask(__name__)
 def index():
     return 'Web App with Python Flask!'
 
+
+@app.route('/initilaize')
+def initialize():
+    initialize_worker()
+    return 'Worker initilize method has been called'
+
 # ------------
 
 @app.route('/uploader', methods = ['GET', 'POST'])
@@ -503,6 +573,9 @@ def upload_file():
       
       # load model
       load_model()
+      
+      # el lehetne kezdeni kiszámolni ez alapján az eredményt
+      
       return 'file uploaded successfully'
 
 # ------------
