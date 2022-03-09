@@ -1,5 +1,29 @@
 # Worker file
 
+class Parameters():
+    
+    def __init__(self):
+        self.nRowsRead = None
+        self.window = None
+        self.threshold = None
+    
+    def set_nRowsRead(self, _nRowsRead):
+        self.nRowsRead = _nRowsRead
+    
+    def set_window(self, _window):
+        self.window = _window
+    
+    def set_threshold(self, _threshold):
+        self.threshold = _threshold
+    
+    def __str__(self):
+        return self.nRowsRead + " " + self.window + " " + self.threshold
+
+parameters = Parameters()
+print(parameters)
+
+
+
 print('---------------------------------------------------------------')
 print('                         HELLO WORKER                          ')
 print('---------------------------------------------------------------')
