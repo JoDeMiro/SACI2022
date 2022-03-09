@@ -532,7 +532,7 @@ import os
 
 # Van egy parameters objektum az elején azt adjuk át és olvassuk ki.
 
-def initialize_worker(parameters):
+def initialize_worker(_parameters):
     '''
     Beállítunk a Workeren néhány objektumának a paramétereit.
     Úgy mint a Trader(threshod), vagy mint a DataReader(nRowsRead, window), vagy mint az NN(arch)
@@ -542,12 +542,12 @@ def initialize_worker(parameters):
     
     # A parameters objektumból olvassuk ki a parametereket
     
-    print(parameters)
+    print(_parameters)
     print('\n')
     
-    _nRowsRead = parameters.nRowsRead
-    _window = parameters.window
-    _threshold = parameters.threshold
+    _nRowsRead = _parameters.nRowsRead
+    _window = _parameters.window
+    _threshold = _parameters.threshold
     
     global data_reader                                                                    # <-- hogy felül csapja a globálisat
     data_reader = initialize_data_reader(_nRowsRead=_nRowsRead, _window=_window)          # <-- Initialize data_reader
@@ -631,7 +631,7 @@ def index():
 
 
 @app.route('/setup')
-def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _threshold = -1000.0):
+def initialize_params(_parameters=parameters, _nRowsRead=3000, _window=20, _threshold = -1000.0):
     '''
     Bemenete az a Parameters objektum amit a program elején létrehoztunk,
     illetve azok az értékek amelyekre be akarjuk ezt állítani
@@ -660,8 +660,8 @@ def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _thres
     return 'initialize_params method has been called'
 
 @app.route('/initilaize')
-def initialize(parameters=parameters):
-    initialize_worker(parameters=parameters)
+def initialize(_parameters=parameters):
+    initialize_worker(_parameters=_parameters)
     return 'Worker initilize method has been called'
 
 # ------------
