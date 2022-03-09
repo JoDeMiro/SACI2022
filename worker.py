@@ -20,7 +20,7 @@ class Parameters():
     #     return self.nRowsRead + " " + self.window + " " + self.threshold
 
 parameters = Parameters()
-print(parameters)
+# print(parameters)
 
 
 
