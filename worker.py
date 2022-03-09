@@ -617,7 +617,7 @@ def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _thres
     print('-------------------------------SETUP---------------------------------')
     
     print('megkaja-e a függvényben megadott értéket vagy sem????')
-    print('_nRowsRead =' _nRowsRead)
+    print('_nRowsRead =', _nRowsRead)
     print('_window    =', _window)
     print('_threshold =', _threshold)
     
