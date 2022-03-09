@@ -515,17 +515,16 @@ print('---------------------------------------------------------------')
 from matplotlib.image import NonUniformImage
 
 class DataSender():
-    
-  self.driver_ip_address = None
 
   def __init__(self):
-    pass
+    self.driver_ip_address = None
 
   def send_to_driver(self, data):
     '''
     Elküldi az Trader eredményét (result) a Drivernek
     Ez egy sima GET Request lesz amit a tuloldalon vár a Driver
     '''
+    print('------------>>    send_to_driver(self, data)    data is sending to the driver
     pass
 
   def initialize_data_sender(self, driver_ip_address):
