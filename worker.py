@@ -543,14 +543,21 @@ def initialize_worker(parameters):
     print(parameters.window)
     print(parameters.threshold)
     
-    _nRowsRead = parameters._nRowsRead
-    _window = parameters._window
-    _threshold = parameters._threshold
+    _nRowsRead = parameters.nRowsRead
+    _window = parameters.window
+    _threshold = parameters.threshold
     
     data_reader = initialize_data_reader(_nRowsRead=_nRowsRead, _window=_window)          # <-- Initialize data_reader
     
     trader = Trader(threshold = _threshold, data_reader = data_reader)                    # <-- Initialize trader
     # A tradert egyébként minden egyes számításnál inicializálni kell szóval nem ide kerül, de most itt hagyom
+    
+    # ToDo:
+    # Le kéne ellenőrizni, hogy  a data_reader object tényleg jól jött-e létre.
+    # illetve azon gondolkozom, hogy szar az egész, mert hiába inicializálok én itt egy data_reader
+    # azt csak a függvény látja,
+    # vagy visszaadom és kiiratom egy data_readerbe amit az egész program lát
+    # vagy valami objektumot kéne kapnia a függvényemnek, amit módosít és nem ad vissza semmit
     
     
     print('-------------------------------INITIALIZE WORKER DONE----------------')
