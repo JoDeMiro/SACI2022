@@ -605,15 +605,15 @@ def evaluate_model(mlp):
     # hát a függvényből ami ezt a függvéynt hívja meg!
     # ezt a függvényt az upload() hívja
     # elötte lefut a load_model()
-    # ami egyenlőre nem ad vissza semmit ezért azt átírni
-    # majd a modell legyen ennek a függvénynek a bemenete
+    # ami visszaad egy modelt
+    # a modell ennek a függvénynek a bemenete
     
     # számolja ki a becslést
     pred = mlp.predict(data_reader.x_train)
-    print(pred)
+    # print(pred)
     
     # mérje vissza a hibát, számolja ki a keresekedéseket
-    # result = trader.calculator(pred)
+    result = trader.calculator(pred)
     
     
     print('-------------------------------EVALUATE MODEL DONE-------------------')
