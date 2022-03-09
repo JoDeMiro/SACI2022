@@ -608,7 +608,7 @@ def index():
 
 
 @app.route('/setup')
-def initialize_params(parameters=parameters, _nRowsRead=1000, _window=2, _threshold = -0.0):
+def initialize_params(parameters=parameters, _nRowsRead=3000, _window=20, _threshold = -1000.0):
     '''
     Bemenete az a Parameters objektum amit a program elején létrehoztunk,
     illetve azok az értékek amelyekre be akarjuk ezt állítani
@@ -619,10 +619,6 @@ def initialize_params(parameters=parameters, _nRowsRead=1000, _window=2, _thresh
     parameters.set_nRowsRead = _nRowsRead
     parameters.set_window = _window
     parameters.set_threshold = _threshold
-    
-    print(parameters.nRowsRead)
-    print(parameters.window)
-    print(parameters.threshold)
     
     print(parameters)
     
