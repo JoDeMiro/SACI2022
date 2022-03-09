@@ -614,6 +614,7 @@ def evaluate_model(mlp):
     
     # mérje vissza a hibát, számolja ki a keresekedéseket
     result = trader.calculator(pred)
+    print(result)
     
     
     print('-------------------------------EVALUATE MODEL DONE-------------------')
