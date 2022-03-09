@@ -515,9 +515,11 @@ print('---------------------------------------------------------------')
 from matplotlib.image import NonUniformImage
 
 class DataSender():
+    
+  self.driver_ip_address = None
 
-  def __init__(self, driver_ip_address):
-    self.driver_ip_address = driver_ip_address
+  def __init__(self):
+    pass
 
   def send_to_driver(self, data):
     '''
@@ -525,6 +527,9 @@ class DataSender():
     Ez egy sima GET Request lesz amit a tuloldalon vár a Driver
     '''
     pass
+
+  def initialize_data_sender(self, driver_ip_address):
+    self.driver_ip_address = driver_ip_address
 
 
 
@@ -578,6 +583,13 @@ def initialize_worker(_parameters):
     
     trader = Trader(threshold = _threshold, data_reader = data_reader)                    # <-- Initialize trader
     # A tradert egyébként minden egyes számításnál inicializálni kell szóval nem ide kerül, de most itt hagyom
+    # megpróbálkozni azzal, hogy ezt innen kiveszem
+    
+    global data_sender
+    data_sender = DataSender()                                                            # <-- Initialize data_sender
+    data_sender.initialize_data_sender('192.168.0.247')                                   # <-- set driver_ip_address
+    
+    
     
     print('-------------------------------INITIALIZE WORKER DONE----------------')
 
