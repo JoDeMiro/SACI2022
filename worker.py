@@ -695,6 +695,14 @@ def index():
     return 'Web App with Python Flask!'
 
 
+@app.route('/testpoint')
+def testpoint():
+    received_value = request.args.get('value')
+    print('---------------------------------')
+    print('received_value =', received_value)
+    print('---------------------------------')
+    return 'Web App with Python Flask!'
+
 @app.route('/setup')
 def initialize_params(_parameters=parameters, _nRowsRead=3000, _window=20, _threshold = -1000.0):
     '''
