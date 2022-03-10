@@ -768,7 +768,7 @@ def initialize_params(_parameters=parameters, _worker_id=123, _nRowsRead=3000, _
     print('_window    =', _window)
     print('_threshold =', _threshold)
 
-    print(tpye(_worker_id))
+    print(type(_worker_id))
     print(type(_nRowsRead))
     print(type(_window))
     print(type(_threshold))
