@@ -760,7 +760,7 @@ def upload_file():
 # Feltöltöttük a filét valamit kezdeni kéne vele mondjuk töltsük be.
 
 
-
+# Ez már egy új bejegyzés a sáját gépről
 
 
 
