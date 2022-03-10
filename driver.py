@@ -355,8 +355,10 @@ def testpoint():
 @app.route('/receiveresult', methods=['GET'])
 def receiveresult():
     received_value = request.args.get('value')
+    received_gain = request.args.get('gain')
     print('---------------------------------')
-    print('received_valuefrom worker =', received_value)
+    print('received_value from worker =', received_value)
+    print('received_gain from worker =', received_gain)
     print('---------------------------------')
     return 'Recieve value from Worker!'
 
