@@ -697,6 +697,15 @@ def index():
     return 'Web App with Python Flask!'
 
 
+@app.route('/update')
+def update():
+    print('-------------------------------GIT PULL------------------------------')
+    os.system('ls -la')
+    os.system('git pull')
+    print('-------------------------------GIT PULL DONE-------------------------')
+    return 'Web App with Python Flask!'
+
+
 @app.route('/testpoint', methods=['GET'])
 def testpoint():
     received_value = request.args.get('value')
