@@ -25,6 +25,8 @@ print('---------------------------------------------------------------')
 
 driver_ip_address = '192.168.0.114'
 
+workers_ip_addresses = ['http://192.168.0.54:8080/', 'http://192.168.0.32:8080/', 'http://192.168.0.247:8080/']
+
 
 print('---------------------------------------------------------------')
 print('                         HELLO DRIVER                          ')
@@ -139,11 +141,9 @@ def initialize_driver():
 	# ---------------------------------------------------------------------------
 
 
-print('---------------------------------------------------------------')
-print('                         DISTRIBUTE                            ')
-print('---------------------------------------------------------------')
 
 
+# Egy konkrét workeren a setup rest hivása
 def call_worker_setup(nRowsRead, window, threshold):
 
 	print('---------------------------------------------------------------')
@@ -153,11 +153,18 @@ def call_worker_setup(nRowsRead, window, threshold):
 	# Setuppolni kell a paramétereket
 	request_params = 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
 	print(request_params)
-	# resp = requests.get('http://192.168.0.247:8080/setup?nRowsRead=2998&window=20&threshold=-1000')
-	# resp = requests.get('http://192.168.0.247:8080/setup?' + request_params)
 	resp = requests.get(worker_address + '/setup?' + request_params)
 	print(resp)
 	print('_______call_worker_setup_______')
+
+
+# Az összes workeren lefut a setup
+def setup_workers():
+	print('workers_ip_addresses = ', workers_ip_addresses)
+	for address in workers_ip_addresses:
+		print('worker_ip_address = ', address)
+		# ide jön majd a call_worker_setup(de milyen paraméterekkel??)
+
 
 
 def call_worker_initialize():
@@ -267,6 +274,15 @@ def call_worker_testpoint_api():
     call_worker_testpoint('http://192.168.0.247:8080/')
     print('______ráhívtunk a worker testpoinjára ott kell hogy lefusson valami______')
     return 'Called woreker testpoint'
+
+
+# call_worker_testpoint -> ha erre jön kérés akkor ez tovább hív a worker testpoint-jára
+@app.route('/setupworkers')
+def setup_all_worker():
+    setup_workers()
+    print('______végig mentünk az össezs worker setupján______')
+    return 'Setup all worker'
+
 
 
 # a Driver programot setupoljuk vele
