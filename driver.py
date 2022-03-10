@@ -93,45 +93,51 @@ print(parameters)
 
 
 
-print('---------------------------------------------------------------')
-print('                         INIT                                  ')
-print('---------------------------------------------------------------')
-
-
-# beállítunk néhány paraméter ami amit később használunk
-# ezeket az értékeket sajnos a Driver oldalon is ki kell számolnunk, ha úgy csináljuk, hogy a modelt küldjük át
-# fontos, hogy számos paraméter szinkronizálva legyen, különben ami model itt előáll az a Worker oldalon eltörik
-arch = (2,2)                                # <-- nn(arch)
-window = 21                                 # <-- bementi változók száma
-nRowsRead = 7899                            # <-- ez lehet alapján csinálunk modelt, de lehet más is mint odaát
-threshold = -1.0                            # <-- a trader parametére
-
-
-# elő kell állítani a túloldali adatsorral azonos szart np.[970, 20] és np[970]
-x_train = np.ones((970, window))
-y_train = np.zeros(970)
-print(x_train.shape)
-print(y_train.shape)
-clf = MLPRegressor(hidden_layer_sizes=arch, max_iter=3, shuffle=False, activation='tanh', random_state=1)
-clf.fit(x_train, y_train)
-
-# ---------------------------------------------------------------------------
-# A joblib segítségével lementdem a diskre a modelt, hogy küldjem a workernek
-# from joblib import dump, load
-joblib.dump(clf, 'model.joblib')         # <-- elmenjük
-clf = joblib.load('model.joblib')        # <-- betöltjük
-
-# ---------------------------------------------------------------------------
-
-
-# Valamiért újra indítás után nem müködnek de futnak a workeren mégis kill ---> újrainditás kellett terminálból
-# worker_address = 'http://192.168.0.54:8080'
-# worker_address = 'http://192.168.0.32:8080'
-worker_address = 'http://192.168.0.247:8080'
 
 
 
-# ---------------------------------------------------------------------------
+# A Driver program néhány változóját hozzuk létre vele, pl az első neurális hálót amit el küld majd
+def initialize_driver():
+
+	print('---------------------------------------------------------------')
+	print('                         INITIALIZE_DRIVER()                   ')
+	print('---------------------------------------------------------------')
+
+
+	# beállítunk néhány paraméter ami amit később használunk
+	# ezeket az értékeket sajnos a Driver oldalon is ki kell számolnunk, ha úgy csináljuk, hogy a modelt küldjük át
+	# fontos, hogy számos paraméter szinkronizálva legyen, különben ami model itt előáll az a Worker oldalon eltörik
+	arch = (2,2)                                # <-- nn(arch)
+	window = 21                                 # <-- bementi változók száma
+	nRowsRead = 7899                            # <-- ez lehet alapján csinálunk modelt, de lehet más is mint odaát
+	threshold = -1.0                            # <-- a trader parametére
+
+
+	# elő kell állítani a túloldali adatsorral azonos szart np.[970, 20] és np[970]
+	x_train = np.ones((970, window))
+	y_train = np.zeros(970)
+	print(x_train.shape)
+	print(y_train.shape)
+	clf = MLPRegressor(hidden_layer_sizes=arch, max_iter=3, shuffle=False, activation='tanh', random_state=1)
+	clf.fit(x_train, y_train)
+
+	# ---------------------------------------------------------------------------
+	# A joblib segítségével lementdem a diskre a modelt, hogy küldjem a workernek
+	# from joblib import dump, load
+	joblib.dump(clf, 'model.joblib')         # <-- elmenjük
+	clf = joblib.load('model.joblib')        # <-- betöltjük
+
+	# ---------------------------------------------------------------------------
+
+	# Valamiért újra indítás után nem müködnek de futnak a workeren mégis kill ---> újrainditás kellett terminálból
+	# worker_address = 'http://192.168.0.54:8080'
+	# worker_address = 'http://192.168.0.32:8080'
+	worker_address = 'http://192.168.0.247:8080'
+
+	# Itt kell majd megadnom egy listában a workerek címeit amin majd a küldésnél végig itereál
+
+	# ---------------------------------------------------------------------------
+
 
 print('---------------------------------------------------------------')
 print('                         DISTRIBUTE                            ')
@@ -139,6 +145,10 @@ print('---------------------------------------------------------------')
 
 
 def call_worker_setup(nRowsRead, window, threshold):
+
+	print('---------------------------------------------------------------')
+	print('                         CALL_WORKER_SETUP()                   ')
+	print('---------------------------------------------------------------')
 
 	# Setuppolni kell a paramétereket
 	request_params = 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
@@ -152,6 +162,10 @@ def call_worker_setup(nRowsRead, window, threshold):
 
 def call_worker_initialize():
 
+	print('---------------------------------------------------------------')
+	print('                         CALL_WORKER_INITIALIZE()              ')
+	print('---------------------------------------------------------------')
+
 	# Ezzel simán meghívjuk a Worker INITIALIZE REST API Végpontját
 	resp = requests.get(worker_address + '/initilaize')
 	print('initialize ', resp)
@@ -159,6 +173,10 @@ def call_worker_initialize():
 
 
 def call_worker_uploader():
+
+	print('---------------------------------------------------------------')
+	print('                         CALL_WORKER_UPLOADER()                ')
+	print('---------------------------------------------------------------')
 
 	# Ezzel a módszerrel lehet átküldeni neki a joblib model filét
 	uploadResultUrl = worker_address + '/uploader'
@@ -173,6 +191,11 @@ def call_worker_uploader():
 
 
 def call_worker_testpoint():
+
+	print('---------------------------------------------------------------')
+	print('                         CALL_WORKER_TESTPOINT()               ')
+	print('---------------------------------------------------------------')
+
 	# Átküldök egy értéket a Workernek
 	resp = requests.get(worker_address + '/testpoint?value=123456789')
 	print('testpoint  ', resp)
@@ -292,10 +315,11 @@ def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dum
     
     return 'initialize_params method has been called'
 
+# a Driver programot inicializáljuk vele
 @app.route('/initilaize')
-def initialize(_parameters=parameters):
-    initialize_worker(_parameters=_parameters)
-    return 'Worker initilize method has been called'
+def initialize():
+    initialize_driver()
+    return 'Driver initilize method has been called'
 
 # ------------
 
