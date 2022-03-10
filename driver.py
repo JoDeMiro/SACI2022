@@ -190,7 +190,7 @@ def call_worker_uploader():
 	print('_______call_worker_uploader_______')
 
 
-def call_worker_testpoint():
+def call_worker_testpoint(worker_address):
 
 	print('---------------------------------------------------------------')
 	print('                         CALL_WORKER_TESTPOINT()               ')
@@ -263,7 +263,8 @@ def testpoint():
 # call_worker_testpoint -> ha erre jön kérés akkor ez tovább hív a worker testpoint-jára
 @app.route('/calltestpoint', methods=['GET'])
 def call_worker_testpoint_api():
-    call_worker_testpoint()
+	worker_address = 'http://192.168.0.247:8080'
+    call_worker_testpoint(worker_address)
     print('______ráhívtunk a worker testpoinjára ott kell hogy lefusson valami______')
     return 'Called woreker testpoint'
 
