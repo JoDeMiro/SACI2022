@@ -707,7 +707,7 @@ def testpoint():
 
 
 @app.route('/setup', methods=['GET'])
-def initialize_params(_parameters=parameters, _nRowsRead=3000, _window=20, _threshold = -1000.0):
+def initialize_params(_parameters=parameters, _nRowsRead=2999, _window=20, _threshold = -1000.0):
     '''
     Bemenete az a Parameters objektum amit a program elején létrehoztunk,
     illetve azok az értékek amelyekre be akarjuk ezt állítani
