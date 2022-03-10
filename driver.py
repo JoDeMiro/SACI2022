@@ -206,18 +206,22 @@ def call_worker_uploader():
 	print('_______call_worker_uploader_______')
 
 
-def call_worker_testpoint(worker_address):
+def call_workers_testpoint():
 
 	print('---------------------------------------------------------------')
 	print('                         CALL_WORKER_TESTPOINT()               ')
 	print('---------------------------------------------------------------')
 
-	# Átküldök egy értéket a Workernek
-	print('worker_address = ', worker_address)
-	resp = requests.get(worker_address + '/testpoint?value=123456789')
-	print('testpoint  ', resp)
-	print('_______call_worker_testpoint_______')
-
+	# Mindegyik Workernek küldünk a testpoint API-jára egy értéket
+	print('workers_addresses = ', workers_addresses)
+	for worker_address in workers_addresses:
+		print('---------------------------------------------------------------------')
+		print('worker_address = ', worker_address)
+		# Átküldök egy értéket a Workernek
+		resp = requests.get(worker_address + '/testpoint?value=123456789')
+		print('testpoint  ', resp)
+		print('_______call_worker_testpoint_______')
+		print('---------------------------------------------------------------------')
 
 
 
@@ -279,9 +283,8 @@ def testpoint():
 
 # call_worker_testpoint -> ha erre jön kérés akkor ez tovább hív a worker testpoint-jára
 @app.route('/calltestpoint', methods=['GET'])
-def call_worker_testpoint_api():
-    call_worker_testpoint('http://192.168.0.247:8080/')
-    print('______ráhívtunk a worker testpoinjára ott kell hogy lefusson valami______')
+def call_workers_testpoint_api():
+    call_workers_testpoint()
     return 'Called woreker testpoint'
 
 
