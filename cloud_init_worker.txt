@@ -41,7 +41,8 @@ write_files:
     git clone https://github.com/JoDeMiro/SACI2022.git
 
     cd SACI2022/
-    python3 worker.py
+    # python3 worker.py
+    waitress-serve --port=8080 --call worker:create_app
 
     echo "---------------> Get SACI2022 Project finished."
   permissions: '755'
