@@ -714,8 +714,8 @@ def initialize_params(_parameters=parameters, _nRowsRead=2999, _window=20, _thre
     '''
 
     received_nRowsRead = (int)(request.args.get('nRowsRead'))
-    received_window    = request.args.get('window')
-    received_threshold = request.args.get('threshold')
+    received_window    = (int)(request.args.get('window'))
+    received_threshold = (float)(request.args.get('threshold'))
 
     print(received_nRowsRead)
     print(received_window)
