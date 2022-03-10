@@ -597,7 +597,8 @@ def initialize_worker(_parameters):
         
     global data_sender
     data_sender = DataSender()                                                            # <-- Initialize data_sender
-    data_sender.initialize_data_sender('192.168.0.114')                                   # <-- set driver_ip_address
+    # data_sender.initialize_data_sender('192.168.0.114')                                   # <-- set driver_ip_address
+    data_sender.initialize_data_sender(_parameters.driver_ip)
 
     
     print('-------------------------------INITIALIZE WORKER DONE----------------')
