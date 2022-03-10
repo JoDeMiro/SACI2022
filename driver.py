@@ -27,6 +27,17 @@ driver_ip_address = '192.168.0.114'
 
 workers_addresses = ['http://192.168.0.54:8080/', 'http://192.168.0.32:8080/', 'http://192.168.0.247:8080/']
 
+workers = []
+
+for i,v in enumerate(workers_addresses):
+  print(i, v)
+  dic = {'id': i,'add': v}
+  workers.append(dic)
+  # print(dic.get('id'))
+  # print(dic.get('add'))
+workers
+
+
 
 print('---------------------------------------------------------------')
 print('                         HELLO DRIVER                          ')
@@ -147,14 +158,14 @@ def initialize_driver():
 
 
 # Egy konkrét workeren a setup rest hivása
-def call_worker_setup(worker_address, nRowsRead, window, threshold):
+def call_worker_setup(worker_id, worker_address, nRowsRead, window, threshold):
 
 	print('---------------------------------------------------------------')
 	print('                         CALL_WORKER_SETUP()                   ')
 	print('---------------------------------------------------------------')
 
 	# Setuppolni kell a paramétereket
-	request_params = 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
+	request_params = 'workerid=' + (str)(worker_id) + '&' + 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
 	print(request_params)
 	resp = requests.get(worker_address + '/setup?' + request_params)
 	print(resp)
@@ -164,15 +175,16 @@ def call_worker_setup(worker_address, nRowsRead, window, threshold):
 # Az összes workeren lefut a setup
 def setup_workers():
 	print('workers_addresses = ', workers_addresses)
-	for worker_address in workers_addresses:
+	for worker in workers:
 		print('---------------------------------------------------------------------')
-		print('worker_address = ', worker_address)
+		print('worker_id =', worker.get('id'))
+		print('worker_address =', worker.get('add'))
 		print('nRowsRead =', nRowsRead)
 		print('window    =', window)
 		print('threshold =', threshold)
 		print('---------------------------------------------------------------------')
 
-		call_worker_setup(worker_address, nRowsRead, window, threshold)
+		call_worker_setup(worker.get('add'), worker.get('add'), nRowsRead, window, threshold)
 
 
 
@@ -313,6 +325,42 @@ def testpoint():
     print('received_value =', received_value)
     print('---------------------------------')
     return 'Web App with Python Flask!'
+
+
+# ezen keresztül fogadja a workerektől az eredményeket
+# ezt most elöször csak úgy írom meg, hogy egy konkrét értéket legyen képes fogadni
+# azonban ez nem lesz jó, mert tudni kell azt is, hogy kitől kapta.
+# ráadásul, ezzel kéősőb még lesz gond, mert majd ki kell találnom, hogyan kezeljem le azt, hogy amit visszakap
+# azt amikor elküldte le kell tárolnia. Valahogy úgy, hogy kinek és mit küldött,
+# amikor visszakapja az eredényt akkor meg kell néznie, hogy melyik a legjobb eredmény megkersei az azonosítot
+# én ennek az azonosítónak a nyomán előveszi azt a megoldást amelyik az adott azonosítóhoz tartozik.
+# a küldés techinkailag úgy néz ki, hogy csinál egy modelt, és azt elmenti, (egyenlőre nem csinál semmit)
+# illetve egyszer megcsinálta és azt küldözgeti.
+# amikor majd lesz evolválva, akkor az adott modelt amit megcsinált, abból ki kell vennie a 'coefs_' listát,
+# azt a listát eltárolni, és mellette legyen ott, hogy a küldésnél melyik gépnek külde.
+# azt a változót ami most a gépek neveit tartalmazza át kell alakítanom úgy, hogy ne csak a címet tartalmazza,
+# de egy azonosítot is ami egy sima szám. Fontos, hogy át kell írnom az összes olyan függvéynt ami ezt a változót
+# használja.
+# A lényeg az evolve() metoduson fog történni. Ott csinál több modelt(de nem egyszerre, hanem szekvenciálisan a mutátor)
+# segíétségével. Lementi a modelt joblib fájlba. Kiolvassa a modellből a 'coefs_' értéket, ezt leteszi egy dict-be
+# ahol az egyik a worker azonosítoja, a másik maga a lista( amiben a coefs_ van)
+# Amikor visszakapja kiszámolt értéket akkor az is olyan formában jön, hogy a worker amikor fogadta a csomagot,
+# akkor kapott egy azonosítot is. Ez lenne a jó megoldás, de ehelyett az lesz, hogy amikor a workereket létrehozom,
+# vagy a setup, vagy az init-ben átadok neki egy olyan értéket, hogy mi a te azonosítód. Ezt egyébként a workeres_address-ből
+# fogja kiolvasni a dirver. Ezt az értéket letárolja a worker és végig meg is örzi a számításai során.
+# Ezzel az azonosítóval fogja visszaküldeni az fitness scooret.
+# Miután látjuk, hogy melyik adta a legjobb fitness scoret, a csomagküldésnél használt dict-ből (amit tartalmazza a coef-eket)
+# ki tudjuk majd olvasni a coefs_t ami a legjobb és amit mutálni akarunk
+# 1.... a workers_addresses változót használó függvényeket kell átírni
+@app.route('/receiveresult', methods=['GET'])
+def testpoint():
+    received_value = request.args.get('value')
+    print('---------------------------------')
+    print('received_value =', received_value)
+    print('---------------------------------')
+    return 'Web App with Python Flask!'
+
+
 
 
 # call_worker_testpoint -> ha erre jön kérés akkor ez tovább hív a worker testpoint-jára

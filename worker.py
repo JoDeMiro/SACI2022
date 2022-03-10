@@ -17,10 +17,14 @@ print('---------------------------------------------------------------')
 class Parameters():
     
     def __init__(self):
+        self.worker_id = 123
         self.nRowsRead = 1000
         self.window = 2
         self.threshold = -0.0
     
+    def set_worker_id(self, _worker_id):
+        self.worker_id = _worker_id
+
     def set_nRowsRead(self, _nRowsRead):
         self.nRowsRead = _nRowsRead
     
@@ -31,7 +35,7 @@ class Parameters():
         self.threshold = _threshold
     
     def __str__(self):
-        return 'Parameters Class(nRowsRead=' + str(self.nRowsRead) + ' ,window=' + str(self.window) + ', threshold=' + str(self.threshold) + ')'
+        return 'Parameters Class(worker_id=' + str(self.worker_id) + 'nRowsRead=' + str(self.nRowsRead) + ' ,window=' + str(self.window) + ', threshold=' + str(self.threshold) + ')'
 
 parameters = Parameters()
 print(parameters)
@@ -579,6 +583,7 @@ def initialize_worker(_parameters):
     print(_parameters)
     print('\n')
     
+    _worker_id = _parameters.worker_id
     _nRowsRead = _parameters.nRowsRead
     _window = _parameters.window
     _threshold = _parameters.threshold
@@ -733,21 +738,24 @@ def testpoint():
 
 
 @app.route('/setup', methods=['GET'])
-def initialize_params(_parameters=parameters, _nRowsRead=3000, _window=20, _threshold = -1000.0):
+def initialize_params(_parameters=parameters, _worker_id=123, _nRowsRead=3000, _window=20, _threshold = -1000.0):
     '''
     Bemenete az a Parameters objektum amit a program elején létrehoztunk,
     illetve azok az értékek amelyekre be akarjuk ezt állítani
     '''
     print('-------------------------------SETUP---------------------------------')
 
+    received_worker_id = (int)(request.args.get('workerid'))
     received_nRowsRead = (int)(request.args.get('nRowsRead'))
     received_window    = (int)(request.args.get('window'))
     received_threshold = (float)(request.args.get('threshold'))
 
+    print('received_workerid  =', recievved_worker_id)
     print('received_nRowsRead =', received_nRowsRead)
     print('received_window    =', received_window)
     print('received_threshold =', received_threshold)
 
+    _worker_id = received_worker_id
     _nRowsRead = received_nRowsRead
     _window = received_window
     _threshold = received_threshold
@@ -755,14 +763,17 @@ def initialize_params(_parameters=parameters, _nRowsRead=3000, _window=20, _thre
     
     print('-------------------------------SETUP +-------------------------------')
     
+    print('_worker_id =', _worker_id)
     print('_nRowsRead =', _nRowsRead)
     print('_window    =', _window)
     print('_threshold =', _threshold)
 
+    print(tpye(_worker_id))
     print(type(_nRowsRead))
     print(type(_window))
     print(type(_threshold))
     
+    _parameters.set_worker_id(_worker_id)
     _parameters.set_nRowsRead(_nRowsRead)
     _parameters.set_window(_window)
     _parameters.set_threshold(_threshold)
