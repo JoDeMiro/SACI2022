@@ -539,6 +539,12 @@ class DataSender():
     '''
     print('------------>>    send_to_driver(self, data)    data is sending to the driver')
     print('------------>>    self.driver_ip_address', self.driver_ip_address)
+
+    # aaaaa
+    # na itt kéne meghívni egy sima requestes szar
+    # Átküldök egy értéket a Drivernek
+    resp = requests.get(worker_address + '/receiveresult?gain=' + data)
+    print('receiveresult  ', resp)
     
     pass
 
@@ -597,8 +603,7 @@ def initialize_worker(_parameters):
         
     global data_sender
     data_sender = DataSender()                                                            # <-- Initialize data_sender
-    # data_sender.initialize_data_sender('192.168.0.114')                                   # <-- set driver_ip_address
-    data_sender.initialize_data_sender(_parameters.driver_ip)
+    data_sender.initialize_data_sender(_parameters.driver_ip)                             # <-- set driver_ip_address
 
     
     print('-------------------------------INITIALIZE WORKER DONE----------------')
@@ -665,7 +670,7 @@ def evaluate_model(mlp):
     gain = result.get('gain')
     
     # küldjük el az eredményt a Drivernek, Dev: tovább lehet fejleszteni, hogy az egész resultot küldje el
-    data_sender.send_to_driver(data=None)
+    data_sender.send_to_driver(data=gain)
     # Most az van, hogy mivel a 'send_to_driver' még üres, meg kell vizsgálnom, hogy lehet átküldeni egy rest apinak egy értéket
     # ez most egy kis olvasás.
     # Ha ez megvan akkor itt csinálni a Workeren egy olyan végponotot amire tudok értékeket küldeni és ki is tudja onnan olvasni

@@ -356,7 +356,7 @@ def testpoint():
 def receiveresult():
     received_value = request.args.get('value')
     print('---------------------------------')
-    print('received_value from worker =', received_value)
+    print('received_valuefrom worker =', received_value)
     print('---------------------------------')
     return 'Recieve value from Worker!'
 
