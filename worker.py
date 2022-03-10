@@ -697,20 +697,27 @@ app = Flask(__name__)
 def index():
     return 'Web App with Python Flask!'
 
+import thread
+def restart_waitress():
+    print("Waitress is going to kill")
+        time.sleep(1)
+        os.system('kill -9 $(pgrep waitress) ; waitress-serve --port=8080 --call worker:create_app')
+
 
 @app.route('/update')
 def update():
     print('-------------------------------GIT PULL------------------------------')
     os.system('ls -la')
     os.system('git pull')
-    os.system('kill -9 $(pgrep waitress) ; waitress-serve --port=8080 --call worker:create_app')
+    # os.system('kill -9 $(pgrep waitress) ; waitress-serve --port=8080 --call worker:create_app')
+    thread.start_new_thread(restart_waitress, ())
 
     # ps -aux
     # ubuntu /home/ubuntu/worker/bin/python /home/ubuntu/worker/bin/waitress-serve --port=8080 --call worker:create_app
 
     print('-------------------------------GIT PULL DONE-------------------------')
     # return 'Web App with Python Flask!'
-    return ('', 204)
+    return '', 204
 
 
 @app.route('/testpoint', methods=['GET'])
