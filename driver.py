@@ -265,7 +265,7 @@ def testpoint():
 @app.route('/calltestpoint', methods=['GET'])
 def call_worker_testpoint_api():
 	print('mi a baja')
-    call_worker_testpoint("http://192.168.0.247:8080/")
+    call_worker_testpoint()
     print('______ráhívtunk a worker testpoinjára ott kell hogy lefusson valami______')
     return 'Called woreker testpoint'
 
