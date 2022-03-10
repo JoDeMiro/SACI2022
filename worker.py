@@ -17,11 +17,15 @@ print('---------------------------------------------------------------')
 class Parameters():
     
     def __init__(self):
+        self.driver_ip = 'http://192.168.0.1' #114
         self.worker_id = 123
         self.nRowsRead = 1000
         self.window = 2
         self.threshold = -0.0
     
+    def set_driver_ip(self, _driver_ip):
+        self.driver_ip = _driver_ip
+
     def set_worker_id(self, _worker_id):
         self.worker_id = _worker_id
 
@@ -35,7 +39,7 @@ class Parameters():
         self.threshold = _threshold
     
     def __str__(self):
-        return 'Parameters Class(worker_id=' + str(self.worker_id) + 'nRowsRead=' + str(self.nRowsRead) + ' ,window=' + str(self.window) + ', threshold=' + str(self.threshold) + ')'
+        return 'Parameters Class(driver_ip=' + str(self.driver_ip) + 'worker_id=' + str(self.worker_id) + 'nRowsRead=' + str(self.nRowsRead) + ' ,window=' + str(self.window) + ', threshold=' + str(self.threshold) + ')'
 
 parameters = Parameters()
 print(parameters)
