@@ -53,6 +53,7 @@ import sys
 import time
 import pprint
 import sklearn
+import threading
 import subprocess
 import numpy as np
 import pandas as pd
@@ -699,9 +700,6 @@ def index():
     return 'Web App with Python Flask!'
 
 
-
-
-import threading
 def restart_waitress():
     print("Waitress is going to kill")
     time.sleep(1)
