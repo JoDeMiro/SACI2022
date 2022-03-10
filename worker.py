@@ -713,8 +713,14 @@ def initialize_params(_parameters=parameters, _nRowsRead=2999, _window=20, _thre
     illetve azok az értékek amelyekre be akarjuk ezt állítani
     '''
 
-    received_value = request.args.get('nRowsRead')
-    print(received_value)
+    received_nRowsRead = request.args.get('nRowsRead')
+    received_window    = request.args.get('window')
+    received_threshold = request.args.get('threshold')
+
+    print(received_nRowsRead)
+    print(received_window)
+    print(received_threshold)
+    
     
     print('-------------------------------SETUP---------------------------------')
     
