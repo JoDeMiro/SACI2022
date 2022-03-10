@@ -52,6 +52,7 @@ import os
 import sys
 import pprint
 import sklearn
+import subprocess
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -702,6 +703,7 @@ def update():
     print('-------------------------------GIT PULL------------------------------')
     os.system('ls -la')
     os.system('git pull')
+    subprocess.run("shutdown -r 0", shell=True, check=True)
     print('-------------------------------GIT PULL DONE-------------------------')
     return 'Web App with Python Flask!'
 
