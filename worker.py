@@ -745,16 +745,19 @@ def initialize_params(_parameters=parameters, _worker_id=123, _nRowsRead=3000, _
     '''
     print('-------------------------------SETUP---------------------------------')
 
+    received_driver_ip = (str)(request.args.get('driver_ip'))
     received_worker_id = (int)(request.args.get('worker_id'))
     received_nRowsRead = (int)(request.args.get('nRowsRead'))
     received_window    = (int)(request.args.get('window'))
     received_threshold = (float)(request.args.get('threshold'))
 
+    print('received_driverip  =', received_driver_ip)
     print('received_workerid  =', received_worker_id)
     print('received_nRowsRead =', received_nRowsRead)
     print('received_window    =', received_window)
     print('received_threshold =', received_threshold)
 
+    _driver_ip = received_driver_ip
     _worker_id = received_worker_id
     _nRowsRead = received_nRowsRead
     _window = received_window
@@ -763,16 +766,19 @@ def initialize_params(_parameters=parameters, _worker_id=123, _nRowsRead=3000, _
     
     print('-------------------------------SETUP +-------------------------------')
     
+    print('_driver_ip =', _driver_ip)
     print('_worker_id =', _worker_id)
     print('_nRowsRead =', _nRowsRead)
     print('_window    =', _window)
     print('_threshold =', _threshold)
 
+    print(type(_driver_ip))
     print(type(_worker_id))
     print(type(_nRowsRead))
     print(type(_window))
     print(type(_threshold))
     
+    _parameters.set_driver_ip(_driver_ip)
     _parameters.set_worker_id(_worker_id)
     _parameters.set_nRowsRead(_nRowsRead)
     _parameters.set_window(_window)

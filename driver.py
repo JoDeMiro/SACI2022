@@ -351,7 +351,7 @@ def testpoint():
 # Ezzel az azonosítóval fogja visszaküldeni az fitness scooret.
 # Miután látjuk, hogy melyik adta a legjobb fitness scoret, a csomagküldésnél használt dict-ből (amit tartalmazza a coef-eket)
 # ki tudjuk majd olvasni a coefs_t ami a legjobb és amit mutálni akarunk
-# 1.... a workers_addresses változót használó függvényeket kell átírni
+# 1...
 @app.route('/receiveresult', methods=['GET'])
 def receiveresult():
     received_value = request.args.get('value')
