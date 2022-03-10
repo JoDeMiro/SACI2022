@@ -25,7 +25,7 @@ print('---------------------------------------------------------------')
 
 driver_ip_address = '192.168.0.114'
 
-workers_ip_addresses = ['http://192.168.0.54:8080/', 'http://192.168.0.32:8080/', 'http://192.168.0.247:8080/']
+workers_addresses = ['http://192.168.0.54:8080/', 'http://192.168.0.32:8080/', 'http://192.168.0.247:8080/']
 
 
 print('---------------------------------------------------------------')
@@ -147,7 +147,7 @@ def initialize_driver():
 
 
 # Egy konkrét workeren a setup rest hivása
-def call_worker_setup(nRowsRead, window, threshold):
+def call_worker_setup(worker_address, nRowsRead, window, threshold):
 
 	print('---------------------------------------------------------------')
 	print('                         CALL_WORKER_SETUP()                   ')
@@ -163,8 +163,8 @@ def call_worker_setup(nRowsRead, window, threshold):
 
 # Az összes workeren lefut a setup
 def setup_workers():
-	print('workers_ip_addresses = ', workers_ip_addresses)
-	for worker_address in workers_ip_addresses:
+	print('workers_addresses = ', workers_addresses)
+	for worker_address in workers_addresses:
 		print('---------------------------------------------------------------------')
 		print('worker_address = ', worker_address)
 		print('nRowsRead =', nRowsRead)
