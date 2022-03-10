@@ -750,7 +750,7 @@ def initialize_params(_parameters=parameters, _worker_id=123, _nRowsRead=3000, _
     received_window    = (int)(request.args.get('window'))
     received_threshold = (float)(request.args.get('threshold'))
 
-    print('received_workerid  =', recievved_worker_id)
+    print('received_workerid  =', received_worker_id)
     print('received_nRowsRead =', received_nRowsRead)
     print('received_window    =', received_window)
     print('received_threshold =', received_threshold)
