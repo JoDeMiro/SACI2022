@@ -700,8 +700,8 @@ def index():
 import thread
 def restart_waitress():
     print("Waitress is going to kill")
-        time.sleep(1)
-        os.system('kill -9 $(pgrep waitress) ; waitress-serve --port=8080 --call worker:create_app')
+    time.sleep(1)
+    os.system('kill -9 $(pgrep waitress) ; waitress-serve --port=8080 --call worker:create_app')
 
 
 @app.route('/update')
