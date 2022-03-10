@@ -544,7 +544,7 @@ class DataSender():
     # aaaaa
     # na itt kéne meghívni egy sima requestes szar
     # Átküldök egy értéket a Drivernek
-    resp = requests.get(worker_address + '/receiveresult?gain=' + data)
+    resp = requests.get(self.driver_ip_address + '/receiveresult?gain=' + data)
     print('receiveresult  ', resp)
     
     pass
