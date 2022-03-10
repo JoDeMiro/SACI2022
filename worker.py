@@ -720,13 +720,20 @@ def initialize_params(_parameters=parameters, _nRowsRead=2999, _window=20, _thre
     print(received_nRowsRead)
     print(received_window)
     print(received_threshold)
-    
+    print(tpye(received_nRowsRead))
+    print(type(received_window))
+    print(type(received_threshold))
+
     
     print('-------------------------------SETUP---------------------------------')
     
     print('_nRowsRead =', _nRowsRead)
     print('_window    =', _window)
     print('_threshold =', _threshold)
+
+    print(type(_nRowsRead))
+    print(type(_window))
+    print(type(_threshold))
     
     _parameters.set_nRowsRead(_nRowsRead)
     _parameters.set_window(_window)
