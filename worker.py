@@ -61,6 +61,7 @@ import sys
 import time
 import pprint
 import sklearn
+import requests
 import threading
 import subprocess
 import numpy as np
