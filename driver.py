@@ -264,7 +264,6 @@ def testpoint():
 # call_worker_testpoint -> ha erre jön kérés akkor ez tovább hív a worker testpoint-jára
 @app.route('/calltestpoint', methods=['GET'])
 def call_worker_testpoint_api():
-	print('mi a baja')
     call_worker_testpoint()
     print('______ráhívtunk a worker testpoinjára ott kell hogy lefusson valami______')
     return 'Called woreker testpoint'
