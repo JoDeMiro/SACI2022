@@ -176,6 +176,27 @@ def setup_workers():
 
 
 
+# Az összes workeren lefutat egy test packaget
+def test_all_worker_with_test_package():
+	print('workers_addresses = ', workers_addresses)
+	for worker_address in workers_addresses:
+		print('---------------------------------------------------------------------')
+		print('worker_address = ', worker_address)
+
+		print('---------------------------------------------------------------------')
+		# ha van már elkészült teszt modellünk akkor mindenkinek küljük el kiszámításra
+		# ehez meg kellene írni a modelkülést is -> amit szerintem már megírtam valahol
+		# az egy olyan valami ami a Workerek upload API-ját hivogatják!
+		# Ha ez még nincs megírva akkor meg kell írni.
+
+		# Van már egy call_worker_uploader() ami fixen a model.joblib filét küldi át
+
+		# Ez most itt csak testz.
+
+		call_worker_uploader(worker_address)
+
+
+
 def call_worker_initialize():
 
 	print('---------------------------------------------------------------')
@@ -188,7 +209,7 @@ def call_worker_initialize():
 	print('_______call_worker_initialize_______')
 
 
-def call_worker_uploader():
+def call_worker_uploader(worker_address):
 
 	print('---------------------------------------------------------------')
 	print('                         CALL_WORKER_UPLOADER()                ')
@@ -288,12 +309,20 @@ def call_workers_testpoint_api():
     return 'Called woreker testpoint'
 
 
-# call_worker_testpoint -> ha erre jön kérés akkor ez tovább hív a worker testpoint-jára
+# setup_workers
 @app.route('/setupworkers')
 def setup_all_worker():
     setup_workers()
     print('______végig mentünk az össezs worker setupján______')
     return 'Setup all worker'
+
+
+ # setup_workers
+@app.route('/testworkerscalc')
+def test_all_worker_with_test_package_api():
+    test_all_worker_with_test_package()
+    print('______végig mentünk az össezs worker tesztjén______')
+    return 'Test all worker with test package'
 
 
 
