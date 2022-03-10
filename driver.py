@@ -14,6 +14,11 @@
 
 # evaluation() később
 
+# Fut a Flask, képes fogadni adatot a testpoint végponton
+# Most meg kéne tudnom szólítani valami mást is
+
+
+
 print('---------------------------------------------------------------')
 print('                         SET VARIABLE                          ')
 print('---------------------------------------------------------------')
@@ -133,30 +138,45 @@ print('                         DISTRIBUTE                            ')
 print('---------------------------------------------------------------')
 
 
-# Setuppolni kell a paramétereket
-request_params = 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
-print(request_params)
-# resp = requests.get('http://192.168.0.247:8080/setup?nRowsRead=2998&window=20&threshold=-1000')
-# resp = requests.get('http://192.168.0.247:8080/setup?' + request_params)
-resp = requests.get(worker_address + '/setup?' + request_params)
+def call_worker_setup(nRowsRead, window, threshold):
 
-# Ezzel simán meghívjuk a Worker INITIALIZE REST API Végpontját
-resp = requests.get(worker_address + '/initilaize')
-print('initialize ', resp)
+	# Setuppolni kell a paramétereket
+	request_params = 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
+	print(request_params)
+	# resp = requests.get('http://192.168.0.247:8080/setup?nRowsRead=2998&window=20&threshold=-1000')
+	# resp = requests.get('http://192.168.0.247:8080/setup?' + request_params)
+	resp = requests.get(worker_address + '/setup?' + request_params)
+	print(resp)
+	print('_______call_worker_setup_______')
 
-# Ezzel a módszerrel lehet átküldeni neki a joblib model filét
-uploadResultUrl = worker_address + '/uploader'
-filePath = "model.joblib"
-fileFp = open(filePath, 'rb')
-fileInfoDict = {
-    "file": fileFp,
-}
-resp = requests.post(uploadResultUrl, files=fileInfoDict)
-print('uploader   ', resp)                                # <-- ez nagyon jó ha <Response [200]> mert akkor átment a file
 
-# Átküldök egy értéket a Workernek
-resp = requests.get(worker_address + '/testpoint?value=123456789')
-print('testpoint  ', resp)
+def call_worker_initialize():
+
+	# Ezzel simán meghívjuk a Worker INITIALIZE REST API Végpontját
+	resp = requests.get(worker_address + '/initilaize')
+	print('initialize ', resp)
+	print('_______call_worker_initialize_______')
+
+
+def call_worker_uploader():
+
+	# Ezzel a módszerrel lehet átküldeni neki a joblib model filét
+	uploadResultUrl = worker_address + '/uploader'
+	filePath = "model.joblib"
+	fileFp = open(filePath, 'rb')
+	fileInfoDict = {
+	    "file": fileFp,
+	}
+	resp = requests.post(uploadResultUrl, files=fileInfoDict)
+	print('uploader   ', resp)
+	print('_______call_worker_uploader_______')
+
+
+def call_worker_testpoint():
+	# Átküldök egy értéket a Workernek
+	resp = requests.get(worker_address + '/testpoint?value=123456789')
+	print('testpoint  ', resp)
+	print('_______call_worker_testpoint_______')
 
 
 
@@ -207,6 +227,7 @@ def update():
     return '', 204
 
 
+# ez egy bejövő testpoint, kap egy értéket akkor kiírja
 @app.route('/testpoint', methods=['GET'])
 def testpoint():
     received_value = request.args.get('value')
@@ -214,6 +235,14 @@ def testpoint():
     print('received_value =', received_value)
     print('---------------------------------')
     return 'Web App with Python Flask!'
+
+
+# call_worker_testpoint -> ha erre jön kérés akkor ez tovább hív a worker testpoint-jára
+@app.route('/calltestpoint', methods=['GET'])
+def call_worker_testpoint_api():
+    call_worker_testpoint()
+    print('______ráhívtunk a worker testpoinjára ott kell hogy lefusson valami______')
+    return 'Called woreker testpoint'
 
 
 @app.route('/setup', methods=['GET'])
