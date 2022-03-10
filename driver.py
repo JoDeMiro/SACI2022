@@ -59,6 +59,34 @@ print('Pandas version:{}'.format(pd.__version__))
 print('Sci-Kit Learn version:{}'.format(sklearn.__version__))
 
 
+print('---------------------------------------------------------------')
+print('                         CREATE DAO                            ')
+print('---------------------------------------------------------------')
+
+class Parameters():
+    
+    def __init__(self):
+        self.generation = 1000
+        self.factor = 2
+        self.dummy = -0.0
+    
+    def set_generation(self, _generation):
+        self.generation = _generation
+    
+    def set_factor(self, _factor):
+        self.factor = _factor
+    
+    def set_dummy(self, _dummy):
+        self.dummy = _dummy
+    
+    def __str__(self):
+        return 'Parameters Class(generation=' + str(self.generation) + ' ,factor=' + str(self.factor) + ', dummy=' + str(self.dummy) + ')'
+
+parameters = Parameters()
+print(parameters)
+
+
+
 
 print('---------------------------------------------------------------')
 print('                         INIT                                  ')
@@ -189,39 +217,39 @@ def testpoint():
 
 
 @app.route('/setup', methods=['GET'])
-def initialize_params(_parameters=parameters, _nRowsRead=3000, _window=20, _threshold = -1000.0):
+def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dummy = -1000.0):
     '''
     Bemenete az a Parameters objektum amit a program elején létrehoztunk,
     illetve azok az értékek amelyekre be akarjuk ezt állítani
     '''
     print('-------------------------------SETUP---------------------------------')
 
-    received_nRowsRead = (int)(request.args.get('nRowsRead'))
-    received_window    = (int)(request.args.get('window'))
-    received_threshold = (float)(request.args.get('threshold'))
+    received_generation = (int)(request.args.get('generation'))
+    received_factor     = (int)(request.args.get('factor'))
+    received_dummy      = (float)(request.args.get('dummy'))
 
-    print('received_nRowsRead =', received_nRowsRead)
-    print('received_window    =', received_window)
-    print('received_threshold =', received_threshold)
+    print('received_generation =', received_generation)
+    print('received_factor     =', received_factor)
+    print('received_dummy      =', received_dummy)
 
-    _nRowsRead = received_nRowsRead
-    _window = received_window
-    _threshold = received_threshold
+    _generation = received_generation
+    _factor = received_factor
+    _dummy = received_dummy
 
     
     print('-------------------------------SETUP +-------------------------------')
     
-    print('_nRowsRead =', _nRowsRead)
-    print('_window    =', _window)
-    print('_threshold =', _threshold)
+    print('_generation =', _generation)
+    print('_factor     =', _factor)
+    print('_dummy      =', _dummy)
 
-    print(type(_nRowsRead))
-    print(type(_window))
-    print(type(_threshold))
+    print(type(_generation))
+    print(type(_factor))
+    print(type(_dummy))
     
-    _parameters.set_nRowsRead(_nRowsRead)
-    _parameters.set_window(_window)
-    _parameters.set_threshold(_threshold)
+    _parameters.set_nRowsRead(_generation)
+    _parameters.set_window(_factor)
+    _parameters.set_threshold(_dummy)
     
     print(_parameters)
     
