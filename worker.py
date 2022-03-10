@@ -704,11 +704,15 @@ def update():
     os.system('ls -la')
     os.system('git pull')
     # subprocess.run("shutdown -r 0", shell=True, check=True)
-    shutdown_func = request.environ.get('werkzeug.server.shutdown')
-    if shutdown_func is None:
-        raise RuntimeError('Not running werkzeug')
-    shutdown_func()
-    return "Shutting down..."
+
+    # shutdown_func = request.environ.get('werkzeug.server.shutdown')
+    # if shutdown_func is None:
+    #     raise RuntimeError('Not running werkzeug')
+    # shutdown_func()
+    # return "Shutting down..."
+
+    resp = requests.get('http://localhost:5001/shutdown')
+    resp = requests.get('http://localhost:8080/shutdown')
     print('-------------------------------GIT PULL DONE-------------------------')
     return 'Web App with Python Flask!'
 
