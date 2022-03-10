@@ -245,6 +245,7 @@ def call_worker_testpoint_api():
     return 'Called woreker testpoint'
 
 
+# a Driver programot setupoljuk vele
 @app.route('/setup', methods=['GET'])
 def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dummy = -1000.0):
     '''
@@ -276,9 +277,9 @@ def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dum
     print(type(_factor))
     print(type(_dummy))
     
-    _parameters.set_nRowsRead(_generation)
-    _parameters.set_window(_factor)
-    _parameters.set_threshold(_dummy)
+    _parameters.set_generation(_generation)
+    _parameters.set_factor(_factor)
+    _parameters.set_dummy(_dummy)
     
     print(_parameters)
     
