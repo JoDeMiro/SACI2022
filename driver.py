@@ -110,8 +110,11 @@ def initialize_driver():
 	# ezeket az értékeket sajnos a Driver oldalon is ki kell számolnunk, ha úgy csináljuk, hogy a modelt küldjük át
 	# fontos, hogy számos paraméter szinkronizálva legyen, különben ami model itt előáll az a Worker oldalon eltörik
 	arch = (2,2)                                # <-- nn(arch)
-	window = 21                                 # <-- bementi változók száma
-	nRowsRead = 7899                            # <-- ez lehet alapján csinálunk modelt, de lehet más is mint odaát
+	global window 
+	window = 21  
+	global nRowsRead                            # <-- bementi változók száma
+	nRowsRead = 7899
+	global threshold                            # <-- ez lehet alapján csinálunk modelt, de lehet más is mint odaát
 	threshold = -1.0                            # <-- a trader parametére
 
 
