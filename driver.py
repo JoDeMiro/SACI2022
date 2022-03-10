@@ -196,8 +196,8 @@ def test_all_worker_with_test_package():
 		call_worker_uploader(worker_address)
 
 
-
-def call_worker_initialize():
+# aaaaaaa
+def call_worker_initialize(worker_address):
 
 	print('---------------------------------------------------------------')
 	print('                         CALL_WORKER_INITIALIZE()              ')
@@ -207,6 +207,18 @@ def call_worker_initialize():
 	resp = requests.get(worker_address + '/initilaize')
 	print('initialize ', resp)
 	print('_______call_worker_initialize_______')
+
+
+def initialize_workers():
+
+	# Mindegyik Workernek initialize API-ját meg kell hívni
+	print('workers_addresses = ', workers_addresses)
+	for worker_address in workers_addresses:
+		print('---------------------------------------------------------------------')
+		print('worker_address = ', worker_address)
+		call_worker_initialize(worker_address)
+
+
 
 
 def call_worker_uploader(worker_address):
@@ -241,6 +253,7 @@ def call_workers_testpoint():
 		# Átküldök egy értéket a Workernek
 		resp = requests.get(worker_address + '/testpoint?value=123456789')
 		print('testpoint  ', resp)
+		print(type(resp))
 		print('_______call_worker_testpoint_______')
 		print('---------------------------------------------------------------------')
 
@@ -317,7 +330,15 @@ def setup_all_worker():
     return 'Setup all worker'
 
 
- # setup_workers
+# initialize_workers
+@app.route('/initializeworkers')
+def initialize_all_worker():
+    initialize_workers()
+    print('______végig mentünk az össezs worker initializejan______')
+    return 'Initialize all worker'
+
+
+# test_workers_with_test_package
 @app.route('/testworkerscalc')
 def test_all_worker_with_test_package_api():
     test_all_worker_with_test_package()
