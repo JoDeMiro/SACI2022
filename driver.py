@@ -353,12 +353,12 @@ def testpoint():
 # ki tudjuk majd olvasni a coefs_t ami a legjobb és amit mutálni akarunk
 # 1.... a workers_addresses változót használó függvényeket kell átírni
 @app.route('/receiveresult', methods=['GET'])
-def testpoint():
+def receiveresult():
     received_value = request.args.get('value')
     print('---------------------------------')
-    print('received_value =', received_value)
+    print('received_value from worker =', received_value)
     print('---------------------------------')
-    return 'Web App with Python Flask!'
+    return 'Recieve value from Worker!'
 
 
 
