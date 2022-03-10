@@ -164,16 +164,15 @@ def call_worker_setup(nRowsRead, window, threshold):
 # Az összes workeren lefut a setup
 def setup_workers():
 	print('workers_ip_addresses = ', workers_ip_addresses)
-	for address in workers_ip_addresses:
-		print('worker_ip_address = ', address)
-		# ide jön majd a call_worker_setup(de milyen paraméterekkel??)
+	for worker_address in workers_ip_addresses:
 		print('---------------------------------------------------------------------')
+		print('worker_address = ', worker_address)
 		print('nRowsRead =', nRowsRead)
 		print('window    =', window)
 		print('threshold =', threshold)
 		print('---------------------------------------------------------------------')
 
-		call_worker_setup(nRowsRead, window, threshold)
+		call_worker_setup(worker_address, nRowsRead, window, threshold)
 
 
 
