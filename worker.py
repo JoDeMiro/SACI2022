@@ -703,23 +703,13 @@ def update():
     print('-------------------------------GIT PULL------------------------------')
     os.system('ls -la')
     os.system('git pull')
-    # os.system('kill -9 $(pgrep waitress) ; waitress-serve --call --listen=127.0.0.1:5000 my_app:create_app')
     os.system('kill -9 $(pgrep waitress) ; waitress-serve --port=8080 --call worker:create_app')
 
-    # ubuntu     72507  0.0  7.1 622756 145688 pts/0   Sl+  09:40   0:01 /home/ubuntu/worker/bin/python /home/ubuntu/worker/bin/waitress-serve --port=8080 --call worker:create_app
-
-
-
-
-    # subprocess.run("shutdown -r 0", shell=True, check=True)
-    # shutdown_func = request.environ.get('werkzeug.server.shutdown')
-    # if shutdown_func is None:
-    #     raise RuntimeError('Not running werkzeug')
-    # shutdown_func()
-    # return "Shutting down..."
+    # ps -aux
+    # ubuntu /home/ubuntu/worker/bin/python /home/ubuntu/worker/bin/waitress-serve --port=8080 --call worker:create_app
 
     print('-------------------------------GIT PULL DONE-------------------------')
-    return 'Web App with Python Flask!'
+    # return 'Web App with Python Flask!'
 
 
 @app.route('/testpoint', methods=['GET'])
