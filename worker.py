@@ -711,6 +711,7 @@ def update():
     # shutdown_func()
     # return "Shutting down..."
 
+    import requests
     resp = requests.get('http://localhost:5001/shutdown')
     resp = requests.get('http://localhost:8080/shutdown')
     print('-------------------------------GIT PULL DONE-------------------------')
