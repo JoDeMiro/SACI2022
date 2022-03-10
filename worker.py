@@ -697,7 +697,10 @@ app = Flask(__name__)
 def index():
     return 'Web App with Python Flask!'
 
-import thread
+
+
+
+import threading
 def restart_waitress():
     print("Waitress is going to kill")
     time.sleep(1)
@@ -710,7 +713,8 @@ def update():
     os.system('ls -la')
     os.system('git pull')
     # os.system('kill -9 $(pgrep waitress) ; waitress-serve --port=8080 --call worker:create_app')
-    thread.start_new_thread(restart_waitress, ())
+    t1 = threading.Thread(target=restart_waitress, args=[])
+    t1.start()
 
     # ps -aux
     # ubuntu /home/ubuntu/worker/bin/python /home/ubuntu/worker/bin/waitress-serve --port=8080 --call worker:create_app
