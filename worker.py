@@ -540,12 +540,12 @@ class DataSender():
     '''
     print('------------>>    send_to_driver(self, data)    data is sending to the driver')
     print('------------>>    self.driver_ip_address', self.driver_ip_address)
-    print('------------##    tpye(self.driver_ip_address', type(self.driver_ip_address))
+    print('------------>>    tpye(self.driver_ip_address', type(self.driver_ip_address))
 
     # aaaaa
     # na itt kéne meghívni egy sima requestes szar
     # Átküldök egy értéket a Drivernek
-    resp = requests.get(self.driver_ip_address + '/receiveresult?gain=' + data)
+    resp = requests.get(self.driver_ip_address + '/receiveresult?gain=' + (str)(data))
     print('receiveresult  ', resp)
     
     pass
