@@ -745,7 +745,7 @@ def initialize_params(_parameters=parameters, _worker_id=123, _nRowsRead=3000, _
     '''
     print('-------------------------------SETUP---------------------------------')
 
-    received_worker_id = (int)(request.args.get('workerid'))
+    received_worker_id = (int)(request.args.get('worker_id'))
     received_nRowsRead = (int)(request.args.get('nRowsRead'))
     received_window    = (int)(request.args.get('window'))
     received_threshold = (float)(request.args.get('threshold'))
