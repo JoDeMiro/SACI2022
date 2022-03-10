@@ -710,6 +710,7 @@ def update():
 
     print('-------------------------------GIT PULL DONE-------------------------')
     # return 'Web App with Python Flask!'
+    return ('', 204)
 
 
 @app.route('/testpoint', methods=['GET'])
