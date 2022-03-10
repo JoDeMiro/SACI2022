@@ -263,8 +263,7 @@ def testpoint():
 # call_worker_testpoint -> ha erre jön kérés akkor ez tovább hív a worker testpoint-jára
 @app.route('/calltestpoint', methods=['GET'])
 def call_worker_testpoint_api():
-	worker_address = 'http://192.168.0.247:8080'
-    call_worker_testpoint(worker_address)
+    call_worker_testpoint()
     print('______ráhívtunk a worker testpoinjára ott kell hogy lefusson valami______')
     return 'Called woreker testpoint'
 
