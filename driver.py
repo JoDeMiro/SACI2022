@@ -451,6 +451,8 @@ def evolution_dev():
     new_clf = deepcopy(clf)
     old_coefs_ = deepcopy(new_clf.coefs_)
     print(old_coefs_)
+    for i in range(3):
+    	print('fuck')
     new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = 1000)
     print(new_coefs_)
     new_clf.coefs_ = new_coefs_        # el kéne küldeni a workereknek az új modelt.
