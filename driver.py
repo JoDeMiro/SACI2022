@@ -424,6 +424,7 @@ def receiveresult():
 
 @app.route('/evolution', methods=['GET'])
 def evolution():
+	print('evolution has been called')
 	# fogja a modlet, randomizálja meg.
 	# new_clf = deepcopy(clf)
 	# print('aaaaaaaaaaaaaaaaaaaaaaaaa')
