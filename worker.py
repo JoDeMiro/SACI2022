@@ -830,6 +830,11 @@ def upload_file():
       # el lehetne kezdeni kiszámolni ez alapján az eredményt
       evaluate_model(mlp)
       
+      # na ezt most kiteszem egy külön szálra
+      thread = threading.Thread(target=long_running_task, args=(mlp,))
+      thread.start()
+      # https://zoltan-varadi.medium.com/flask-api-how-to-return-response-but-continue-execution-828da40881e7
+
       return 'file uploaded successfully'
 
 # ------------
