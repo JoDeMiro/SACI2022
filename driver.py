@@ -398,39 +398,20 @@ def testpoint():
     return 'Web App with Python Flask!'
 
 
-# ezen keresztül fogadja a workerektől az eredményeket
-# ezt most elöször csak úgy írom meg, hogy egy konkrét értéket legyen képes fogadni
-# azonban ez nem lesz jó, mert tudni kell azt is, hogy kitől kapta.
-# ráadásul, ezzel kéősőb még lesz gond, mert majd ki kell találnom, hogyan kezeljem le azt, hogy amit visszakap
-# azt amikor elküldte le kell tárolnia. Valahogy úgy, hogy kinek és mit küldött,
-# amikor visszakapja az eredényt akkor meg kell néznie, hogy melyik a legjobb eredmény megkersei az azonosítot
-# én ennek az azonosítónak a nyomán előveszi azt a megoldást amelyik az adott azonosítóhoz tartozik.
-# a küldés techinkailag úgy néz ki, hogy csinál egy modelt, és azt elmenti, (egyenlőre nem csinál semmit)
-# illetve egyszer megcsinálta és azt küldözgeti.
-# amikor majd lesz evolválva, akkor az adott modelt amit megcsinált, abból ki kell vennie a 'coefs_' listát,
-# azt a listát eltárolni, és mellette legyen ott, hogy a küldésnél melyik gépnek külde.
-# azt a változót ami most a gépek neveit tartalmazza át kell alakítanom úgy, hogy ne csak a címet tartalmazza,
-# de egy azonosítot is ami egy sima szám. Fontos, hogy át kell írnom az összes olyan függvéynt ami ezt a változót
-# használja.
-# A lényeg az evolve() metoduson fog történni. Ott csinál több modelt(de nem egyszerre, hanem szekvenciálisan a mutátor)
-# segíétségével. Lementi a modelt joblib fájlba. Kiolvassa a modellből a 'coefs_' értéket, ezt leteszi egy dict-be
-# ahol az egyik a worker azonosítoja, a másik maga a lista( amiben a coefs_ van)
-# Amikor visszakapja kiszámolt értéket akkor az is olyan formában jön, hogy a worker amikor fogadta a csomagot,
-# akkor kapott egy azonosítot is. Ez lenne a jó megoldás, de ehelyett az lesz, hogy amikor a workereket létrehozom,
-# vagy a setup, vagy az init-ben átadok neki egy olyan értéket, hogy mi a te azonosítód. Ezt egyébként a workeres_address-ből
-# fogja kiolvasni a dirver. Ezt az értéket letárolja a worker és végig meg is örzi a számításai során.
-# Ezzel az azonosítóval fogja visszaküldeni az fitness scooret.
-# Miután látjuk, hogy melyik adta a legjobb fitness scoret, a csomagküldésnél használt dict-ből (amit tartalmazza a coef-eket)
-# ki tudjuk majd olvasni a coefs_t ami a legjobb és amit mutálni akarunk
-# 1...
-#
-# 2...Na most a driverrel kéne egy kicsit foglalkoznom.
-# -- létrehoz egy modelt, eddig jó, de most meg kéne írnom a mutátor függvényt.
-# -- ráadásul most már az egészet be kéne csomagolnom egy ciklusba (generation)
-# -- a recievieresult REST-et megírni hogy az az adatokat irja ki egy DAO-ba
-# -- ezt a DAO- az evolve mindíg resetelje.
-# -- A receive ellenőrizee a dao méretét ha ez elért egy szintet (akkor visszakapta mindenkiőt a számítást) akkor hívjon rá
-#    az evolvra() (az evolve nem kell hogy REST legyen)
+
+
+global received_response_count
+received_response_count = 0
+def check_received_responses_count():
+	received_response_count += 1
+	print('Az eddig beérkezett válaszok száma =', received_response_count)
+	if( received_response_count >= 3 ):
+		# reseteljük az számlálót
+		received_response_count = 0
+		# itt akasztjuk ki a másik megakasztott while ciklust, programot
+		global enough
+		enough = True
+
 @app.route('/receiveresult', methods=['GET'])
 def receive_result():
     received_value = request.args.get('value')
@@ -442,16 +423,6 @@ def receive_result():
     print('---------------------------------')
     return 'Recieve value from Worker!'
 
-received_response_count = 0
-def check_received_responses_count():
-	received_response_count += 1
-	print('Az eddig beérkezett válaszok száma =', received_response_count)
-	if( received_response_count >= 3 ):
-		# reseteljük az számlálót
-		received_response_count = 0
-		# itt akasztjuk ki a másik megakasztott while ciklust, programot
-		global enough
-		enough = True
 
 
 def empty_func():
