@@ -55,7 +55,6 @@ import time
 import pprint
 import joblib
 import sklearn
-import randomer
 import requests
 import threading
 import subprocess
@@ -76,6 +75,8 @@ print('Python version:{}'.format(sys.version))
 print('Numpy version:{}'.format(np.__version__))
 print('Pandas version:{}'.format(pd.__version__))
 print('Sci-Kit Learn version:{}'.format(sklearn.__version__))
+
+from randomer import Randomer
 
 
 ###
