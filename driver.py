@@ -434,7 +434,7 @@ def evolution():
     abc = empty_func()
     print('______végig mentünk az össezs worker initializejan______')
     print('--------------------------------------------------------')
-    my_result = ''.join(map(str,resp))  # <-- list to str
+    my_result = 'mumbapa'
     return my_result
 
 
