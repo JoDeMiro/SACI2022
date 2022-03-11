@@ -241,9 +241,6 @@ def initialize_workers():
 		print('itt kéne assertálni a workerek setupját')
 		print(type(resp))
 		print(resp.status_code)
-		print(resp.text)
-		print(resp[0])
-		print(resp.get('result'))
 		print('aa-------------------------------aaa')
 
 
