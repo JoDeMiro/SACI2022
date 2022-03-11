@@ -425,6 +425,7 @@ def receiveresult():
 # initialize_workers
 @app.route('/kurva')
 def kurva_all_worker():
+	new_clf = deepcopy(clf)
     resp = initialize_workers()
     print('______végig mentünk az össezs worker initializejan______')
     print('--------------------------------------------------------')
