@@ -431,8 +431,11 @@ def empty_func():
 def evolution():
     # resp = initialize_workers()
     new_clf = deepcopy(clf)
-    new_coefs_ = deepcopy(new_clf.coefs_)
+    old_coefs_ = deepcopy(new_clf.coefs_)
+    print(old_coefs_)
+    new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = 1000)
     print(new_coefs_)
+    new_clf.coefs_ = new_coefs_
     new_clf = 10
     abc = empty_func()
     print('______végig mentünk az össezs worker initializejan______')
