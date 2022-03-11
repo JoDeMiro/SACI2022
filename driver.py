@@ -203,8 +203,7 @@ def setup_workers():
 		print('diver_ip =', driver_ip_address)
 		print('worker_id =', worker.get('id'))
 		print('worker_address =', worker.get('add'))
-		print('nRowsRead =', nRowsRead)           #szar
-		print('------------>>>>>>>>>>>>>>>>>>> szar?????? nem')
+		print('nRowsRead =', nRowsRead)
 		print('window    =', window)
 		print('threshold =', threshold)
 		print('---------------------------------------------------------------------')
@@ -451,9 +450,11 @@ def evolution_dev2():
 	received_response_count = 0 			# be kell állítani 0-ra, hogy tényleg azt számolja amit kell
 	global enough
 	enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
+	print('------------------------------------------------------->>>>>>>>>>>>> 1_____ enough = ', enough)
 	for i in range(len(workers_addresses)):
 		print('________ a cikluson belül a enough értéke : ', enough)
 		print('_________a cikluson belül itt tartunk : ', i)
+		print('------------------------------------------------------->>>>>>>>>>>>> 2_____ enough = ', enough)
 		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = parameters.factor)
 		# print('--------------- NEW COEFS -------------')
 		# print(new_coefs_)
@@ -463,13 +464,28 @@ def evolution_dev2():
 		# worker_address = 'http://192.168.0.247:8080' # ezt majd mindíg váltogatni kell
 		worker_address = workers_addresses[i]
 		print('az aktuális worker címe akinek küldünk:', worker_address)
+		print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
 		call_worker_sender(worker_address, new_clf_file_name)
+		print('------------------------------------------------------->>>>>>>>>>>>> 4_____ enough = ', enough)
 		# az van, hogy a fenti metodus elküldi az anyagot a workernek-> a tuloldalon ez a hívás azt eredményezi, hogy számol és
 		# vissza is küldi ugyan erre a gépre, de egy másik végpontra az eredményt.
 	#itt azt kéne megvizsgálni, hogy visszajött-e a három eredmény -> és csak akkor engedni tovább a progit, ha az ottani számláló 3.
 	#na ez egy nagy kérdés, hogy a közben, miközben még a for ciklus fent küldözget, már lehet, hogy bejön egy válasz
 	#de elvileg az nem fog bezavarni, amikor ez elindul, akkor ugyanis majd belül vizsgáljuk meg, hogy megvan-e a 3 válaszunk
 	#és akkor felül csapjuk ezt az értéket.
+	#
+	#
+	#
+	# Az a baj, hogy szinkron a REST hivás, vagyis amikor meghívjuk fent a ciklusban a 'call_worker_sender()' metodust
+	# az abba rejtett küldő olyan, hogy megvárja, a Worker válaszát.!!!!
+	# Ezért a FENTI FOR LOOP sorrendben fog lefutni.
+	#
+	# A helyes megoldás, valószínűleg az lenne, ha a Worker úgy lenne megírva, hogy külön szálon elindítja a kiszámolást,
+	# amikor végez akkor tovább lépne és meghívná a Driver REST API-t amin az erdményeket küldi.
+	# A másik kihekkelés az lenne, ha ugy menne ítt a hívás a 'call_worker_sender()'-be rejtett küldőnél, hogy nem várja meg
+	# a Worker válaszát.
+	# Valszeg az életképesebb megoldás az lesz, ha a Workerben teszem ki egy külön szálra a számítást és az annak végén létrejövő
+	# válasz hívást vissza a Driverre.
 	tmp = 0
 	while (enough == False):
 		# vizgálja meg, hogy megkvan-e a három eredmény.
