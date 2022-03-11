@@ -411,7 +411,8 @@ def check_received_responses_count():
 	if( received_response_count >= 3 ):
 		print('ccccccccc ', received_response_count)
 		# reseteljük az számlálót
-		received_response_count = 0
+		# nem ne ő resetelje, hanem a while ciklus akkor amikor kiakad
+		# received_response_count = 0
 		print('ddddddddd ', received_response_count)
 		# itt akasztjuk ki a másik megakasztott while ciklust, programot
 		global enough
@@ -447,7 +448,11 @@ def evolution_dev2():
 	print(workers_addresses)
 	global received_response_count
 	received_response_count = 0 			# be kell állítani 0-ra, hogy tényleg azt számolja amit kell
+	global enough
+	enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
 	for i in range(len(workers_addresses)):
+		print('________ a cikluson belül a enough értéke : ', enough)
+		print('_________a cikluson belül itt tartunk : ', i)
 		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = parameters.factor)
 		print('--------------- NEW COEFS -------------')
 		print(new_coefs_)
@@ -464,8 +469,6 @@ def evolution_dev2():
 	#na ez egy nagy kérdés, hogy a közben, miközben még a for ciklus fent küldözget, már lehet, hogy bejön egy válasz
 	#de elvileg az nem fog bezavarni, amikor ez elindul, akkor ugyanis majd belül vizsgáljuk meg, hogy megvan-e a 3 válaszunk
 	#és akkor felül csapjuk ezt az értéket.
-	global enough
-	enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
 	tmp = 0
 	while (enough == False):
 		# vizgálja meg, hogy megkvan-e a három eredmény.
@@ -474,6 +477,9 @@ def evolution_dev2():
 		tmp += 1
 		if(tmp > 20):
 			enough = True
+		if(received_response_count >= 3):
+			enough = True
+			received_response_count = 0
 		# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
 		print('óóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóó')
 		print(received_response_count)
