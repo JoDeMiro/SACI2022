@@ -465,31 +465,6 @@ def evolution_dev():
     my_result = 'mumbapa'
     return my_result
 
-# evolution DEV2
-@app.route('/evolution2')
-def evolution_dev2():
-	# resp = initialize_workers()
-	print(workers_addresses)
-	print(len(workers_addresses))
-	for i in range(len(workers_addresses)):
-		print(workers_addresses)
-    new_clf = deepcopy(clf)
-    old_coefs_ = deepcopy(new_clf.coefs_)
-    print(old_coefs_)
-    new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = 1000)
-    print(new_coefs_)
-    new_clf.coefs_ = new_coefs_        # el kéne küldeni a workereknek az új modelt.
-    new_clf_file_name = 'model3.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
-    joblib.dump(new_clf, new_clf_file_name)         # el kéne küldeni egy adott workingernek (speckó nevet kell adni neki)
-    worker_address = 'http://192.168.0.247:8080' # ezt majd mindíg váltogatni kell
-    call_worker_sender(worker_address, new_clf_file_name)
-    new_clf = 10
-    abc = empty_func()
-    print('______végig mentünk az össezs worker initializejan______')
-    print('--------------------------------------------------------')
-    my_result = 'mumbapa'
-    return my_result
-
 
 
 
