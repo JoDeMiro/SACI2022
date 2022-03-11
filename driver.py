@@ -246,7 +246,7 @@ def initialize_workers():
 
 		print(msg)
 		result.append(msg)
-		print('aa-------------------------------aaa')
+
 	return result
 
 
@@ -438,9 +438,11 @@ def setup_all_worker():
 # initialize_workers
 @app.route('/initializeworkers')
 def initialize_all_worker():
-    initialize_workers()
+    result = initialize_workers()
     print('______végig mentünk az össezs worker initializejan______')
-    return 'Initialize all worker'
+    # return 'Initialize all worker'
+    return result
+
 
 
 # test_workers_with_test_package
