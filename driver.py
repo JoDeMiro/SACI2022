@@ -493,7 +493,7 @@ def evolution_dev2():
 		# ha igen akkor engedje tovább futni a programot.
 		# ha nem akkor tartsa ebben a ciklusban
 		tmp += 1
-		if(tmp > 2000):
+		if(tmp > 20000):
 			enough = True
 		if(received_response_count >= 3):
 			enough = True
