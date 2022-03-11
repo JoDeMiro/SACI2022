@@ -429,7 +429,7 @@ def empty_func():
 # initialize_workers
 @app.route('/evolution')
 def evolution():
-    resp = initialize_workers()
+    # resp = initialize_workers()
     new_clf = 10
     abc = empty_func()
     print('______végig mentünk az össezs worker initializejan______')
