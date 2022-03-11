@@ -404,7 +404,7 @@ global received_response_count
 received_response_count = 0
 print('aaaaaaaaaa ', received_response_count)
 def check_received_responses_count():
-	global
+	global received_response_count
 	received_response_count += 1
 	print('bbbbbbbbb ', received_response_count)
 	print('Az eddig beérkezett válaszok száma =', received_response_count)
