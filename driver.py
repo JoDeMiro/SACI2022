@@ -479,7 +479,7 @@ def evolution_dev2():
 	for i in range(3):
 		print('fuck')
 		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = 1000)
-		print('--------------- OLD COEFS -------------')
+		print('--------------- NEW COEFS -------------')
 		print(new_coefs_)
 		new_clf.coefs_ = new_coefs_        # el kéne küldeni a workereknek az új modelt.
 		new_clf_file_name = 'model3.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
