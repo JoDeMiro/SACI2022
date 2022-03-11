@@ -133,7 +133,7 @@ def initialize_driver(_nRowsRead):
 	window = 21  
 	global nRowsRead                            # <-- bementi változók száma
 	nRowsRead = 98765
-	nRowsRead = _nRowsRead
+	nRowsRead = (int)(_nRowsRead)
 	global threshold                            # <-- ez lehet alapján csinálunk modelt, de lehet más is mint odaát
 	threshold = -1.0                            # <-- a trader parametére
 
@@ -602,7 +602,7 @@ def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dum
 
 # a Driver programot inicializáljuk vele
 @app.route('/initilaize')
-def initialize(_nRowsRead):
+def initialize(_nRowsRead=nRowsRead):
     initialize_driver(_nRowsRead)
     return 'Driver initilize method has been called'
 
