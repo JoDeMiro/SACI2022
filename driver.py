@@ -240,6 +240,13 @@ def initialize_workers():
 		print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 		print('itt kéne assertálni a workerek setupját')
 		print(type(resp))
+
+		result = {}
+		for line in resp.splitlines():
+		    k,v = line.split(' = ')
+		    result[k] = v
+
+		print (result)
 		print('aa-------------------------------aaa')
 
 
