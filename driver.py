@@ -237,10 +237,12 @@ def initialize_workers():
 
 		resp = call_worker_initialize(worker_address)
 
+
 		print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 		print('itt kéne assertálni a workerek setupját')
 		print(type(resp))
 		print(resp.status_code)
+		print(type(resp.status_code))
 		print('aa-------------------------------aaa')
 
 
