@@ -402,12 +402,16 @@ def testpoint():
 
 global received_response_count
 received_response_count = 0
+print('aaaaaaaaaa ', received_response_count)
 def check_received_responses_count():
 	received_response_count += 1
+	print('bbbbbbbbb ', received_response_count)
 	print('Az eddig beérkezett válaszok száma =', received_response_count)
 	if( received_response_count >= 3 ):
+		print('ccccccccc ', received_response_count)
 		# reseteljük az számlálót
 		received_response_count = 0
+		print('dddddd ', received_response_count)
 		# itt akasztjuk ki a másik megakasztott while ciklust, programot
 		global enough
 		enough = True
