@@ -231,6 +231,7 @@ def initialize_workers():
 
 	# Mindegyik Workernek initialize API-ját meg kell hívni
 	print('workers_addresses = ', workers_addresses)
+	result = []
 	for worker_address in workers_addresses:
 		print('---------------------------------------------------------------------')
 		print('worker_address = ', worker_address)
@@ -239,18 +240,14 @@ def initialize_workers():
 
 		msg = None
 		if(resp.status_code == 200):
-			msg = ('[OK] worker ', worker_address, ' setup.')
+			msg = ('[OK] worker', worker_address, 'setup', resp.status_code)
 		else:
-			msg = ('[ERROR] worker ', worker_address, ' setup.')
+			msg = ('[ERROR] worker', worker_address, 'setup', resp.status_code)
 
-
-		print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-		print('itt kéne assertálni a workerek setupját')
 		print(msg)
-		print(type(resp))
-		print(resp.status_code)
-		print(type(resp.status_code))
+		result.append(msg)
 		print('aa-------------------------------aaa')
+	return result
 
 
 
