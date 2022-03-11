@@ -181,7 +181,7 @@ def call_worker_setup(worker_id, worker_address, nRowsRead, window, threshold):
 	print('---------------------------------------------------------------')
 
 	# Setuppolni kell a paramétereket
-	request_params = 'workerid=' + (str)(worker_id) + '&' + 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
+	request_params = 'worker_id=' + (str)(worker_id) + '&' + 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
 	print(request_params)
 	resp = requests.get(worker_address + '/setup?' + request_params)
 	print(resp)
