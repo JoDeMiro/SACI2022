@@ -444,8 +444,10 @@ def initialize_all_worker():
     print('----------------------------------')
     print(result)
     print(type(result))
+    my_result = ''.join(map(str,result))
+    print(my_result)
 
-    return result
+    return my_result
 
 
 
