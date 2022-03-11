@@ -237,9 +237,16 @@ def initialize_workers():
 
 		resp = call_worker_initialize(worker_address)
 
+		msg = None
+		if(resp.status_code == 200):
+			msg = ('[OK] worker ', worker_address, ' setup.')
+		else:
+			msg = ('[ERROR] worker ', worker_address, ' setup.')
+
 
 		print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 		print('itt kéne assertálni a workerek setupját')
+		print(msg)
 		print(type(resp))
 		print(resp.status_code)
 		print(type(resp.status_code))
