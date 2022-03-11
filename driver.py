@@ -442,10 +442,11 @@ def receive_result():
     print('---------------------------------')
     return 'Recieve value from Worker!'
 
+received_response_count = 0
 def check_received_responses_count():
-	current_received_response_count = received_response_count + 1
-	print('Az eddig beérkezett válaszok száma =', current_received_response_count)
-	if( current_received_response_count >= 3 ):
+	received_response_count += 1
+	print('Az eddig beérkezett válaszok száma =', received_response_count)
+	if( received_response_count >= 3 ):
 		# reseteljük az számlálót
 		received_response_count = 0
 		# itt akasztjuk ki a másik megakasztott while ciklust, programot
