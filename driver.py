@@ -604,8 +604,8 @@ def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dum
 @app.route('/initilaize')
 def initialize():
 	_nRowsRead = (int)(request.args.get('_nRowsRead'))
-    initialize_driver(_nRowsRead)
-    return 'Driver initilize method has been called'
+	initialize_driver(_nRowsRead)
+	return 'Driver initilize method has been called'
 
 # ------------
 
