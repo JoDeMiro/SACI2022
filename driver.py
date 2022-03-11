@@ -442,7 +442,7 @@ def initialize_all_worker():
     resp = initialize_workers()
     print('______végig mentünk az össezs worker initializejan______')
     print('--------------------------------------------------------')
-    my_result = ''.join(map(str,result))  # <-- list to str
+    my_result = ''.join(map(str,resp))  # <-- list to str
     return my_result
 
 
