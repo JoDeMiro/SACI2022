@@ -431,7 +431,7 @@ def evolution():
 	# print(new_clf)
 	# mentse le
 	# küldje el
-    return 'Recieve value from Worker!'
+    return 'Recieve value from Worker'
 
 
 
