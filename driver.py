@@ -132,7 +132,7 @@ def initialize_driver():
 	global window 
 	window = 21  
 	global nRowsRead                            # <-- bementi változók száma
-	nRowsRead = 7899
+	nRowsRead = 78990
 	global threshold                            # <-- ez lehet alapján csinálunk modelt, de lehet más is mint odaát
 	threshold = -1.0                            # <-- a trader parametére
 
