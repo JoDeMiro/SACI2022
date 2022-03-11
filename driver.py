@@ -456,6 +456,9 @@ def evolution_dev2():
 	print('for ciklus start')
 	print(workers_addresses)
 	for i in range(len(workers_addresses)):
+		print('ááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááá')
+		print('parameters = ', parameters)
+		print('parameters.factor = ', parameters.factor)
 		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = 1000)
 		print('--------------- NEW COEFS -------------')
 		print(new_coefs_)
