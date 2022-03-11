@@ -466,6 +466,22 @@ def evolution_dev2():
 		worker_address = workers_addresses[i]
 		print('az aktuális worker címe akinek küldünk:', worker_address)
 		call_worker_sender(worker_address, new_clf_file_name)
+		# az van, hogy a fenti metodus elküldi az anyagot a workernek-> a tuloldalon ez a hívás azt eredményezi, hogy számol és
+		# vissza is küldi ugyan erre a gépre, de egy másik végpontra az eredményt.
+	#itt azt kéne megvizsgálni, hogy visszajött-e a három eredmény -> és csak akkor engedni tovább a progit, ha az ottani számláló 3.
+	global enough
+	enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
+	tmp = 0
+	while (enough == False):
+		# vizgálja meg, hogy megkvan-e a három eredmény.
+		# ha igen akkor engedje tovább futni a programot.
+		# ha nem akkor tartsa ebben a ciklusban
+		tmp += 1
+		if(tmp > 20):
+			enough = True
+		print('a while loopban vagyunk')
+		print('tmp = ', tmp)
+	print('kijöttünk a while loopból..........')
 	new_clf = 10
 	abc = empty_func()
 	print('______végig mentünk az össezs worker initializejan______')
