@@ -422,16 +422,15 @@ def receiveresult():
     return 'Recieve value from Worker!'
 
 
-@app.route('/evolution', methods=['GET'])
-def evolution():
-	print('evolution has been called')
-	# fogja a modlet, randomizálja meg.
-	# new_clf = deepcopy(clf)
-	# print('aaaaaaaaaaaaaaaaaaaaaaaaa')
-	# print(new_clf)
-	# mentse le
-	# küldje el
-    return 'Recieve value from Worker'
+# initialize_workers
+@app.route('/kurva')
+def kurva_all_worker():
+    resp = initialize_workers()
+    print('______végig mentünk az össezs worker initializejan______')
+    print('--------------------------------------------------------')
+    my_result = ''.join(map(str,resp))  # <-- list to str
+    return my_result
+
 
 
 
