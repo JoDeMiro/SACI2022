@@ -453,11 +453,11 @@ def evolution_dev2():
 	old_coefs_ = deepcopy(new_clf.coefs_)
 	print('--------------- OLD COEFS -------------')
 	print(old_coefs_)
-	print('ááááááááááááááááááááá')
+	print('for ciklus start')
 	print(workers_addresses)
-	print(len(workers_addresses))
-	for i in range(3):
-		print('fuck')
+	for i in range(len(workers_addresses)):
+		worker_address = workers_addresses[i]
+		print('az aktuális worker címe akinek küldünk:', worker_address)
 		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = 1000)
 		print('--------------- NEW COEFS -------------')
 		print(new_coefs_)
