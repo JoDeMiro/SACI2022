@@ -174,14 +174,14 @@ def initialize_driver():
 
 
 # Egy konkrét workeren a setup rest hivása
-def call_worker_setup(worker_id, worker_address, nRowsRead, window, threshold):
+def call_worker_setup(driver_ip, worker_id, worker_address, nRowsRead, window, threshold):
 
 	print('---------------------------------------------------------------')
 	print('                      CALL_WORKER_SETUP()                      ')
 	print('---------------------------------------------------------------')
 
 	# Setuppolni kell a paramétereket
-	request_params = 'worker_id=' + (str)(worker_id) + '&' + 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
+	request_params = 'driver_ip=' + (str)(driver_ip) + '&worker_id=' + (str)(worker_id) + '&' + 'nRowsRead=' + (str)(nRowsRead) + '&' + 'window=' + (str)(window) + '&' + 'threshold=' + (str)(threshold)
 	print(request_params)
 	resp = requests.get(worker_address + '/setup?' + request_params)
 	print(resp)
@@ -196,6 +196,7 @@ def setup_workers():
 	print('workers_addresses = ', workers_addresses)
 	for worker in workers:
 		print('---------------------------------------------------------------------')
+		print('diver_ip =', driver_ip_address)
 		print('worker_id =', worker.get('id'))
 		print('worker_address =', worker.get('add'))
 		print('nRowsRead =', nRowsRead)
@@ -203,7 +204,7 @@ def setup_workers():
 		print('threshold =', threshold)
 		print('---------------------------------------------------------------------')
 
-		call_worker_setup(worker.get('id'), worker.get('add'), nRowsRead, window, threshold)
+		call_worker_setup(driver_ip_address, worker.get('id'), worker.get('add'), nRowsRead, window, threshold)
 
 
 
@@ -438,15 +439,10 @@ def setup_all_worker():
 # initialize_workers
 @app.route('/initializeworkers')
 def initialize_all_worker():
-    result = initialize_workers()
+    resp = initialize_workers()
     print('______végig mentünk az össezs worker initializejan______')
-    # return 'Initialize all worker'
-    print('----------------------------------')
-    print(result)
-    print(type(result))
-    my_result = ''.join(map(str,result))
-    print(my_result)
-
+    print('--------------------------------------------------------')
+    my_result = ''.join(map(str,result))  # <-- list to str
     return my_result
 
 
