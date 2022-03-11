@@ -411,7 +411,7 @@ def check_received_responses_count():
 	if( received_response_count >= 3 ):
 		print('ccccccccc ', received_response_count)
 		# reseteljük az számlálót
-		received_response_count = -8
+		received_response_count = 0
 		print('ddddddddd ', received_response_count)
 		# itt akasztjuk ki a másik megakasztott while ciklust, programot
 		global enough
@@ -445,6 +445,8 @@ def evolution_dev2():
 	print(old_coefs_)
 	print('for ciklus start')
 	print(workers_addresses)
+	global received_response_count
+	received_response_count = 0 			# be kell állítani 0-ra, hogy tényleg azt számolja amit kell
 	for i in range(len(workers_addresses)):
 		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = parameters.factor)
 		print('--------------- NEW COEFS -------------')
