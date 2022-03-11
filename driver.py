@@ -411,7 +411,7 @@ def check_received_responses_count():
 	if( received_response_count >= 3 ):
 		print('ccccccccc ', received_response_count)
 		# reseteljük az számlálót
-		received_response_count = 0
+		received_response_count = -8
 		print('ddddddddd ', received_response_count)
 		# itt akasztjuk ki a másik megakasztott while ciklust, programot
 		global enough
