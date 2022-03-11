@@ -203,7 +203,8 @@ def setup_workers():
 		print('diver_ip =', driver_ip_address)
 		print('worker_id =', worker.get('id'))
 		print('worker_address =', worker.get('add'))
-		print('nRowsRead =', nRowsRead)
+		print('nRowsRead =', nRowsRead)           #szar
+		print('------------>>>>>>>>>>>>>>>>>>> szar?????? nem')
 		print('window    =', window)
 		print('threshold =', threshold)
 		print('---------------------------------------------------------------------')
@@ -454,8 +455,8 @@ def evolution_dev2():
 		print('________ a cikluson belül a enough értéke : ', enough)
 		print('_________a cikluson belül itt tartunk : ', i)
 		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = parameters.factor)
-		print('--------------- NEW COEFS -------------')
-		print(new_coefs_)
+		# print('--------------- NEW COEFS -------------')
+		# print(new_coefs_)
 		new_clf.coefs_ = new_coefs_        # el kéne küldeni a workereknek az új modelt.
 		new_clf_file_name = 'model3.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
 		joblib.dump(new_clf, new_clf_file_name)         # el kéne küldeni egy adott workingernek (speckó nevet kell adni neki)
@@ -475,7 +476,7 @@ def evolution_dev2():
 		# ha igen akkor engedje tovább futni a programot.
 		# ha nem akkor tartsa ebben a ciklusban
 		tmp += 1
-		if(tmp > 20):
+		if(tmp > 200):
 			enough = True
 		if(received_response_count >= 3):
 			enough = True
