@@ -425,8 +425,8 @@ def receiveresult():
 # initialize_workers
 @app.route('/kurva')
 def kurva_all_worker():
-	new_clf = 10
     resp = initialize_workers()
+    new_clf = 10
     print('______végig mentünk az össezs worker initializejan______')
     print('--------------------------------------------------------')
     my_result = ''.join(map(str,resp))  # <-- list to str
