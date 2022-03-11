@@ -118,7 +118,7 @@ print(parameters)
 
 
 # A Driver program néhány változóját hozzuk létre vele, pl az első neurális hálót amit el küld majd
-def initialize_driver():
+def initialize_driver(_nRowsRead):
 
 	print('---------------------------------------------------------------')
 	print('                         INITIALIZE_DRIVER()                   ')
@@ -132,7 +132,8 @@ def initialize_driver():
 	global window 
 	window = 21  
 	global nRowsRead                            # <-- bementi változók száma
-	nRowsRead = 78990
+	nRowsRead = 98765
+	nRowsRead = _nRowsRead
 	global threshold                            # <-- ez lehet alapján csinálunk modelt, de lehet más is mint odaát
 	threshold = -1.0                            # <-- a trader parametére
 
@@ -601,8 +602,8 @@ def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dum
 
 # a Driver programot inicializáljuk vele
 @app.route('/initilaize')
-def initialize():
-    initialize_driver()
+def initialize(_nRowsRead):
+    initialize_driver(_nRowsRead)
     return 'Driver initilize method has been called'
 
 # ------------
