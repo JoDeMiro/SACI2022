@@ -467,12 +467,12 @@ def evolution_dev():
 
 # evolution DEV2
 @app.route('/evolution2')
-def evolution_dev():
+def evolution_dev2():
+	# resp = initialize_workers()
 	print(workers_addresses)
 	print(len(workers_addresses))
 	for i in range(len(workers_addresses)):
 		print(workers_addresses)
-    # resp = initialize_workers()
     new_clf = deepcopy(clf)
     old_coefs_ = deepcopy(new_clf.coefs_)
     print(old_coefs_)
