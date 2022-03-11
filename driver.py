@@ -454,9 +454,9 @@ def evolution():
     new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = 1000)
     print(new_coefs_)
     new_clf.coefs_ = new_coefs_        # el kéne küldeni a workereknek az új modelt.
-    joblib.dump(new_clf, 'model.joblib')         # el kéne küldeni egy adott workingernek (speckó nevet kell adni neki)
-    worker_address = 'http://192.168.0.247:8080' # ezt majd mindíg váltogatni kell
     new_clf_file_name = 'model3.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
+    joblib.dump(new_clf, new_clf_file_name)         # el kéne küldeni egy adott workingernek (speckó nevet kell adni neki)
+    worker_address = 'http://192.168.0.247:8080' # ezt majd mindíg váltogatni kell
     call_worker_sender(worker_address, new_clf_file_name)
     new_clf = 10
     abc = empty_func()

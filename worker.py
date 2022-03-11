@@ -820,6 +820,8 @@ def upload_file():
       print(f.filename)
       print(type(f.filename))
       print('úgy kéne, hogy mindig egy adott néven metse le. model.joblib mondjuk')
+      f.filename = 'model.joblib'
+      print(f.filename)
       f.save(secure_filename(f.filename))
       
       # load model
