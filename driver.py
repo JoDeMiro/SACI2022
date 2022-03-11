@@ -441,6 +441,10 @@ def initialize_all_worker():
     result = initialize_workers()
     print('______végig mentünk az össezs worker initializejan______')
     # return 'Initialize all worker'
+    print('----------------------------------')
+    print(result)
+    print(type(result))
+
     return result
 
 
