@@ -422,11 +422,16 @@ def receiveresult():
     return 'Recieve value from Worker!'
 
 
+def empty_func():
+	print('a')
+	return 'abc'
+
 # initialize_workers
-@app.route('/kurva')
-def kurva_all_worker():
+@app.route('/evolution')
+def evolution():
     resp = initialize_workers()
     new_clf = 10
+    abc = empty_func()
     print('______végig mentünk az össezs worker initializejan______')
     print('--------------------------------------------------------')
     my_result = ''.join(map(str,resp))  # <-- list to str
