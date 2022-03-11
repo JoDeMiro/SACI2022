@@ -423,7 +423,7 @@ def receiveresult():
 
 
 @app.route('/eval', methods=['GET'])
-def eval():
+def evolution():
 	# fogja a modlet, randomizálja meg.
 	new_clf = deepcopy(clf)
 	print('aaaaaaaaaaaaaaaaaaaaaaaaa')
@@ -433,8 +433,7 @@ def eval():
 
 	# küldje el
 
-    return 'Eval!'
-
+    return 'Evolution!'
 
 
 
