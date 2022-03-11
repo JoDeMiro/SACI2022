@@ -78,6 +78,11 @@ print('Pandas version:{}'.format(pd.__version__))
 print('Sci-Kit Learn version:{}'.format(sklearn.__version__))
 
 
+###
+new_randomer = Randomer(1)
+##
+
+
 print('---------------------------------------------------------------')
 print('                         CREATE DAO                            ')
 print('---------------------------------------------------------------')
