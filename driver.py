@@ -412,7 +412,7 @@ def check_received_responses_count():
 		print('ccccccccc ', received_response_count)
 		# reseteljük az számlálót
 		received_response_count = 0
-		print('dddddd ', received_response_count)
+		print('ddddddddd ', received_response_count)
 		# itt akasztjuk ki a másik megakasztott while ciklust, programot
 		global enough
 		enough = True
@@ -459,6 +459,9 @@ def evolution_dev2():
 		# az van, hogy a fenti metodus elküldi az anyagot a workernek-> a tuloldalon ez a hívás azt eredményezi, hogy számol és
 		# vissza is küldi ugyan erre a gépre, de egy másik végpontra az eredményt.
 	#itt azt kéne megvizsgálni, hogy visszajött-e a három eredmény -> és csak akkor engedni tovább a progit, ha az ottani számláló 3.
+	#na ez egy nagy kérdés, hogy a közben, miközben még a for ciklus fent küldözget, már lehet, hogy bejön egy válasz
+	#de elvileg az nem fog bezavarni, amikor ez elindul, akkor ugyanis majd belül vizsgáljuk meg, hogy megvan-e a 3 válaszunk
+	#és akkor felül csapjuk ezt az értéket.
 	global enough
 	enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
 	tmp = 0
@@ -469,6 +472,9 @@ def evolution_dev2():
 		tmp += 1
 		if(tmp > 20):
 			enough = True
+		# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
+		print('óóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóó')
+		print(received_response_count)
 		print('a while loopban vagyunk')
 		print('tmp = ', tmp)
 	print('kijöttünk a while loopból..........')
