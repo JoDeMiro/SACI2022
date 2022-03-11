@@ -77,6 +77,7 @@ print('Pandas version:{}'.format(pd.__version__))
 print('Sci-Kit Learn version:{}'.format(sklearn.__version__))
 
 from randomer import Randomer
+from copy import deepcopy
 
 
 ###
@@ -141,6 +142,8 @@ def initialize_driver():
 	y_train = np.zeros(970)
 	print(x_train.shape)
 	print(y_train.shape)
+
+	global clf
 	clf = MLPRegressor(hidden_layer_sizes=arch, max_iter=3, shuffle=False, activation='tanh', random_state=1)
 	clf.fit(x_train, y_train)
 
@@ -163,6 +166,7 @@ def initialize_driver():
 
 	# A mutációhoz szükséges példányosítanom egy Randomer-t (randomer.py)
 
+	global randomer
 	randomer = Randomer(1)                                         # <-- create a Randomer to controll the mutation
 
 	# - van egy randomize(self, coefs, factor = 1000) függvénye ezt kell majd hivogatni a mutációhoz
@@ -417,6 +421,19 @@ def receiveresult():
     print('---------------------------------')
     return 'Recieve value from Worker!'
 
+
+@app.route('/eval', methods=['GET'])
+def eval():
+	# fogja a modlet, randomizálja meg.
+	new_clf = deepcopy(clf)
+	print('aaaaaaaaaaaaaaaaaaaaaaaaa')
+	print(new_clf)
+
+	# mentse le
+
+	# küldje el
+
+    return 'Eval!'
 
 
 
