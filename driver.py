@@ -430,6 +430,7 @@ def empty_func():
 @app.route('/evolution')
 def evolution():
     # resp = initialize_workers()
+    new_clf = deepcopy(clf)
     new_clf = 10
     abc = empty_func()
     print('______végig mentünk az össezs worker initializejan______')
