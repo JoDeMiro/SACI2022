@@ -300,6 +300,8 @@ def call_worker_uploader(worker_address):
 # Egy konkrét workernek küldi át egy konkrét modelt
 def call_worker_sender(worker_address, new_clf_file_name):
 
+	# --> ennek a hatására a worker vissza fog hívni a receive_result() api-ra
+
 	print('---------------------------------------------------------------')
 	print('                      CALL_WORKER_SENDER()                   ')
 	print('---------------------------------------------------------------')
@@ -430,14 +432,25 @@ def testpoint():
 # -- A receive ellenőrizee a dao méretét ha ez elért egy szintet (akkor visszakapta mindenkiőt a számítást) akkor hívjon rá
 #    az evolvra() (az evolve nem kell hogy REST legyen)
 @app.route('/receiveresult', methods=['GET'])
-def receiveresult():
+def receive_result():
     received_value = request.args.get('value')
     received_gain = request.args.get('gain')
     print('---------------------------------')
     print('received_value from worker =', received_value)
     print('received_gain from worker =', received_gain)
+    check_received_responses_count()
     print('---------------------------------')
     return 'Recieve value from Worker!'
+
+def check_received_responses_count():
+	current_received_response_count = received_response_count + 1
+	print('Az eddig beérkezett válaszok száma =', current_received_response_count)
+	if( current_received_response_count >= 3 ):
+		# reseteljük az számlálót
+		received_response_count = 0
+		# itt akasztjuk ki a másik megakasztott while ciklust, programot
+		global enough
+		enough = True
 
 
 def empty_func():
