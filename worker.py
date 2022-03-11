@@ -829,6 +829,8 @@ def upload_file():
       
       # el lehetne kezdeni kiszámolni ez alapján az eredményt
       # evaluate_model(mlp)
+      # ha így hívom akkor megvárja a kiszámítást és fogja a process-t ezért amikor a Driver ráhív akkor vár a válaszra
+      # megoldás az alábbi kód amire kicseréltem.
       
       # na ezt most kiteszem egy külön szálra
       thread = threading.Thread(target=evaluate_model, args=(mlp,))
