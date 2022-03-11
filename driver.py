@@ -55,6 +55,7 @@ import time
 import pprint
 import joblib
 import sklearn
+import randomer
 import requests
 import threading
 import subprocess
@@ -154,6 +155,15 @@ def initialize_driver():
 
 	# ---------------------------------------------------------------------------
 
+	# A mutációhoz szükséges példányosítanom egy Randomer-t (randomer.py)
+
+	randomer = Randomer(1)                                         # <-- create a Randomer to controll the mutation
+
+	# - van egy randomize(self, coefs, factor = 1000) függvénye ezt kell majd hivogatni a mutációhoz
+
+	# ---------------------------------------------------------------------------
+
+
 
 
 
@@ -161,7 +171,7 @@ def initialize_driver():
 def call_worker_setup(worker_id, worker_address, nRowsRead, window, threshold):
 
 	print('---------------------------------------------------------------')
-	print('                         CALL_WORKER_SETUP()                   ')
+	print('                      CALL_WORKER_SETUP()                      ')
 	print('---------------------------------------------------------------')
 
 	# Setuppolni kell a paramétereket
@@ -174,6 +184,9 @@ def call_worker_setup(worker_id, worker_address, nRowsRead, window, threshold):
 
 # Az összes workeren lefut a setup
 def setup_workers():
+	print('---------------------------------------------------------------')
+	print('                      SETUP_WORKERS()                          ')
+	print('---------------------------------------------------------------')
 	print('workers_addresses = ', workers_addresses)
 	for worker in workers:
 		print('---------------------------------------------------------------------')
@@ -184,35 +197,15 @@ def setup_workers():
 		print('threshold =', threshold)
 		print('---------------------------------------------------------------------')
 
-		call_worker_setup(worker.get('add'), worker.get('add'), nRowsRead, window, threshold)
+		call_worker_setup(worker.get('id'), worker.get('add'), nRowsRead, window, threshold)
 
 
 
-# Az összes workeren lefutat egy test packaget
-def test_all_worker_with_test_package():
-	print('workers_addresses = ', workers_addresses)
-	for worker_address in workers_addresses:
-		print('---------------------------------------------------------------------')
-		print('worker_address = ', worker_address)
-
-		print('---------------------------------------------------------------------')
-		# ha van már elkészült teszt modellünk akkor mindenkinek küljük el kiszámításra
-		# ehez meg kellene írni a modelkülést is -> amit szerintem már megírtam valahol
-		# az egy olyan valami ami a Workerek upload API-ját hivogatják!
-		# Ha ez még nincs megírva akkor meg kell írni.
-
-		# Van már egy call_worker_uploader() ami fixen a model.joblib filét küldi át
-
-		# Ez most itt csak testz.
-
-		call_worker_uploader(worker_address)
-
-
-# aaaaaaa
+# Egy konkrét worker inicializálása
 def call_worker_initialize(worker_address):
 
 	print('---------------------------------------------------------------')
-	print('                         CALL_WORKER_INITIALIZE()              ')
+	print('                      CALL_WORKER_INITIALIZE()                 ')
 	print('---------------------------------------------------------------')
 
 	# Ezzel simán meghívjuk a Worker INITIALIZE REST API Végpontját
@@ -220,23 +213,58 @@ def call_worker_initialize(worker_address):
 	print('initialize ', resp)
 	print('_______call_worker_initialize_______')
 
+	return resp
 
+
+# Az összes worker inicializálása
 def initialize_workers():
+
+	print('---------------------------------------------------------------')
+	print('                      INITIALIZE_WORKERS()                     ')
+	print('---------------------------------------------------------------')
 
 	# Mindegyik Workernek initialize API-ját meg kell hívni
 	print('workers_addresses = ', workers_addresses)
 	for worker_address in workers_addresses:
 		print('---------------------------------------------------------------------')
 		print('worker_address = ', worker_address)
-		call_worker_initialize(worker_address)
+
+		resp = call_worker_initialize(worker_address)
+
+		print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+		print('itt kéne assertálni a workerek setupját')
+		print(type(resp))
+		print('aa-------------------------------aaa')
 
 
 
+# Az összes workeren lefutat egy test packaget
+def test_all_worker_with_test_package():
 
+	print('---------------------------------------------------------------')
+	print('                      TEST_ALL_WORKER_WITH_TEST_PCK()          ')
+	print('---------------------------------------------------------------')
+
+	print('workers_addresses = ', workers_addresses)
+	for worker_address in workers_addresses:
+		print('---------------------------------------------------------------------')
+		print('worker_address = ', worker_address)
+		print('---------------------------------------------------------------------')
+		# ha van már elkészült teszt modellünk akkor mindenkinek küljük el kiszámításra
+		# ehez meg kellene írni a modelkülést is -> amit szerintem már megírtam valahol
+		# az egy olyan valami ami a Workerek upload API-ját hivogatják!
+
+		# Van már egy call_worker_uploader() ami fixen a model.joblib filét küldi át
+		# Ez most itt csak testz.
+
+		call_worker_uploader(worker_address)
+
+
+# Egy konkrét workernek küldi át a modelt
 def call_worker_uploader(worker_address):
 
 	print('---------------------------------------------------------------')
-	print('                         CALL_WORKER_UPLOADER()                ')
+	print('                      CALL_WORKER_UPLOADER()                   ')
 	print('---------------------------------------------------------------')
 
 	# Ezzel a módszerrel lehet átküldeni neki a joblib model filét
@@ -251,10 +279,15 @@ def call_worker_uploader(worker_address):
 	print('_______call_worker_uploader_______')
 
 
+
+
+
+
+# Teszt: A workert tesztponjára hív rá assertel egy 200-as választ
 def call_workers_testpoint():
 
 	print('---------------------------------------------------------------')
-	print('                         CALL_WORKER_TESTPOINT()               ')
+	print('                      CALL_WORKER_TESTPOINT()                  ')
 	print('---------------------------------------------------------------')
 
 	# Mindegyik Workernek küldünk a testpoint API-jára egy értéket
@@ -276,7 +309,7 @@ def call_workers_testpoint():
 
 
 print('---------------------------------------------------------------')
-print('                       FLASK                                   ')
+print('                            FLASK REST                         ')
 print('---------------------------------------------------------------')
 
 
@@ -352,6 +385,14 @@ def testpoint():
 # Miután látjuk, hogy melyik adta a legjobb fitness scoret, a csomagküldésnél használt dict-ből (amit tartalmazza a coef-eket)
 # ki tudjuk majd olvasni a coefs_t ami a legjobb és amit mutálni akarunk
 # 1...
+#
+# 2...Na most a driverrel kéne egy kicsit foglalkoznom.
+# -- létrehoz egy modelt, eddig jó, de most meg kéne írnom a mutátor függvényt.
+# -- ráadásul most már az egészet be kéne csomagolnom egy ciklusba (generation)
+# -- a recievieresult REST-et megírni hogy az az adatokat irja ki egy DAO-ba
+# -- ezt a DAO- az evolve mindíg resetelje.
+# -- A receive ellenőrizee a dao méretét ha ez elért egy szintet (akkor visszakapta mindenkiőt a számítást) akkor hívjon rá
+#    az evolvra() (az evolve nem kell hogy REST legyen)
 @app.route('/receiveresult', methods=['GET'])
 def receiveresult():
     received_value = request.args.get('value')
@@ -361,6 +402,7 @@ def receiveresult():
     print('received_gain from worker =', received_gain)
     print('---------------------------------')
     return 'Recieve value from Worker!'
+
 
 
 
