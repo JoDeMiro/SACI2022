@@ -456,10 +456,7 @@ def evolution_dev2():
 	print('for ciklus start')
 	print(workers_addresses)
 	for i in range(len(workers_addresses)):
-		print('ááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááá')
-		print('parameters = ', parameters)
-		print('parameters.factor = ', parameters.factor)
-		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = 1000)
+		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = parameters.factor)
 		print('--------------- NEW COEFS -------------')
 		print(new_coefs_)
 		new_clf.coefs_ = new_coefs_        # el kéne küldeni a workereknek az új modelt.
