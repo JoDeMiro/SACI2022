@@ -495,6 +495,7 @@ def evolution_dev2():
 	print('---------------------------------------------------------------------------------------------')
 	tmp = 0
 	prev_received_response_count = 0
+	start_time = time.time()
 	while (enough == False):
 		# bizonyos ideig fogjuk ezt a ciklust különben nagyon gyorsan lefut
 		time.sleep( 0.001 )
@@ -514,12 +515,15 @@ def evolution_dev2():
 			enough = True
 			received_response_count = 0
 			print('>>>> ebben a körben érkezett be az utolsó válasz is: ', tmp)
+			end_time = time.time()
+			print('>>> ennyi idő telt el a while indítása óta: ' end_time - start_time)
 		#print('prev_received_response_count = ', prev_received_response_count)
 		#print('     received_response_count = ', received_response_count)
 		#print('a while loopban vagyunk, tmp = ', tmp)
 	print('-----------------------------------------------------')
 	print('#### Ebben a körben jöttünk ki a while loopból: ', tmp)
 	print('vége kijöttünk a while loopból.......................')
+	print('#### Ennyi időbe telt kijönni a while loopból: ', time.time()-start_time)
 	new_clf = 10
 	abc = empty_func()
 	print('_____végig mentünk az össezs worker initializejan____')
