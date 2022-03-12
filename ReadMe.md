@@ -1,6 +1,13 @@
 # SACI2022:  Konferencia cikkhez írt programom
 
-A cikk az overleaf-ben érhető el. Röviden arrról szól, hogy van egy nagyon hosszú idősorunk. Ebből az idősorból képezzük egy előre csatolt neurális hálónak (Feed Foreward Neural Network - FFNN) a bemeneteit, ahol a bemenetek a t-1, t-2, ..., t-30 időpontban mért értékek. A neurális hálót nem tanítjuk. A kimenetén keletkező érték alapján azonban egy ágens döntéseket hoz. Az ágens döntései nyomán előálló értéket akarjuk maximalizálni. Mivel ez az érték csak és kizárólag a neurális háló kimenetén előálló értéktől függ, ezért olyan súlyokat, vagy azokat a súlyokat keressük, amelyek nyomán a neurális háló kimenetén előálló értékek alapján az ágens döntései nyomán előálló érték a legnagyobb lesz.
+A cikk az overleaf-ben érhető el. Röviden arrról szól, hogy van egy nagyon hosszú idősorunk.<br>
+Ebből az idősorból képezzük egy előre csatolt neurális hálónak (Feed Foreward Neural Network - FFNN) a bemeneteit,<br>
+ahol a bemenetek a t-1, t-2, ..., t-30 időpontban mért értékek. A neurális hálót nem tanítjuk.<br>
+A kimenetén keletkező érték alapján azonban egy ágens döntéseket hoz.<br>
+Az ágens döntései nyomán előálló értéket akarjuk maximalizálni.<br>
+
+Mivel ez az érték csak és kizárólag a neurális háló kimenetén előálló értéktől függ, ezért olyan súlyokat,<br>
+vagy azokat a súlyokat keressük, amelyek nyomán a neurális háló kimenetén előálló értékek alapján az ágens döntései nyomán előálló érték a legnagyobb lesz.
 
 
 # Hogyan kell használni a programot
