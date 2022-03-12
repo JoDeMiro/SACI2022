@@ -107,22 +107,22 @@ Az új generáció egyes elemeit ismét egyenként elküldi egy-egy Workernek.
 
 Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megadott generáció számát.
 
-### A Driver kivezetett REST API-jai:
-- [GET] testpoint(value=<str>)
+### A Driver kivezetett API-jai:
+- [GET] testpoint(value=<str>)<br>
   `# resp = requests.get('http://192.168.0.xxx:8080/testpoint?value=123456789')`
-- [GET] calltestpoint()
+- [GET] calltestpoint()<br>
   `# resp = requests.get('http://192.168.0.xxx:8080/calltestpoint)`<br>
   segítségével le tudom tesztelni, hogy egy adott Worker megfelelően üzemel-e, ha a válasz nem **200** akkor hibát dob a program.
 - baba
 - kaba
 
 
-### A Woerker kivezetett REST API-jai:
+### A Woerker kivezetett  API-jai:
 - [GET] setup (driver_ip=<str>, worker_id=<str>, nRowsRead=<str>, window=<str>, threshold=<str>)<br>
   `# resp = requests.get('http://192.168.0.xxx:8080/setup?worker_id=1&nRowsRead=2998&window=20&threshold=-1000')`
-- [GET] initialize() 
+- [GET] initialize()
 - [POST] uploader({'file': file}: <dict>)
-- [GET] testpoint(value=<str>)
+- [GET] testpoint(value=<str>)<br>
   `# resp = requests.get('http://192.168.0.xxx:8080/testpoint?value=123456789')`
 - [GET] update()<br>
   Leállítja a Flask service-t, letölti a GitHub repozitoriumból az legfrissebb verziót <'git pull'> parancson keresztül, újra indítja a Flask servicet.
