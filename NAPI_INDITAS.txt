@@ -1,0 +1,110 @@
+A saját gépen
+cmd (fontos, hogy Adminként)
+
+C:\Users\lpds\Desktop\SACI22\sacivenv\Scripts\activate
+
+cd C:\Users\lpds\Desktop\SACI22\GITHUB\SACI2022
+
+git status
+
+git pull
+
+# git add .
+# git commit -m ""
+# git push
+
+# ezeket szoktam itt kiadni, mivel ebben a könyvtárban szerkesztek mindent
+
+
+
+
+# ---------------------------------------------------
+
+a lényeg, hogy Driver ELKH gépen elindítok egy notebookot
+ssh
+terminal
+
+source notebook/bin/activate
+
+cd SACI2022
+
+git pull
+
+jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse
+
+
+# ---------------------------------------------------
+
+
+A driver gépen
+ssh
+terminal
+
+source notebook/bin/activate
+
+cd SACI2022
+
+git pull
+
+kill -9 $(pgrep waitress)
+
+waitress-serve --port=8080 --call driver:create_app
+
+# kill -9 $(pgrep waitress) ; waitress-serve --port=8080 --call driver:create_app
+
+
+# ---------------------------------------------------
+
+A worker gépen
+ssh
+terminal
+
+ssh -A ubuntu@192.168.0.247
+
+source worker/bin/activate
+
+cd SACI2022
+
+git pull
+
+kill -9 $(pgrep waitress)
+
+waitress-serve --port=8080 --call worker:create_app
+
+# kill -9 $(pgrep waitress) ; waitress-serve --port=8080 --call worker:create_app
+
+
+# ---------------------------------------------------
+
+
+A Driver.ipynb
+A worker.py
+A driver.py
+ugyan abban a SACI2022 github repoba mennek
+csak az egyik ipy a másik py
+
+
+# ---------------------------------------------------
+
+
+A workerek
+
+ssh -A ubuntu@192.168.0.247
+source worker/bin/activate; cd SACI2022; git pull
+kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
+
+ssh -A ubuntu@192.168.0.54
+source worker/bin/activate; cd SACI2022; git pull
+kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
+
+ssh -A ubuntu@192.168.0.32
+source worker/bin/activate; cd SACI2022; git pull
+kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
+
+
+# ---------------------------------------------------
+
+
+
+
+
