@@ -2,7 +2,7 @@
 
 A cikk az overleaf-ben érhető el. Röviden arrról szól, hogy van egy nagyon hosszú idősorunk.<br>
 Ebből az idősorból képezzük egy előre csatolt neurális hálónak (Feed Foreward Neural Network - FFNN)<br>
-a bemeneteit, ahol a bemenetek a ![equation](http://latex.codecogs.com/gif.latex?t_{-1}%2c%20t_{-2}%2c%2e%2e%2e%2c%20t_{-3}%2ct_{-4}) időpontban mért értékek.<br>
+a bemeneteit, ahol a bemenetek a ![equation](http://latex.codecogs.com/gif.latex?t_{-1}%2c%20t_{-2}%2c%2e%2e%2e%2c%20t_{-29}%2ct_{-30}) időpontban mért értékek.<br>
 A neurális hálót nem tanítjuk.<br>
 A kimenetén keletkező érték alapján azonban egy ágens döntéseket hoz.<br>
 Az ágens döntései nyomán előálló értéket akarjuk maximalizálni.<br>
