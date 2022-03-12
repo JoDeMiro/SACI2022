@@ -45,7 +45,7 @@ jupyter notebook password
 A `NAPI_INDITAS.txt` fájlban leírtam, hogy milyen parancsokat kell kiadni az egyes gépeken, hogy a programot megfelelően használni tudjuk.
 
 
-# Hogyan működik a program
+# Hogyan használjuk a programot
 
 Szinte mindent a Driver.ipynb Jupyter Notebookon keresztül lehet vezérelni és beállítani.
 Ez alól egy kivétel van, hogy melyik adat fájlt olvassa be a rendszer. Ez fixen be van égetve a programba és nem is volt cél a kivezetése.
@@ -55,11 +55,36 @@ Ez alól egy kivétel van, hogy melyik adat fájlt olvassa be a rendszer. Ez fix
 3. Nyissuk meg a Driver.ipynb fájlt.
 4. Futtassuk le a programot és kész.
 
+## Milyen paramétereket lehet beállítani a programban
+- nRowsRead (int) maximum 5.6 millió (ToDo: erre irni egy lekezelést, ennél több sort ugyanis nem tartalmaz az adatunk)
+- generation (int) ennyi generáicón keresztül fog futni a program
+- factor (float) (2) ennyivel fogja leosztani a standard normális eloszlásból származó értékeket (kisebb érték nagyobb mutációt eredményez 0.2 azt jelenti, hogy a súlyokhoz adható véletlen szám (-5, +5) között fog mozogni. Ez már egy nagyon radikális mutáció. Eddig [1,2,10] értékeket használtan (erős, közepes, gyenge) mutáció imitálására.
+
+## Egy fontos észrevétel a beolvasott adatok méretével kapcsolatban (ToDo)
+Jelenleg nem jártam alaposan utána, hogy mi az okat annak a jelenségnek, hogy 490 ezer sornál többet olvasok be akkor a Worker meghal, kinyirja magát a Flask.
+
 # Mit csinál a program a háttérben.
 
 A program egy **server - workers** koncepciót használ. A gépek közötti adatcsere **REST API** segítségével történik.
 
 A Driver program és Worker program is Flask modult használ.
+
+A Driver soha nem használja az adatokat. Azokat csak a Workerek használják. A Worekerek ezeket az adatokat a felhőben való iniciálizációjuk során letöltik.
+Egész pontosan klonozzák ezt a gitrepositoriumot és ez tartalmazza az adat fájlt is.
+
+A Workerek nem állítanak elő semmilyen Machine Learning modelt. Ezt a Driver programtól kapják meg.
+Ez minimális töbletet adatot jelent ahhoz képest, mintha csak a súlymátrixot küldeném át.
+Viszont lényegesen leegyszerűsítette az implementációt.
+A Worker programnak ezáltal nem kell implementálnia a NeuralNet osztályt, ezáltal lényegesen kevesebb hibalehetőség adódik, kevesebb konfiugurációs beállítást kell kezelnünk és a Worker program kódja is könnyebben átlátható lett.
+
+## Hogyan zajlik az adatcsere
+
+A Driver tart egy listát a Worker gépek lokális ip címével. Ez alapján tudja, hogy kikkel kell felvennie a kapcsolatot.
+Az inicializáció során küldi el a Workereknek a saját elérhetőségét is.
+
+A Driver program állítja elő a neurális hálók variánsait.
+
+Ezeket (!) szekvenicálisan átküldi a Workerekenek az **http://<woerker_ip_address:8080>/Uploader** cimére ahol a Flask fogadja a fájlt, de-serializálja a modelt, és meghívja az evaluate(mlp) függvényt a kapott modellel.
 
 A Driver kivezetett REST API-jai:
 - aba
