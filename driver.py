@@ -440,7 +440,9 @@ def empty_func():
 # evolution DEV
 @app.route('/evolution2')
 def evolution_dev2():
+	print('--------------------------------------------------------------------------------------------------')
 	print('-------------------------------------------START EVOLUTION2---------------------------------------')
+	print('--------------------------------------------------------------------------------------------------')
 	# resp = initialize_workers()
 	new_clf = deepcopy(clf)
 	old_coefs_ = deepcopy(new_clf.coefs_)
@@ -488,10 +490,14 @@ def evolution_dev2():
 	# a Worker válaszát.
 	# Valszeg az életképesebb megoldás az lesz, ha a Workerben teszem ki egy külön szálra a számítást és az annak végén létrejövő
 	# válasz hívást vissza a Driverre.
+	print('---------------------------------------------------------------------------------------------')
 	print('-------------------------------------------START WHILE---------------------------------------')
+	print('---------------------------------------------------------------------------------------------')
 	tmp = 0
 	prev_received_response_count = 0
 	while (enough == False):
+		# bizonyos ideig fogjuk ezt a ciklust különben nagyon gyorsan lefut
+		time.sleep( 0.001 )
 		# csak akkor irjuk ki az eredményt, ha változás van a beérkezett válaszok számában
 		# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
 		if( prev_received_response_count != received_response_count or received_response_count is None ):
