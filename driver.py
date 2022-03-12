@@ -500,12 +500,12 @@ def evolution_dev2():
 			enough = True
 			received_response_count = 0
 		# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
-		if( prev_received_response_count != received_response_count ):
+		if( prev_received_response_count != received_response_count or received_response_count == None ):
 			print('Beérkezett egy érték a Workertől hurráááááááááááááááááááááááááá')
 			print('Ekkor a tmp értéke a következő volt = ', tmp)
 			prev_received_response_count = received_response_count
 		print('prev_received_response_count = ', prev_received_response_count)
-		print('received_response_count = ', received_response_count)
+		print('     received_response_count = ', received_response_count)
 		print('a while loopban vagyunk, tmp = ', tmp)
 	print('-----------------------------------------------------')
 	print('vége kijöttünk a while loopból.......................')
