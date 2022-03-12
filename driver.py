@@ -490,6 +490,12 @@ def evolution_dev2():
 	tmp = 0
 	prev_received_response_count = 0
 	while (enough == False):
+		# csak akkor irjuk ki az eredményt, ha változás van a beérkezett válaszok számában
+		# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
+		if( prev_received_response_count != received_response_count or received_response_count is None ):
+			print('Beérkezett egy érték a Workertől hurráááááááááááááááááááááááááá')
+			print('Ekkor a tmp értéke a következő volt = ', tmp)
+			prev_received_response_count = received_response_count
 		# vizgálja meg, hogy megkvan-e a három eredmény.
 		# ha igen akkor engedje tovább futni a programot.
 		# ha nem akkor tartsa ebben a ciklusban
@@ -499,22 +505,17 @@ def evolution_dev2():
 		if(received_response_count >= 3):
 			enough = True
 			received_response_count = 0
-		# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
-		if( prev_received_response_count != received_response_count or received_response_count is None ):
-			print('Beérkezett egy érték a Workertől hurráááááááááááááááááááááááááá')
-			print('Ekkor a tmp értéke a következő volt = ', tmp)
-			prev_received_response_count = received_response_count
-		if (received_response_count is None):
-			print('---->>>>>>>>>>>>>>>>>> received_response_count is None <<<<<<<<<<-----------')
+			print('>>>> ebben a körben érkezett be az utolsó válasz is: ', tmp)
 		print('prev_received_response_count = ', prev_received_response_count)
 		print('     received_response_count = ', received_response_count)
 		print('a while loopban vagyunk, tmp = ', tmp)
 	print('-----------------------------------------------------')
+	print('#### Ebben a körben jöttünk ki a while loopból: ', tmp)
 	print('vége kijöttünk a while loopból.......................')
 	new_clf = 10
 	abc = empty_func()
-	print('______végig mentünk az össezs worker initializejan______')
-	print('--------------------------------------------------------')
+	print('_____végig mentünk az össezs worker initializejan____')
+	print('-----------------------------------------------------')
 	my_result = 'mumbapa'
 	return my_result
 
