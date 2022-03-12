@@ -91,32 +91,42 @@ A Driver program állítja elő a neurális hálók variánsait.
 Ezeket direkt (!) szekvenicálisan átküldi a Workerekenek az **http://<woerker_ip_address:8080>/Uploader** cimére ahol a Flask fogadja a fájlt, de-serializálja a modelt, és meghívja az `evaluate(mlp)` függvényt a kapott modellel.<br>
 Az `evaluate()` egy külön szálon indul el, ezáltal az **Uploader** REST API **200** OK választkodót ad vissza Drivernek.
 
-A Driver miután mindegyik Workernek elküldte a modelt belekerüle egy `while` ciklusba amely addig igaz amíg az összes Workertől vissza nem kapjuk a kiszámított értéket.
+A Driver miután mindegyik Workernek elküldte a modelt belekerül egy `while` ciklusba, amely addig igaz amíg az összes Workertől vissza nem kapjuk a kiszámított értéket.
 
 Eközben a Workereken az `evaluate()` a `Trader` osztály egy példányát fehasználva kiszámolja az adott modelhez tartozó **fitness_score** értéket.<br>
 Amint végez ezzel a számítással vissza küldi az eredményt a Driver ép **http://<driver_ip_address:8080>/Receiver** cimére.<br>
 
 A Driver fenn tart egy számlálót arról, hogy hány Workertől kapta meg a választ.<br>
-Amint meg van az összes válasz megszakítja a `while` ciklust és a program továb lép a következő generáció kiszámítására.
+Amint meg van az összes válasz megszakítja a `while` ciklust és a program tovább lép a következő generáció kiszámítására.
 
 Ennek első lépése, hogy kiválasztja a legjobban teljesítő modelt, a hozzá tartozó érték alapján.
 
 Ennek a modelnek az alapján létrehozza az új generációt.
 
-Az új generáció egyes elemeit ismét egyenként egy-egy Workernek.
+Az új generáció egyes elemeit ismét egyenként elküldi egy-egy Workernek.
 
 Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megadott generáció számát.
 
 ### A Driver kivezetett REST API-jai:
-- aba
+- [GET] testpoint(value=<str>)
+  `# resp = requests.get('http://192.168.0.xxx:8080/testpoint?value=123456789')`
+- [GET] calltestpoint()
+  `# resp = requests.get('http://192.168.0.xxx:8080/calltestpoint)`<br>
+  segítségével le tudom tesztelni, hogy egy adott Worker megfelelően üzemel-e, ha a válasz nem **200** akkor hibát dob a program.
 - baba
 - kaba
 
 
 ### A Woerker kivezetett REST API-jai:
-- aba
-- baba
-- kaba
+- [GET] setup (driver_ip=<str>, worker_id=<str>, nRowsRead=<str>, window=<str>, threshold=<str>)<br>
+  `# resp = requests.get('http://192.168.0.xxx:8080/setup?worker_id=1&nRowsRead=2998&window=20&threshold=-1000')`
+- [GET] initialize() 
+- [POST] uploader({'file': file}: <dict>)
+- [GET] testpoint(value=<str>)
+  `# resp = requests.get('http://192.168.0.xxx:8080/testpoint?value=123456789')`
+- [GET] update()<br>
+  Leállítja a Flask service-t, letölti a GitHub repozitoriumból az legfrissebb verziót <'git pull'> parancson keresztül, újra indítja a Flask servicet.
+  
 
 
 
