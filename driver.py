@@ -599,7 +599,8 @@ def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dum
     print('-------------------------------SETUP---------------------------------')
 
     received_generation = (int)(request.args.get('generation'))
-    received_factor     = (int)(request.args.get('factor'))
+    # received_factor     = (int)(request.args.get('factor'))
+    received_factor     = (float)(request.args.get('factor'))
     received_dummy      = (float)(request.args.get('dummy'))
 
     print('received_generation =', received_generation)
