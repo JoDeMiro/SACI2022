@@ -14,7 +14,7 @@ Az ágens döntései nyomán előálló értéket akarjuk maximalizálni.<br>
 
 ![equation](http://latex.codecogs.com/gif.latex?O_t%3D%5Ctext%20%7B%20Onset%20event%20at%20time%20bin%20%7D%20t)
 
-![equation](http://latex.codecogs.com/gif.latex?t%20of%20a%20 -1  %20%7D%20, t%20of%20a%20 -1  %20%7D%20, t%20of%20a%20 -1  %20%7D%20 )
+![equation](http://latex.codecogs.com/gif.latex?t%20of%20a%20-1%20%7D%20,t%20of%20a%20-1%20%7D%20,t%20of%20a%20-1%20%7D%20 )
 
 
 Mivel ez az érték csak és kizárólag a neurális háló kimenetén előálló értéktől függ, ezért olyan súlyokat,<br>
