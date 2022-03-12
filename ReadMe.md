@@ -1,50 +1,49 @@
-ReadMe.md
+# SACI2022:  Konferencia cikkhez írt programom
 
-A Driver példányosításánál a cloud_init_driver.txt fájlt kell használni.
-
------
-
-Ezzel a scripttel kell létrehozni a virtuális gépet
-
-Rá kell rakni még a Floating IP címet.
-
-Ha beléptem, akkor már minden telepítve van, de le kell jelszavazni a notebookot.
+A cikk az overleaf-ben érhető el. Röviden arrról szól, hogy van egy nagyon hosszú idősorunk. Ebből az idősorból képezzük egy előre csatolt neurális hálónak (Feed Foreward Neural Network - FFNN) a bemeneteit, ahol a bemenetek a t-1, t-2, ..., t-30 időpontban mért értékek. A neurális hálót nem tanítjuk. A kimenetén keletkező érték alapján azonban egy ágens döntéseket hoz. Az ágens döntései nyomán előálló értéket akarjuk maximalizálni. Mivel ez az érték csak és kizárólag a neurális háló kimenetén előálló értéktől függ, ezért olyan súlyokat, vagy azokat a súlyokat keressük, amelyek nyomán a neurális háló kimenetén előálló értékek alapján az ágens döntései nyomán előálló érték a legnagyobb lesz.
 
 
-A Driverre felteszek egy Jupyter Notebookot is, onnan fogom vezérelni.
+# Hogyan kell használni a programot
 
-Passwordözzük le
+A program három külön álló részből áll.
+- driver (driver.py)
+- worker (worker.py
+- Driver.ipynb (ezen keresztül vezéreljük a drivert)
+
+# Telepítés
+
+A program megköveteli, hogy az ELKH Cloudun létre legyenek hozva a Virtuális Gépek.
+A virtuális gépeket a cloud init mechanizmuson keredsztül egy a cloud_init_driver.txt és a worker_init.txt fájlok segítségével érdemes létrehozni.
+Ennek hatására a virtuális gépekre felkerülnek a szükséges fájlok, függőségek, és elindul rajta az adott szolgáltatás.
+
+A driver-t vezérlő Driver.ipynb futtatásához a driveren futó Jupyter Notebook alkalmazásra is szükség van.
+A telepítés során ez is felkerül a Driver Virtuális Gépre.
+Ha mégsem indulna el akkor lehet manuálisan is indítani az adott szolgáltatást.
+
+**Fontos** megjegyezni, hogy a Driver gép távoli eléréséhez szükséges hozzárendelni a *Floatin IP* címet. Egyéb esetben nem fogjuk tudni kívűlről elérni a szolgáltatást.
+
+## Kiegészítő lépés a telepítéshez
+
+Ha szeretnénk jelszóval védeni a Jupyter Notebook alkalmazást akkor szükséges kiadni az alábbi parancsokat a Driver gépen:
+
 ```
 source notebook/bin/activate
 jupyter notebook password
 ```
 
+# Manuális indítás
 
-Csinálok neki egy indítót `run-jupyter.sh`
-```
-mkdir driver
-```
+A NAPI_INDITAS.txt fájlban leírtam, hogy milyen parancsokat kell kiadni az egyes gépeken, hogy a programot megfelelően használni tudjuk.
 
-Lerántom a Github repóból a korábbi munkámat. (nem akarom clonozni az egész repot)<br>
-Privát Repo ugyhogy ez csak nekem és csak **tokennel** fog menni ami mindíg változik (JoDeMiro)
 
-```
-cd driver
-wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/Driver/SACI22_019.ipynb
-cd ..
-```
+# Hogyan működik a program
 
-```
-touch run-jupyter.sh
+Szinte mindent a Driver.ipynb Jupyter Notebookon keresztül lehet vezérelni és beállítani.
+Ez alól egy kivétel van, hogy melyik adat fájlt olvassa be a rendszer. Ez fixen be van égetve a programba és nem is volt cél a kivezetése.
 
-echo "#!/bin/bash" >> ~/run-jupyter.sh
-echo "source /home/ubuntu/notebook/bin/activate" >> ~/run-jupyter.sh
-echo "cd driver" >> ~/run-jupyter.sh
-echo "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --config=~/.jupyter/jupyter_notebook_config.py" >> ~/run-jupyter.sh
-
-chmod u+x run-jupyter.sh
-```
-
+1. Végezzük el a telepítést.
+2. Ha ellenőriztük, hogy fut a Jupyter Notebook szolgálatatás akkor lépjünk be a Driver gépre az erőforrásunkhoz rendelt *Floatin IP* címen keresztül.
+3. 
 
 
 
