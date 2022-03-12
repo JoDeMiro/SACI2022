@@ -141,6 +141,10 @@ Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megad
 - [GET] update()<br>
    `# resp = requests.get('http://192.168.0.xxx:8080/update')`
   Leállítja a Flask service-t, letölti a GitHub repozitoriumból az legfrissebb verziót <'git pull'> parancson keresztül, újra indítja a Flask servicet.
+
+# Known issues, bugs
+  1. A Wokerek megrogynak ha a beolvasott sorok száma `nRowsRead` meghaladja a 800.000 sort.
+  2. Amikor a Driveren keresztül inicializálom a Workereket akkor az szekvenciálisan kerül végrehajtásra.
   
 
 # Saját magam figyelmébe ajánlom.
