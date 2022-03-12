@@ -504,9 +504,9 @@ def evolution_dev2():
 			print('Beérkezett egy érték a Workertől hurráááááááá')
 			print('tmp = ', tmp)
 			prev_received_response_count = received_response_count
-		print('gluglu')
 		print('óóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóó')
-		print(received_response_count)
+		print('prev_received_response_count = ', prev_received_response_count)
+		print('received_response_count = ', received_response_count)
 		print('a while loopban vagyunk')
 		print('tmp = ', tmp)
 	print('kijöttünk a while loopból..........')
