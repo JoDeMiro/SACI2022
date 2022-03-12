@@ -112,9 +112,19 @@ Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megad
   `# resp = requests.get('http://192.168.0.xxx:8080/testpoint?value=123456789')`
 - [GET] calltestpoint()<br>
   `# resp = requests.get('http://192.168.0.xxx:8080/calltestpoint)`<br>
-  segítségével le tudom tesztelni, hogy egy adott Worker megfelelően üzemel-e, ha a válasz nem **200** akkor hibát dob a program.
-- baba
-- kaba
+  segítségével le tudom tesztelni, hogy egy adott Worker megfelelően üzemel-e.
+- [GET] setup(generation=<str>, factor=<str>, dummy=<str>)<br>
+  `# resp = requests.get('http://192.168.0.xxx:8080/setup?generation=5000&factor=2&dummy=ABC)`<br>
+- [GET] initialize(_nRowsRead=<int>)<br>
+  `# resp = requests.get('http://192.168.0.xxx:8080/initialize?_nRowsRead=98765)`<br>
+- [GET] setupworkers()
+- [GET] initializeworkers()
+- [GET] testworkerscalc()
+  Ugyan azt a csomagot küldi el az összes workernek.<br>
+  Azt vizsgálom, hogy ugyan azt az eredményt adja-e vissza az összes worker.<br>
+  Ez is egy assert, ha nem ugyan az az eredmény akkor valahol nem stimmel valami és megállítom a programot.
+- [GET] evolution2()<br>
+  Gyakorlatilag ezen keresztül indítom el az Evolúciós keresést.
 
 
 ### A Woerker kivezetett  API-jai:
@@ -128,6 +138,9 @@ Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megad
   Leállítja a Flask service-t, letölti a GitHub repozitoriumból az legfrissebb verziót <'git pull'> parancson keresztül, újra indítja a Flask servicet.
   
 
-
+# Saját magam figyelmébe ajánlom.
+Nem érdemes bíbelődni az API tanulmányozásával. A Driver.ipynb Jupyter Notebook fájlt érdmes megnyitni és lépésenként végig menni rajta. Eléggé kézenfekvő a működése és sok megjegyzéssel tele tüzdelt fájl.
+  
+Magát a programot is elláttam a megjegyzéseimmel. Ez a mértékadó.
 
 
