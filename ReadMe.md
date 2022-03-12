@@ -145,6 +145,7 @@ Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megad
 # Known issues, bugs
   1. A Wokerek megrogynak ha a beolvasott sorok száma `nRowsRead` meghaladja a 800.000 sort.
   2. Amikor a Driveren keresztül inicializálom a Workereket akkor az szekvenciálisan kerül végrehajtásra.
+  3. A `driver.py` a várakozás alatt a `while` ciklusba bele tettem egy timeoutot, hogy mindenképpen zárja a ciklust, ha meghalad egy előre beállított értéket. Jelenleg ez bele van égetve a programba és szűk keresztmentszet lehet, ha a Worker ténylegesen tovább számol.
   
 
 # Saját magam figyelmébe ajánlom.
