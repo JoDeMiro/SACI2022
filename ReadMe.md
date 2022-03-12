@@ -117,13 +117,17 @@ Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megad
   `# resp = requests.get('http://192.168.0.xxx:8080/setup?generation=5000&factor=2&dummy=ABC)`<br>
 - [GET] initialize(_nRowsRead=<int>)<br>
   `# resp = requests.get('http://192.168.0.xxx:8080/initialize?_nRowsRead=98765)`<br>
-- [GET] setupworkers()
-- [GET] initializeworkers()
-- [GET] testworkerscalc()
+- [GET] setupworkers()<br>
+  `# resp = requests.get('http://192.168.0.xxx:8080/setupworkers)`<br>
+- [GET] initializeworkers()<br>
+  `# resp = requests.get('http://192.168.0.xxx:8080/initializeworkers)`<br>
+- [GET] testworkerscalc()<br>
+  `# resp = requests.get('http://192.168.0.xxx:8080/testworkerscalc)`<br>
   Ugyan azt a csomagot küldi el az összes workernek.<br>
   Azt vizsgálom, hogy ugyan azt az eredményt adja-e vissza az összes worker.<br>
   Ez is egy assert, ha nem ugyan az az eredmény akkor valahol nem stimmel valami és megállítom a programot.
 - [GET] evolution2()<br>
+  `# resp = requests.get('http://192.168.0.xxx:8080/evolution2)`<br>
   Gyakorlatilag ezen keresztül indítom el az Evolúciós keresést.
 
 
@@ -135,6 +139,7 @@ Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megad
 - [GET] testpoint(value=<str>)<br>
   `# resp = requests.get('http://192.168.0.xxx:8080/testpoint?value=123456789')`
 - [GET] update()<br>
+   `# resp = requests.get('http://192.168.0.xxx:8080/update')`
   Leállítja a Flask service-t, letölti a GitHub repozitoriumból az legfrissebb verziót <'git pull'> parancson keresztül, újra indítja a Flask servicet.
   
 
