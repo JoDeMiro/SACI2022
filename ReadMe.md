@@ -152,5 +152,9 @@ Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megad
 Nem érdemes bíbelődni az API tanulmányozásával. A Driver.ipynb Jupyter Notebook fájlt érdmes megnyitni és lépésenként végig menni rajta. Eléggé kézenfekvő a működése és sok megjegyzéssel tele tüzdelt fájl.
   
 Magát a programot is elláttam a megjegyzéseimmel. Ez a mértékadó.
+  
+# ToDo
+Csinálni egy olyan tesztet, hogy az egész párhuzamos helyett szekvenciálisan fut le.<br>
+Ezt könnyen megtehetem, hiszen csak a workereknél az evaluation() metodust kell az uploader API-ban kivezetnem a külön szálról és akkor az API hívás bevárja a választ, ezáltal szekvenciálisan fut le.
 
 
