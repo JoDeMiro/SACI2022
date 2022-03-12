@@ -440,6 +440,7 @@ def empty_func():
 # evolution DEV
 @app.route('/evolution2')
 def evolution_dev2():
+	print('-------------------------------------------START EVOLUTION2---------------------------------------')
 	# resp = initialize_workers()
 	new_clf = deepcopy(clf)
 	old_coefs_ = deepcopy(new_clf.coefs_)
@@ -487,6 +488,7 @@ def evolution_dev2():
 	# a Worker válaszát.
 	# Valszeg az életképesebb megoldás az lesz, ha a Workerben teszem ki egy külön szálra a számítást és az annak végén létrejövő
 	# válasz hívást vissza a Driverre.
+	print('-------------------------------------------START WHILE---------------------------------------')
 	tmp = 0
 	prev_received_response_count = 0
 	while (enough == False):
