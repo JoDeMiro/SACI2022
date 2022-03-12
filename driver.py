@@ -506,7 +506,7 @@ def evolution_dev2():
 			prev_received_response_count = received_response_count
 		# print('óóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóó')
 		# print('prev_received_response_count = ', prev_received_response_count)
-		# print('received_response_count = ', received_response_count)
+		print('received_response_count = ', received_response_count)
 		print('a while loopban vagyunk, tmp = ', tmp)
 		# print('tmp = ', tmp)
 	print('kijöttünk a while loopból..........')
