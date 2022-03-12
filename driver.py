@@ -506,9 +506,9 @@ def evolution_dev2():
 			enough = True
 			received_response_count = 0
 			print('>>>> ebben a körben érkezett be az utolsó válasz is: ', tmp)
-		print('prev_received_response_count = ', prev_received_response_count)
-		print('     received_response_count = ', received_response_count)
-		print('a while loopban vagyunk, tmp = ', tmp)
+		#print('prev_received_response_count = ', prev_received_response_count)
+		#print('     received_response_count = ', received_response_count)
+		#print('a while loopban vagyunk, tmp = ', tmp)
 	print('-----------------------------------------------------')
 	print('#### Ebben a körben jöttünk ki a while loopból: ', tmp)
 	print('vége kijöttünk a while loopból.......................')
