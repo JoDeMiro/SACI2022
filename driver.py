@@ -504,12 +504,11 @@ def evolution_dev2():
 			print('Beérkezett egy érték a Workertől hurráááááááááááááááááááááááááá')
 			print('Ekkor a tmp értéke a következő volt = ', tmp)
 			prev_received_response_count = received_response_count
-		# print('óóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóó')
-		# print('prev_received_response_count = ', prev_received_response_count)
+		print('prev_received_response_count = ', prev_received_response_count)
 		print('received_response_count = ', received_response_count)
 		print('a while loopban vagyunk, tmp = ', tmp)
-		# print('tmp = ', tmp)
-	print('kijöttünk a while loopból..........')
+	print('-----------------------------------------------------')
+	print('vége kijöttünk a while loopból.......................')
 	new_clf = 10
 	abc = empty_func()
 	print('______végig mentünk az össezs worker initializejan______')
