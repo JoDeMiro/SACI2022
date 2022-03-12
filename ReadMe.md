@@ -19,6 +19,9 @@ Az ágens döntései nyomán előálló értéket akarjuk maximalizálni.<br>
 
 ![equation](http://latex.codecogs.com/gif.latex?P%28s%20%7C%20O_t%20%29%3D%5Ctext%20%7B%20Probability%20of%20a%20sensor%20reading%20value%20when%20sleep%20onset%20is%20observed%20at%20a%20time%20bin%20%7D%20t)
 
+![equation](http://latex.codecogs.com/gif.latex?P%28s%20%7C%20O_t%20%29%3D%5Ctext%20%7B%20Probability%20of%20%20onset%20is%20observed%20at%20a%20time%20bin%20%7D%20t)
+
+
 Mivel ez az érték csak és kizárólag a neurális háló kimenetén előálló értéktől függ, ezért olyan súlyokat,<br>
 vagy azokat a súlyokat keressük, amelyek nyomán a neurális háló kimenetén előálló értékek alapján<br>
 az ágens döntései nyomán előálló érték a legnagyobb lesz.
