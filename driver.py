@@ -416,8 +416,11 @@ def check_received_responses_count():
 		# received_response_count = 0
 		print('3  >> received_response_count =', received_response_count)
 		# itt akasztjuk ki a másik megakasztott while ciklust, programot
-		global enough
-		enough = True
+		# global enough
+		# enough = True
+		# WARNING
+		# jó kérdés, hogy vajon itt vagy a while ciklusban állítsuk-e át ezt az értéket.
+		# két helyen nem biztos, hogy jó ötlet
 		print('X >> elegendő számú válaszunk van ki fogjuk léptetni a while loopból, mert átállítom az enough értékét')
 
 @app.route('/receiveresult', methods=['GET'])
@@ -508,10 +511,6 @@ def evolution_dev2():
 	tmp = 0
 	prev_received_response_count = 0
 	start_time = time.time()
-	print('\n\n\n\n\n\n\n\n')
-	print(prev_received_response_count)
-	print(received_response_count)
-	print('\n\n\n')
 	while (enough == False):
 		# bizonyos ideig fogjuk ezt a ciklust különben nagyon gyorsan lefut
 		time.sleep( 0.001 )
