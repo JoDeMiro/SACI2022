@@ -438,7 +438,7 @@ def receive_result():
 
 
 def empty_func():
-	print('a')
+	print('    ')
 	return 'abc'
 
 
@@ -448,22 +448,22 @@ def evolution_dev2():
 	print('--------------------------------------------------------------------------------------------------')
 	print('-------------------------------------------START EVOLUTION2---------------------------------------')
 	print('--------------------------------------------------------------------------------------------------')
-	# resp = initialize_workers()
 	new_clf = deepcopy(clf)
 	old_coefs_ = deepcopy(new_clf.coefs_)
 	# print('--------------- OLD COEFS -------------')
-	print(old_coefs_)
-	print('for ciklus start')
+	# print(old_coefs_)
+	print(workers_addresses)
 	print('--------------------------------------------------------------------------------------------------')
 	print('                                           START FOR LOOP                                         ')
 	print('--------------------------------------------------------------------------------------------------')
-	print(workers_addresses)
 	global received_response_count
 	received_response_count = 0 			# be kell állítani 0-ra, hogy tényleg azt számolja amit kell
-	print('--------------------------------------------------------------------------------------------------')
-	print('-------------------------------------------RESET GLOBAL received_response_count---------------------------------------')
-	print('--------------------------------------------------------------------------------------------------')
+	# Feltételezzük, hogy ezen a ponton még nem érkezett egyetlen válasz sem, de ez egy hibás feltételezés
+	# nem így kéne ezt itt lekezelni, hogy simán felül csapom ezt az értéket.
 	print('received_response_count:', received_response_count)
+	print('--------------------------------------------------------------------------------------------------')
+	print('-------------------------------------------RESET GLOBAL received_response_count-------------------')
+	print('--------------------------------------------------------------------------------------------------')
 	global enough
 	enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
 	print('------------------------------------------------------->>>>>>>>>>>>> 1_____ enough = ', enough)
