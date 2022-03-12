@@ -488,6 +488,7 @@ def evolution_dev2():
 	# Valszeg az életképesebb megoldás az lesz, ha a Workerben teszem ki egy külön szálra a számítást és az annak végén létrejövő
 	# válasz hívást vissza a Driverre.
 	tmp = 0
+	prev_received_response_count = 0
 	while (enough == False):
 		# vizgálja meg, hogy megkvan-e a három eredmény.
 		# ha igen akkor engedje tovább futni a programot.
@@ -499,6 +500,11 @@ def evolution_dev2():
 			enough = True
 			received_response_count = 0
 		# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
+		if( prev_received_response_count != received_response_count ):
+			print('Beérkezett egy érték a Workertől hurráááááááá')
+			print('tmp = ', tmp)
+			prev_received_response_count = received_response_count
+		print('gluglu')
 		print('óóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóó')
 		print(received_response_count)
 		print('a while loopban vagyunk')
