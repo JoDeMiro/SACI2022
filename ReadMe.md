@@ -7,7 +7,8 @@ A kimenetén keletkező érték alapján azonban egy ágens döntéseket hoz.<br
 Az ágens döntései nyomán előálló értéket akarjuk maximalizálni.<br>
 
 Mivel ez az érték csak és kizárólag a neurális háló kimenetén előálló értéktől függ, ezért olyan súlyokat,<br>
-vagy azokat a súlyokat keressük, amelyek nyomán a neurális háló kimenetén előálló értékek alapján az ágens döntései nyomán előálló érték a legnagyobb lesz.
+vagy azokat a súlyokat keressük, amelyek nyomán a neurális háló kimenetén előálló értékek alapján<br>
+az ágens döntései nyomán előálló érték a legnagyobb lesz.
 
 
 # Hogyan kell használni a programot
