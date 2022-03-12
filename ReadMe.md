@@ -16,7 +16,7 @@ az ágens döntései nyomán előálló érték a legnagyobb lesz.
 
 A program három külön álló részből áll.
 - driver (driver.py)
-- worker (worker.py
+- worker (worker.py)
 - Driver.ipynb (ezen keresztül vezéreljük a drivert)
 
 # Telepítés
