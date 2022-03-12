@@ -22,10 +22,10 @@ A program három külön álló részből áll.
 # Telepítés
 
 A program megköveteli, hogy az ELKH Cloudun létre legyenek hozva a Virtuális Gépek.
-A virtuális gépeket a cloud init mechanizmuson keredsztül egy a cloud_init_driver.txt és a worker_init.txt fájlok segítségével érdemes létrehozni.
+A virtuális gépeket a cloud init mechanizmuson keredsztül egy a `cloud_init_driver.txt` és a `cloud_init_worker.txt` fájlok segítségével érdemes létrehozni.
 Ennek hatására a virtuális gépekre felkerülnek a szükséges fájlok, függőségek, és elindul rajta az adott szolgáltatás.
 
-A driver-t vezérlő Driver.ipynb futtatásához a driveren futó Jupyter Notebook alkalmazásra is szükség van.
+A driver-t vezérlő `Driver.ipynb` futtatásához a driveren futó **Jupyter Notebook** alkalmazásra is szükség van.
 A telepítés során ez is felkerül a Driver Virtuális Gépre.
 Ha mégsem indulna el akkor lehet manuálisan is indítani az adott szolgáltatást.
 
