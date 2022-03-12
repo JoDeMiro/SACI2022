@@ -422,18 +422,18 @@ def check_received_responses_count():
 
 @app.route('/receiveresult', methods=['GET'])
 def receive_result():
-    received_value = request.args.get('value')
-    received_gain = request.args.get('gain')
-    print('----------------------------------------------------------------------------------------------')
+	received_value = request.args.get('value')
+	received_gain = request.args.get('gain')
+	print('----------------------------------------------------------------------------------------------')
 	print('                                       RECEIVED VALUE FROM WORKER                             ')
 	print('----------------------------------------------------------------------------------------------')
-    # print('received_value from worker =', received_value)
-    print('received_gain from worker  =', received_gain)
-    print('---------------------------------------CHECK_RECEIVED_RESPONSE_COUNT--------------------------')
-    check_received_responses_count()
-    print('---------------------------------------END CHECK_RECEIVED_RESPONSE_COUNT----------------------')
-    print('---------------------------------------END RECEIVED VALUE FROM WORKER-------------------------')
-    return 'Recieve value from Worker!'
+	# print('received_value from worker =', received_value)
+	print('received_gain from worker  =', received_gain)
+	print('---------------------------------------CHECK_RECEIVED_RESPONSE_COUNT--------------------------')
+	check_received_responses_count()
+	print('---------------------------------------END CHECK_RECEIVED_RESPONSE_COUNT----------------------')
+	print('---------------------------------------END RECEIVED VALUE FROM WORKER-------------------------')
+	return 'Recieve value from Worker!'
 
 
 
