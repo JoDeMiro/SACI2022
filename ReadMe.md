@@ -2,10 +2,13 @@
 
 A cikk az overleaf-ben érhető el. Röviden arrról szól, hogy van egy nagyon hosszú idősorunk.<br>
 Ebből az idősorból képezzük egy előre csatolt neurális hálónak (Feed Foreward Neural Network - FFNN)<br>
-a bemeneteit, ahol a bemenetek a $t-1, t-2, ..., t-30$ időpontban mért értékek.<br>
+a bemeneteit, ahol a bemenetek a **t-1, t-2, ..., t-30** időpontban mért értékek.<br>
 A neurális hálót nem tanítjuk.<br>
 A kimenetén keletkező érték alapján azonban egy ágens döntéseket hoz.<br>
 Az ágens döntései nyomán előálló értéket akarjuk maximalizálni.<br>
+
+- <img src="https://latex.codecogs.com/gif.latex?O_t=\text { Onset event at time bin } t " />
+- <img src="https://latex.codecogs.com/gif.latex?t_{0}, t_{-1}, t_{-2}, ..., t_{-30}" /> 
 
 Mivel ez az érték csak és kizárólag a neurális háló kimenetén előálló értéktől függ, ezért olyan súlyokat,<br>
 vagy azokat a súlyokat keressük, amelyek nyomán a neurális háló kimenetén előálló értékek alapján<br>
