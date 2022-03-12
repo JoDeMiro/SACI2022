@@ -519,6 +519,7 @@ def evolution_dev2():
 		if( prev_received_response_count != received_response_count or received_response_count is None ):
 			print('>>>> Beérkezett egy érték a Workertől hurráááááááááááááááááááááááááá')
 			print('>>>> Ekkor a tmp értéke a következő volt = ', tmp)
+			PRINT('>>>> Ekkor a received_response_count = ', received_response_count)
 			print('>>>> ennyi idő telt el a while indítása óta: ', time.time() - start_time)
 			prev_received_response_count = received_response_count
 		# vizgálja meg, hogy megkvan-e a három eredmény.
