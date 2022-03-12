@@ -502,8 +502,9 @@ def evolution_dev2():
 		# csak akkor irjuk ki az eredményt, ha változás van a beérkezett válaszok számában
 		# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
 		if( prev_received_response_count != received_response_count or received_response_count is None ):
-			print('Beérkezett egy érték a Workertől hurráááááááááááááááááááááááááá')
-			print('Ekkor a tmp értéke a következő volt = ', tmp)
+			print('>>>> Beérkezett egy érték a Workertől hurráááááááááááááááááááááááááá')
+			print('>>>> Ekkor a tmp értéke a következő volt = ', tmp)
+			print('>>>> ennyi idő telt el a while indítása óta: ', time.time() - start_time)
 			prev_received_response_count = received_response_count
 		# vizgálja meg, hogy megkvan-e a három eredmény.
 		# ha igen akkor engedje tovább futni a programot.
@@ -515,8 +516,7 @@ def evolution_dev2():
 			enough = True
 			received_response_count = 0
 			print('>>>> ebben a körben érkezett be az utolsó válasz is: ', tmp)
-			end_time = time.time()
-			print('>>> ennyi idő telt el a while indítása óta: ', end_time - start_time)
+			print('>>>> ennyi idő telt el a while indítása óta: ', time.time() - start_time)
 		#print('prev_received_response_count = ', prev_received_response_count)
 		#print('     received_response_count = ', received_response_count)
 		#print('a while loopban vagyunk, tmp = ', tmp)
