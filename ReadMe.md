@@ -29,7 +29,7 @@ A driver-t vezérlő `Driver.ipynb` futtatásához a driveren futó **Jupyter No
 A telepítés során ez is felkerül a Driver Virtuális Gépre.
 Ha mégsem indulna el akkor lehet manuálisan is indítani az adott szolgáltatást.
 
-**Fontos** megjegyezni, hogy a Driver gép távoli eléréséhez szükséges hozzárendelni a *Floatin IP* címet. Egyéb esetben nem fogjuk tudni kívűlről elérni a szolgáltatást.
+**Fontos** megjegyezni, hogy a Driver gép távoli eléréséhez szükséges hozzárendelni a **Floating IP** címet. Egyéb esetben nem fogjuk tudni kívűlről elérni a szolgáltatást.
 
 ## Kiegészítő lépés a telepítéshez
 
@@ -42,7 +42,7 @@ jupyter notebook password
 
 # Manuális indítás
 
-A NAPI_INDITAS.txt fájlban leírtam, hogy milyen parancsokat kell kiadni az egyes gépeken, hogy a programot megfelelően használni tudjuk.
+A `NAPI_INDITAS.txt` fájlban leírtam, hogy milyen parancsokat kell kiadni az egyes gépeken, hogy a programot megfelelően használni tudjuk.
 
 
 # Hogyan működik a program
@@ -51,8 +51,21 @@ Szinte mindent a Driver.ipynb Jupyter Notebookon keresztül lehet vezérelni és
 Ez alól egy kivétel van, hogy melyik adat fájlt olvassa be a rendszer. Ez fixen be van égetve a programba és nem is volt cél a kivezetése.
 
 1. Végezzük el a telepítést.
-2. Ha ellenőriztük, hogy fut a Jupyter Notebook szolgálatatás akkor lépjünk be a Driver gépre az erőforrásunkhoz rendelt *Floatin IP* címen keresztül.
-3. 
+2. Ha ellenőriztük, hogy fut a Jupyter Notebook szolgálatatás akkor lépjünk be a Driver gépre az erőforrásunkhoz rendelt **Floatin IP** címen keresztül.
+3. Nyissuk meg a Driver.ipynb fájlt.
+4. Futtassuk le a programot és kész.
+
+# Mit csinál a program a háttérben.
+
+A program egy **server - workers** koncepciót használ. A gépek közötti adatcsere **REST API** segítségével történik.
+
+A Driver program és Worker program is Flask modult használ.
+
+A Driver kivezetett REST API-jai:
+- aba
+- baba
+- kaba
+- 
 
 
 
