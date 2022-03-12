@@ -8,7 +8,10 @@ A kimenetén keletkező érték alapján azonban egy ágens döntéseket hoz.<br
 Az ágens döntései nyomán előálló értéket akarjuk maximalizálni.<br>
 
 - <img src="https://latex.codecogs.com/gif.latex?O_t=\text { Onset event at time bin } t " />
-- <img src="https://latex.codecogs.com/gif.latex?t_{0}, t_{-1}, t_{-2}, ..., t_{-30}" /> 
+- <img src="https://latex.codecogs.com/gif.latex?t_{0}, t_{-1}, t_{-2}, ..., t_{-30}" />
+
+![equation](http://latex.codecogs.com/gif.latex?s%3D%5Ctext%20%7B%20sensor%20reading%20%7D) 
+
 
 Mivel ez az érték csak és kizárólag a neurális háló kimenetén előálló értéktől függ, ezért olyan súlyokat,<br>
 vagy azokat a súlyokat keressük, amelyek nyomán a neurális háló kimenetén előálló értékek alapján<br>
