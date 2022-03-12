@@ -508,6 +508,10 @@ def evolution_dev2():
 	tmp = 0
 	prev_received_response_count = 0
 	start_time = time.time()
+	print('\n\n\n\n\n\n\n\n')
+	print(prev_received_response_count)
+	print(received_response_count)
+	print('\n\n\n')
 	while (enough == False):
 		# bizonyos ideig fogjuk ezt a ciklust különben nagyon gyorsan lefut
 		time.sleep( 0.001 )
