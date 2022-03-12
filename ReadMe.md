@@ -7,9 +7,6 @@ A neurális hálót nem tanítjuk.<br>
 A kimenetén keletkező érték alapján azonban egy ágens döntéseket hoz.<br>
 Az ágens döntései nyomán előálló értéket akarjuk maximalizálni.<br>
 
-- <img src="https://latex.codecogs.com/gif.latex?O_t=\text { Onset event at time bin } t " />
-- <img src="https://latex.codecogs.com/gif.latex?t_{0}, t_{-1}, t_{-2}, ..., t_{-30}" />
-
 ![equation](http://latex.codecogs.com/gif.latex?t-1%3D%5Ctext%20%7B%20sensor%20reading%20%7D)
 
 ![equation](http://latex.codecogs.com/gif.latex?O_t%3D%5Ctext%20%7B%20Onset%20event%20at%20time%20bin%20%7D%20t)
@@ -20,6 +17,8 @@ Az ágens döntései nyomán előálló értéket akarjuk maximalizálni.<br>
 ![equation](http://latex.codecogs.com/gif.latex?P%28s%20%7C%20O_t%20%29%3D%5Ctext%20%7B%20Probability%20of%20a%20sensor%20reading%20value%20when%20sleep%20onset%20is%20observed%20at%20a%20time%20bin%20%7D%20t)
 
 ![equation](http://latex.codecogs.com/gif.latex?P%28s%20%7C%20O_t%20%29%3D%5Ctext%20%7B%20Probability%20of%20%20onset%20is%20observed%20at%20a%20time%20bin%20%7D%20t)
+
+![equation](http://latex.codecogs.com/gif.latex?P%28s%20%7C%20O_t%20%29%3D%5Ctext%20%7B%20Probability%20%7D%20t)
 
 
 Mivel ez az érték csak és kizárólag a neurális háló kimenetén előálló értéktől függ, ezért olyan súlyokat,<br>
