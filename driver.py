@@ -403,31 +403,36 @@ def testpoint():
 
 global received_response_count
 received_response_count = 0
-print('aaaaaaaaaa ', received_response_count)
+print('0  >> received_response_count =', received_response_count)
 def check_received_responses_count():
 	global received_response_count
 	received_response_count += 1
-	print('bbbbbbbbb ', received_response_count)
+	print('1  >> received_response_count =', received_response_count)
 	print('Az eddig beérkezett válaszok száma =', received_response_count)
 	if( received_response_count >= 3 ):
-		print('ccccccccc ', received_response_count)
+		print('2  >> received_response_count =', received_response_count)
 		# reseteljük az számlálót
 		# nem ne ő resetelje, hanem a while ciklus akkor amikor kiakad
 		# received_response_count = 0
-		print('ddddddddd ', received_response_count)
+		print('3  >> received_response_count =', received_response_count)
 		# itt akasztjuk ki a másik megakasztott while ciklust, programot
 		global enough
 		enough = True
+		print('X >> elegendő számú válaszunk van ki fogjuk léptetni a while loopból, mert átállítom az enough értékét')
 
 @app.route('/receiveresult', methods=['GET'])
 def receive_result():
     received_value = request.args.get('value')
     received_gain = request.args.get('gain')
-    print('---------------------------------')
-    print('received_value from worker =', received_value)
-    print('received_gain from worker =', received_gain)
+    print('----------------------------------------------------------------------------------------------')
+	print('                                       RECEIVED VALUE FROM WORKER                             ')
+	print('----------------------------------------------------------------------------------------------')
+    # print('received_value from worker =', received_value)
+    print('received_gain from worker  =', received_gain)
+    print('---------------------------------------CHECK_RECEIVED_RESPONSE_COUNT--------------------------')
     check_received_responses_count()
-    print('---------------------------------')
+    print('---------------------------------------END CHECK_RECEIVED_RESPONSE_COUNT----------------------')
+    print('---------------------------------------END RECEIVED VALUE FROM WORKER-------------------------')
     return 'Recieve value from Worker!'
 
 
@@ -446,12 +451,19 @@ def evolution_dev2():
 	# resp = initialize_workers()
 	new_clf = deepcopy(clf)
 	old_coefs_ = deepcopy(new_clf.coefs_)
-	print('--------------- OLD COEFS -------------')
+	# print('--------------- OLD COEFS -------------')
 	print(old_coefs_)
 	print('for ciklus start')
+	print('--------------------------------------------------------------------------------------------------')
+	print('                                           START FOR LOOP                                         ')
+	print('--------------------------------------------------------------------------------------------------')
 	print(workers_addresses)
 	global received_response_count
 	received_response_count = 0 			# be kell állítani 0-ra, hogy tényleg azt számolja amit kell
+	print('--------------------------------------------------------------------------------------------------')
+	print('-------------------------------------------RESET GLOBAL received_response_count---------------------------------------')
+	print('--------------------------------------------------------------------------------------------------')
+	print('received_response_count:', received_response_count)
 	global enough
 	enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
 	print('------------------------------------------------------->>>>>>>>>>>>> 1_____ enough = ', enough)
