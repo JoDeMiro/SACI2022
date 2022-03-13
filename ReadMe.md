@@ -162,4 +162,9 @@ Magát a programot is elláttam a megjegyzéseimmel. Ez a mértékadó.
 Csinálni egy olyan tesztet, hogy az egész párhuzamos helyett szekvenciálisan fut le.<br>
 Ezt könnyen megtehetem, hiszen csak a workereknél az evaluation() metodust kell az uploader API-ban kivezetnem a külön szálról és akkor az API hívás bevárja a választ, ezáltal szekvenciálisan fut le.
 
+# Further Work
+Ha majd egyszer sok időm lesz akkor még a következő dolgokat lehet érdemes kipróbálni, a teljesség igénye nélkül:
+- A Trader osztály statisztikáit is visszakértni a Jupyter Notebookba elemzés céljából
+- A Trader osztályt tovább lehet fejelszteni: MaxDD, Corr(Equity)
+- Mutáció vagyis a Randomer osztály továbbfejlesztése: (Mutation selection rate, Crossover, PointSplit vs. Coub inheritance)
 
