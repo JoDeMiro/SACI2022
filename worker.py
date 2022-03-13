@@ -827,7 +827,7 @@ def upload_file():
       f = request.files['file']
       m = request.files['model_id']
       print('m :::', m)
-      t_id = request.json['model_id']
+      t_id = request.json['id']
       print(t_id)
       print('-------------------------')
       print('received_file_name = ', f.filename)
