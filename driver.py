@@ -486,6 +486,13 @@ def evolution_dev2():
 	# Feltételezzük, hogy ezen a ponton még nem érkezett egyetlen válasz sem, de ez egy hibás feltételezés
 	# nem így kéne ezt itt lekezelni, hogy simán felül csapom ezt az értéket.
 	print('received_response_count:', received_response_count)
+
+
+	print('--------------------------------------------------------------------------------------------------')
+	print('-------------------------------------------RESET GLOBAL generation_holder-------------------------')
+	print('--------------------------------------------------------------------------------------------------')
+	global generation_holder
+	generation_holder = []
 	print('--------------------------------------------------------------------------------------------------')
 	print('-------------------------------------------RESET GLOBAL received_response_count-------------------')
 	print('--------------------------------------------------------------------------------------------------')
