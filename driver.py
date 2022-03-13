@@ -292,12 +292,13 @@ def call_worker_uploader(worker_address):
 	fileFp = open(filePath, 'rb')
 	fileInfoDict = {
 	    "file": fileFp,
+	    "model_id": 99999,													# <-- dummy értéket kap
 	}
 	resp = requests.post(uploadResultUrl, files=fileInfoDict)
-	print('uploader   ', resp)
+	print('<<< response >>> uploader   ', resp)
+	print('<<< sended model_id was ===', model_id)
 	print('_______call_worker_uploader_______')
-# ToDo kétszer van megírva szinte ugyan az. Gondolom a felsőt még régen írtam, de ha már nem kell akkor ki kéne venni mert közben
-# átírtam a túloldalon a fogad api-t és ebből még lehet gond. Mindkét metódus ugyan azt az apit hívja csak mást küld el neki.
+
 
 # Egy konkrét workernek küldi át egy konkrét modelt
 def call_worker_sender(worker_address, new_clf_file_name, model_id):
@@ -308,10 +309,6 @@ def call_worker_sender(worker_address, new_clf_file_name, model_id):
 	print('                      CALL_WORKER_SENDER()                     ')
 	print('---------------------------------------------------------------')
 
-	print('ááááááááááááááááááááááááááááááááááááááááááááá')
-	print('model_id===', model_id)
-	print('óóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóó')
-
 	# Ezzel a módszerrel lehet átküldeni neki a joblib model filét
 	uploadResultUrl = worker_address + '/uploader'
 	filePath = new_clf_file_name
@@ -321,7 +318,8 @@ def call_worker_sender(worker_address, new_clf_file_name, model_id):
 	    "model_id": model_id,
 	}
 	resp = requests.post(uploadResultUrl, files=fileInfoDict)
-	print('uploader   ', resp)
+	print('<<< response >>> uploader   ', resp)
+	print('<<< sended model_id was ===', model_id)
 	print('_______call_worker_uploader_______')
 
 
