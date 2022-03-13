@@ -584,7 +584,7 @@ def evolution_dev2():
 	# Kiiratni, rendezni
 	print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
 	print('generation_holder = ', generation_holder)
-	sorted_generation_holder = sorted(res, key = lambda x:(x[1], x[0]))
+	sorted_generation_holder = sorted(generation_holder, key = lambda x:(x[1], x[0]))
 	print('sorted_generation_holder', sorted_generation_holder)
 	print('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
 	#
