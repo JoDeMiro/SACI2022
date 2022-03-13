@@ -477,6 +477,7 @@ def evolution_dev2():
 	global global_best_score
 	global_best_score = -9999.0
 	# --- ami e fölött van az kívül esik majd a generációs iteráción
+	start_evolution_time = time.time()
 	print('--------------------------------------------------------------------------------------------------')
 	print('-------------------------------------------START EVOLUTION2---------------------------------------')
 	print('--------------------------------------------------------------------------------------------------')
@@ -671,8 +672,10 @@ def evolution_dev2():
 	new_clf = 10
 	abc = empty_func()
 	print('_____Vége az Evolution2nek_____')
-	# my_result = 'mumbapa'
-	my_result =  jsonify(generation_best_score)
+	evo_time = time.time() - start_evolution_time
+	package = {'generation_best_score': generation_best_score, 'evolution_time': evo_time}
+	# my_result =  jsonify(generation_best_score)
+	my_result =  jsonify(package)
 	#
 	# Na most kitalálhatom, hogy mivel akarok visszatérni a juypter notebookba
 	return my_result
@@ -682,7 +685,7 @@ def evolution_dev2():
 # test pont -> törölhető
 @app.route('/tmp')
 def tmp():
-	print('____tmp hab been called____')
+	print('____tmp has been called____')
 	lst = ['0.0', '0.1', '0.2']
 	rsp_time = time.time()
 	package = {'lista': lst, 'response_time':rsp_time}
