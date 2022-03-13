@@ -606,6 +606,16 @@ def evolution_dev2():
 	generation_best_score.append(best_score)
 	print('generation_best_score ', generation_best_score)
 	#
+	# Rendben most már tudjuk, hogy ki a legjobb model az adott generációban. Töltsük be, hogy aztán mutálni tudjuk
+	reloaded_model_name = 'model' + str(best_model) + '.joblib'
+	print('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+	print('ezt fogjuk betölteni, remélem van ilyen valahol és elmentettem amikor készült!')
+	print('ezt ', reloaded_model_name)
+	reloaded_best_model = joblib.load(reloaded_model_name)
+    print('# Model betöltve a joblib-ből')
+    print(reloaded_best_model.get_params())
+    print('ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
+	#
 	#
 	# Ha ez megvan akkor a legjobb modelt ismét előkaparni valahonnan (mondjuk a filenév alapján)
 	# Betölteni mint parent_model, vagy parnet_clf, vagy parnet_mlp
