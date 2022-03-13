@@ -476,6 +476,11 @@ def evolution_dev2():
 	print('--------------------------------------------------------------------------------------------------')
 	print('-------------------------------------------START EVOLUTION2---------------------------------------')
 	print('--------------------------------------------------------------------------------------------------')
+	for g in range(1):
+		print('--------------------------------------------------------------------------------------------------')
+		print('                                           GENERATION' + str(g) + '                               ')
+		print('--------------------------------------------------------------------------------------------------')
+
 	new_clf = deepcopy(clf)
 	old_coefs_ = deepcopy(new_clf.coefs_)
 	# print('--------------- OLD COEFS -------------')
@@ -614,19 +619,18 @@ def evolution_dev2():
 	print('ezt fogjuk betölteni, remélem van ilyen valahol és elmentettem amikor készült!')
 	print(bcolors.WARNING + 'ezt töltjük be ' + reloaded_model_name + bcolors.ENDC)
 	reloaded_best_model = joblib.load(reloaded_model_name)
-	print(bcolors.OKBLUE + '# Model betöltve a joblibből' + bcolors.ENDC)
-	print('# Model betöltve a joblib-ből')
+	print(bcolors.OKBLUE + '# Model betöltve a joblib-ből' + bcolors.ENDC)
 	print(reloaded_best_model.get_params())
 	print('ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
 	princ('ááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááá')
 	#
 	#
-	# Ha ez megvan akkor a legjobb modelt ismét előkaparni valahonnan (mondjuk a filenév alapján)
+	# Ha ez megvan akkor a legjobb modelt ismét előkaparni -> reloaded_best_model
 	# Betölteni mint parent_model, vagy parnet_clf, vagy parnet_mlp
 	#
-	#
-	#
 	# Meg kell mutálni őkegyelmességét
+	#
+	#
 	#
 	#
 	#
