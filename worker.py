@@ -832,7 +832,7 @@ def upload_file():
         print(type(f.filename))
         cut_file_name = file_name[5:]      # model.joblib -> .joblib
         print('jobbról = ', cut_file_name)
-        cut_file_name = cut_file_name[:-4] # .joblib -> .jo
+        cut_file_name = cut_file_name[:-6] # .joblib -> .
         print('ballról = ', cut_file_name)
 
       print('m :::', m)
