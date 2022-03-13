@@ -27,6 +27,8 @@ driver_ip_address = 'http://192.168.0.114:8080'
 
 workers_addresses = ['http://192.168.0.54:8080/', 'http://192.168.0.32:8080/', 'http://192.168.0.247:8080/']
 
+workers_addresses = ['http://192.168.0.54:8080/', 'http://192.168.0.32:8080/', 'http://192.168.0.247:8080/', 'http://192.168.0.231:8080']
+
 population_size = len(workers_addresses)
 
 workers = []
