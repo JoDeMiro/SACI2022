@@ -125,7 +125,7 @@ print(parameters)
 
 
 # A Driver program néhány változóját hozzuk létre vele, pl az első neurális hálót amit el küld majd
-def initialize_driver(_nRowsRead, _window):
+def initialize_driver(_nRowsRead, _window, _threshold):
 
 	print('---------------------------------------------------------------')
 	print('                         INITIALIZE_DRIVER()                   ')
@@ -148,6 +148,8 @@ def initialize_driver(_nRowsRead, _window):
 	print('nRowsRead = ', nRowsRead)
 	global threshold                            # <-- ez lehet alapján csinálunk modelt, de lehet más is mint odaát
 	threshold = -1.0                            # <-- a trader parametére
+	threshold = (float)(_threshold)
+	print('threshold = ', threshold)
 
 
 	# elő kell állítani a túloldali adatsorral azonos szart np.[970, 20] és np[970]
@@ -206,6 +208,7 @@ def call_worker_setup(driver_ip, worker_id, worker_address, nRowsRead, window, t
 
 
 # Az összes workeren lefut a setup
+# ToDo: Nem átlátható, honnan jönnek a paraméterek mert nem a függvénynek adom át őket
 def setup_workers():
 	print('---------------------------------------------------------------')
 	print('                      SETUP_WORKERS()                          ')
@@ -795,7 +798,8 @@ def initialize():
 	# ToDo: Irjuk már át úgy hogy JSON-t kap és az bontja fel, kicsit sok lett a paraméter
 	_nRowsRead = (int)(request.args.get('_nRowsRead'))
 	_window = (int)(request.args.get('_window'))
-	initialize_driver(_nRowsRead, _window)
+	_threshold = (float)(request.args.get('_threshold'))
+	initialize_driver(_nRowsRead, _window, _threshold)
 	return 'Driver initilize method has been called'
 
 # ------------
