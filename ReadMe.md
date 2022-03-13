@@ -157,7 +157,8 @@ Nem érdemes bíbelődni az API tanulmányozásával. A Driver.ipynb Jupyter Not
 Magát a programot is elláttam a megjegyzéseimmel. Ez a mértékadó.
   
 A Workereken soha nem kell paraméterezni a Neurális Hálót, mert a Driver a komplett modelt átküldi.<br>
-A Worker oldalon csak ileszti a modelt az adatokra.
+A Worker oldalon csak ileszti a modelt az adatokra.<br>
+Viszont az adatbeolvasáshoz szükséges paramétereket(nRowsRead, window) és a Trader paraméterét (threshold) át kell küldeni. Át is küldi.
   
 # ToDo
 Csinálni egy olyan tesztet, hogy az egész párhuzamos helyett szekvenciálisan fut le.<br>
