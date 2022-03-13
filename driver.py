@@ -580,6 +580,14 @@ def evolution_dev2():
 	# a filé mellé, hogy tudjam azonosítani, ezt az értéket kérem majd visszafelé is amikor a worker küldi a drivernek
 	# az eredményt
 	#
+	# Rendben elvileg látható generation_holder lista amiben benne van az azonosító is és az eredmény is.
+	# Kiiratni, rendezni
+	print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
+	print('generation_holder = ', generation_holder)
+	sorted_generation_holder = sorted(res, key = lambda x:(x[1], x[0]))
+	print('sorted_generation_holder', sorted_generation_holder)
+	print('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
+	#
 	#
 	# Ha ez megvan akkor a legjobb modelt ismét előkaparni valahonnan (mondjuk a filenév alapján)
 	# Betölteni mint parent_model, vagy parnet_clf, vagy parnet_mlp
