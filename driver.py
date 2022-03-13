@@ -476,12 +476,13 @@ def evolution_dev2():
 	print('--------------------------------------------------------------------------------------------------')
 	print('-------------------------------------------START EVOLUTION2---------------------------------------')
 	print('--------------------------------------------------------------------------------------------------')
+	basic_clf = deepcopy(clf)
 	for g in range(1):
 		print('--------------------------------------------------------------------------------------------------')
 		print(bcolors.OKBLUE + '                                           GENERATION ' + str(g) + '' + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
 
-		new_clf = deepcopy(clf)
+		new_clf = deepcopy(basic_clf)
 		old_coefs_ = deepcopy(new_clf.coefs_)
 		# print('--------------- OLD COEFS -------------')
 		# print(old_coefs_)
@@ -633,16 +634,23 @@ def evolution_dev2():
 		# amit itt ebben a szent pillanatban felül csap.
 		# Tehát csak az elején kell valahogy elérhetővé tennem utána folyamatosan felül csapom generácioról generációra
 		#
-		# elöször is tördeljük be úgy, hogy generáió alá kerüljenek
+		# Egy olyan modelt kell felülcsapnom, amit a generációs iteráción kívül inicializálok. Ezért csináltam egy ilyet basic_clf
+		# Ebből olvassa be az individumoknak modelt, vagyis ezt másolja le.. Ezért ha ezt felülcsapom az jó. Akkor ez generációról
+		# generációra változni fog.
+		basic_clf = deepcopy(reloaded_best_model)
+		# kérdés, hogy globális-e? Illetve ki fogja legközelebb használni, ha itt felülcsapom?
 		#
-	# Vége a generációnak
+		# Vége a generáción belüli itárációnak (az egyedek iterációjának)
+		print('_____Vége egy adott generációnak generációnak____')
+		print('_____A generáció száma amely véget ért: ', g)
+	#
+	# Végi generációk iterálásáank
 	print('_____Vége a generációnak____')
 	#
 	# Majd az egész eddigi cuccot amit írtam ebbe az API-ba azt egyel beljebb tenni és berakni egy for cikluba ami a generation
 	new_clf = 10
 	abc = empty_func()
-	print('_____végig mentünk az össezs worker initializejan____')
-	print('-----------------------------------------------------')
+	print('_____Vége az Evolution2nek_____')
 	my_result = 'mumbapa'
 	return my_result
 
