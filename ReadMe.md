@@ -135,7 +135,6 @@ Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megad
   `# resp = requests.get('http://192.168.0.xxx:8080/evolution2)`<br>
   Gyakorlatilag ezen keresztül indítom el az Evolúciós keresést.
 
-
 ### A Woerker kivezetett  API-jai:
 - [GET] setup (driver_ip=<str>, worker_id=<str>, nRowsRead=<str>, window=<str>, threshold=<str>)<br>
   `# resp = requests.get('http://192.168.0.xxx:8080/setup?worker_id=1&nRowsRead=2998&window=20&threshold=-1000')`
@@ -152,7 +151,6 @@ Ezen a ponton a folyamat ismétli önmagát, amig el nem érjük az előre megad
   2. Amikor a Driveren keresztül inicializálom a Workereket akkor az szekvenciálisan kerül végrehajtásra.
   3. A `driver.py` a várakozás alatt a `while` ciklusba bele tettem egy timeoutot, hogy mindenképpen zárja a ciklust, ha meghalad egy előre beállított értéket. Jelenleg ez bele van égetve a programba és szűk keresztmentszet lehet, ha a Worker ténylegesen tovább számol.
   
-
 # Saját magam figyelmébe ajánlom.
 Nem érdemes bíbelődni az API tanulmányozásával. A Driver.ipynb Jupyter Notebook fájlt érdmes megnyitni és lépésenként végig menni rajta. Eléggé kézenfekvő a működése és sok megjegyzéssel tele tüzdelt fájl.
   
@@ -167,4 +165,5 @@ Ha majd egyszer sok időm lesz akkor még a következő dolgokat lehet érdemes 
 - A Trader osztály statisztikáit is visszakértni a Jupyter Notebookba elemzés céljából
 - A Trader osztályt tovább lehet fejelszteni: MaxDD, Corr(Equity)
 - Mutáció vagyis a Randomer osztály továbbfejlesztése: (Mutation selection rate, Crossover, PointSplit vs. Coub inheritance)
+- Az se lenne rossz ha minden egyet fitness score értéket visszaadná a Jupyternek elemzés céljából
 
