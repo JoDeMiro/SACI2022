@@ -614,7 +614,7 @@ def evolution_dev2():
 		# Letárolni az adott generáció legjobbját egy globális változóba
 		# global generation_best_score
 		generation_best_score.append(best_score)
-		print(bcolors.WARNING + 'generation_best_score + bcolors.END', generation_best_score)
+		print(bcolors.WARNING + 'generation_best_score' + bcolors.END, generation_best_score)
 		#
 		# Rendben most már tudjuk, hogy ki a legjobb model az adott generációban. Töltsük be, hogy aztán mutálni tudjuk
 		reloaded_model_name = 'model' + str(best_model) + '.joblib'
@@ -653,8 +653,9 @@ def evolution_dev2():
 		print('global_best_score ->>>> curent all time best score     = ', global_best_score)
 		find_better_solution = 0
 		if( float(best_score) > global_best_score):
-			basic_clf = deepcopy(reloaded_best_model)
+			basic_clf = deepcopy(reloaded_best_model)			# <-- csapjuk felül a globális modelt amiből a gyerköcök készülnek
 			find_better_solution = 1
+			global_best_score = float(best_score)				# <-- csapjuk felül a globális best score-t
 		generation_find_better_solution_holder.append(find_better_solution)
 		print('generation_find_better_solution_holder', generation_find_better_solution_holder)
 		#
