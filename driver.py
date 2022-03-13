@@ -470,6 +470,9 @@ def empty_func():
 # evolution DEV
 @app.route('/evolution2')
 def evolution_dev2():
+	global generation_best_score
+	generation_best_score = []
+	# --- ami e fölött van az kívül esik majd a generációs iteráción
 	print('--------------------------------------------------------------------------------------------------')
 	print('-------------------------------------------START EVOLUTION2---------------------------------------')
 	print('--------------------------------------------------------------------------------------------------')
@@ -581,12 +584,27 @@ def evolution_dev2():
 	# az eredményt
 	#
 	# Rendben elvileg látható generation_holder lista amiben benne van az azonosító is és az eredmény is.
-	# Kiiratni, rendezni
+	# Kiiratni, rendezni (ToDo ellenőrizni, hogy egyébként tényleg jó e a rendezés)
 	print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
-	print('generation_holder = ', generation_holder)
+	print('generation_holder       ', generation_holder)
 	sorted_generation_holder = sorted(generation_holder, key = lambda x:(x[1], x[0]))
 	print('sorted_generation_holder', sorted_generation_holder)
 	print('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
+	#
+	# Ki kell választani a legjobb értéket, ami az utolsó lesz
+	best_result = sorted_generation_holder[-1]
+	print('best_result ', best_result)
+	print('best_result[0] ', best_result[0])
+	print('best_result[1] ', best_result[1])
+	best_model = best_result[0]
+	best_score = best_result[1]
+	print('best_model ', best_model)
+	print('best_score ', best_score)
+	#
+	# Letárolni az adott generáció legjobbját egy globális változóba
+	global generation_best_score
+	generation_best_score.append(best_score)
+	print('generation_best_score ', generation_best_score)
 	#
 	#
 	# Ha ez megvan akkor a legjobb modelt ismét előkaparni valahonnan (mondjuk a filenév alapján)
