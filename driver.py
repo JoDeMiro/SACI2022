@@ -602,7 +602,7 @@ def evolution_dev2():
 	print('best_score ', best_score)
 	#
 	# Letárolni az adott generáció legjobbját egy globális változóba
-	global generation_best_score
+	# global generation_best_score
 	generation_best_score.append(best_score)
 	print('generation_best_score ', generation_best_score)
 	#
