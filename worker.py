@@ -533,13 +533,15 @@ class DataSender():
   def __init__(self):
     self.driver_ip_address = None
 
-  def send_to_driver(self, data = None):
+  def send_to_driver(self, data = None, model_id = None):
     '''
     Elküldi az Trader eredményét (result) a Drivernek
     Ez egy sima GET Request lesz amit a tuloldalon vár a Driver
     '''
     print('------------>>    send_to_driver(self, data)    data is sending to the driver')
     print('------------>>    self.driver_ip_address', self.driver_ip_address)
+    print('------------>>    model_id', model_id)
+    print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
 
     # aaaaa
     # na itt kéne meghívni egy sima requestes szar
@@ -623,7 +625,7 @@ def load_model():
 
 
 
-def evaluate_model(mlp):
+def evaluate_model(mlp, model_id):
     '''
     Az evaluate_model() függvénynek akkor kell lefutnia amikor kap egy modelt a worker
     a drivertől kívűlről, másképp nem hívható.
@@ -669,9 +671,12 @@ def evaluate_model(mlp):
     
     # ki kéne venni a resultból, csak a 'gain' értéket
     gain = result.get('gain')
+
+    # a küldendő csomagbe be kell tenni a model_id-t is
+    print('\n\n\n\n\n ezzel a model_id-el fogjuk visszaküldeni a csomagot,' model_id, '\n\n\n\n\n\n')
     
     # küldjük el az eredményt a Drivernek, Dev: tovább lehet fejleszteni, hogy az egész resultot küldje el
-    data_sender.send_to_driver(data=gain)
+    data_sender.send_to_driver(data=gain, model_id=model_id)
     # Most az van, hogy mivel a 'send_to_driver' még üres, meg kell vizsgálnom, hogy lehet átküldeni egy rest apinak egy értéket
     # ez most egy kis olvasás.
     # Ha ez megvan akkor itt csinálni a Workeren egy olyan végponotot amire tudok értékeket küldeni és ki is tudja onnan olvasni
@@ -817,8 +822,8 @@ def initialize(_parameters=parameters):
 def upload_file():
    if request.method == 'POST':
       f = request.files['file']
-      m = request.files['model_id']
-      print('\n\n\n\n\n model_id:', m, '\n\n\n\n\n')
+      model_id = request.files['model_id']
+      print('\n\n\n\n\n model_id:', model_id, '\n\n\n\n\n')
       print(f.filename)
       print(type(f.filename))
       print('úgy kéne, hogy mindig egy adott néven metse le. model.joblib mondjuk')
@@ -830,12 +835,12 @@ def upload_file():
       mlp = load_model()
       
       # el lehetne kezdeni kiszámolni ez alapján az eredményt
-      # evaluate_model(mlp)
+      # evaluate_model(mlp, model_id)
       # ha így hívom akkor megvárja a kiszámítást és fogja a process-t ezért amikor a Driver ráhív akkor vár a válaszra
       # megoldás az alábbi kód amire kicseréltem.
       
       # na ezt most kiteszem egy külön szálra
-      thread = threading.Thread(target=evaluate_model, args=(mlp,))
+      thread = threading.Thread(target=evaluate_model, args=(mlp,model_id,))
       thread.start()
       # https://zoltan-varadi.medium.com/flask-api-how-to-return-response-but-continue-execution-828da40881e7
 
