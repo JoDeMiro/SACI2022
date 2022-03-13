@@ -676,7 +676,7 @@ def evaluate_model(mlp, model_id):
     gain = result.get('gain')
 
     # a küldendő csomagbe be kell tenni a model_id-t is
-    print('\n\n\n\n\n ezzel a model_id-el fogjuk visszaküldeni a csomagot', model_id, '\n\n\n\n\n\n')
+    print('\n\n\n\n\n !!!!!!!!!!!!!!ezzel a model_id-el fogjuk visszaküldeni a csomagot', model_id, '\n\n\n\n\n\n')
     
     # küldjük el az eredményt a Drivernek, Dev: tovább lehet fejleszteni, hogy az egész resultot küldje el
     data_sender.send_to_driver(data=gain, model_id=model_id)
@@ -827,29 +827,19 @@ def upload_file():
       f = request.files['file']
       m = request.files['model_id']
       file_name = f.filename
-      if( file_name == 'model.joblib'):  # todo visszaírni
+      model_id = '9876'
+      if( file_name != 'model.joblib'):  # todo visszaírni
         print('received_file_name = ', f.filename)
         print(type(f.filename))
         cut_file_name = file_name[5:]      # model.joblib -> .joblib
         print('jobbról = ', cut_file_name)
-        cut_file_name = cut_file_name[:-6] # .joblib -> .
+        cut_file_name = cut_file_name[:-7] # .joblib -> ''
         print('ballról = ', cut_file_name)
-
-      print('m :::', m)
-      print('-------------------------')
-      print('\n\n\n\n\n xxxx amit a worker az uploader apiban fogadott model_id:', m, '\n\n\n\n\n')
-      z = request.files.keys()
-      print(type(z))
-      print(z)
-      b = request.form.get('model_id')
-      print(b)
-      print('-----------------')
-      print(request.files)
-      print('-----------------')
-      print(request.files['model_id'])
-      print('-----------------')
-      print(f.filename)
-      print(type(f.filename))
+        print('len(cut_file_name = ', len(cut_file_name))
+        model_id = cut_file_name
+        if(len(cut_file_name) == 0):
+          print(' A cut_file_name hossza 0')
+          model_id = '8765'
       print('úgy kéne, hogy mindig egy adott néven metse le. model.joblib mondjuk')
       f.filename = 'model.joblib'
       print(f.filename)
@@ -864,7 +854,7 @@ def upload_file():
       # megoldás az alábbi kód amire kicseréltem.
       
       # na ezt most kiteszem egy külön szálra
-      thread = threading.Thread(target=evaluate_model, args=(mlp,m,))
+      thread = threading.Thread(target=evaluate_model, args=(mlp,model_id,))
       thread.start()
       # https://zoltan-varadi.medium.com/flask-api-how-to-return-response-but-continue-execution-828da40881e7
 
