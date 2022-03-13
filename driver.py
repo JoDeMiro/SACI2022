@@ -305,8 +305,12 @@ def call_worker_sender(worker_address, new_clf_file_name, model_id):
 	# --> ennek a hatására a worker vissza fog hívni a receive_result() api-ra
 
 	print('---------------------------------------------------------------')
-	print('                      CALL_WORKER_SENDER()                   ')
+	print('                      CALL_WORKER_SENDER()                     ')
 	print('---------------------------------------------------------------')
+
+	print('ááááááááááááááááááááááááááááááááááááááááááááá')
+	print('model_id===', model_id)
+	print('óóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóó')
 
 	# Ezzel a módszerrel lehet átküldeni neki a joblib model filét
 	uploadResultUrl = worker_address + '/uploader'
