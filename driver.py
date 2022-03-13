@@ -296,7 +296,7 @@ def call_worker_uploader(worker_address):
 	}
 	resp = requests.post(uploadResultUrl, files=fileInfoDict)
 	print('<<< response >>> uploader   ', resp)
-	print('<<< sended model_id was ===', model_id)
+	print('<<< sended model_id was === ', fileInfoDict.get('model_id'))
 	print('_______call_worker_uploader_______')
 
 
