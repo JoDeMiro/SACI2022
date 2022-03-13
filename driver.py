@@ -614,7 +614,7 @@ def evolution_dev2():
 		# Letárolni az adott generáció legjobbját egy globális változóba
 		# global generation_best_score
 		generation_best_score.append(best_score)
-		print(bcolors.WARNING + 'generation_best_score' + bcolors.END, generation_best_score)
+		print(bcolors.WARNING + 'generation_best_score' + bcolors.ENDC, generation_best_score)
 		#
 		# Rendben most már tudjuk, hogy ki a legjobb model az adott generációban. Töltsük be, hogy aztán mutálni tudjuk
 		reloaded_model_name = 'model' + str(best_model) + '.joblib'
