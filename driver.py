@@ -472,15 +472,16 @@ def empty_func():
 def evolution_dev2():
 	global generation_best_score
 	generation_best_score = []
+	global generation_find_better_solution_holder
+	generation_find_better_solution_holder = []
+	global global_best_score
+	global_best_score = -9999.0
 	# --- ami e fölött van az kívül esik majd a generációs iteráción
 	print('--------------------------------------------------------------------------------------------------')
 	print('-------------------------------------------START EVOLUTION2---------------------------------------')
 	print('--------------------------------------------------------------------------------------------------')
 	basic_clf = deepcopy(clf)
 	for g in range(parameters.generation):						# generációk száma, ki kell majd vezetni
-		print(parameters)
-		print(type(parameters.generation))
-		print(bcolors.WARNING + str(parameters.generation) + bcolors.ENDC)
 		print(bcolors.WARNING + str(parameters) + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
 		print(bcolors.OKBLUE + '                                           GENERATION ' + str(g) + '' + bcolors.ENDC)
@@ -613,7 +614,7 @@ def evolution_dev2():
 		# Letárolni az adott generáció legjobbját egy globális változóba
 		# global generation_best_score
 		generation_best_score.append(best_score)
-		print('generation_best_score ', generation_best_score)
+		print(bcolors.WARNING + 'generation_best_score + bcolors.END', generation_best_score)
 		#
 		# Rendben most már tudjuk, hogy ki a legjobb model az adott generációban. Töltsük be, hogy aztán mutálni tudjuk
 		reloaded_model_name = 'model' + str(best_model) + '.joblib'
@@ -641,9 +642,22 @@ def evolution_dev2():
 		# Egy olyan modelt kell felülcsapnom, amit a generációs iteráción kívül inicializálok. Ezért csináltam egy ilyet basic_clf
 		# Ebből olvassa be az individumoknak modelt, vagyis ezt másolja le.. Ezért ha ezt felülcsapom az jó. Akkor ez generációról
 		# generációra változni fog.
-		basic_clf = deepcopy(reloaded_best_model)
+		# basic_clf = deepcopy(reloaded_best_model)
 		# kérdés, hogy globális-e? Illetve ki fogja legközelebb használni, ha itt felülcsapom?
 		# most több generációt engedek neki.
+		#
+		# Be kell vezetni a keep_best kapcsolót.
+		# Csak akkor csapom felül a globális modelt, ha a generáióban elértünk jobb eredményt mint amlyet korábban bármelyik model.
+		#
+		print('best_score        ->>>> best score in this genereation = ', best_score)
+		print('global_best_score ->>>> curent all time best score     = ', global_best_score)
+		find_better_solution = 0
+		if( best_score > global_best_score):
+			basic_clf = deepcopy(reloaded_best_model)
+			find_better_solution = 1
+		generation_find_better_solution_holder.append(find_better_solution)
+		print('generation_find_better_solution_holder', generation_find_better_solution_holder)
+		#
 		#
 		# Vége a generáción belüli itárációnak (az egyedek iterációjának)
 		print('_____Vége egy adott generációnak generációnak____')
