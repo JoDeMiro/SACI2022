@@ -601,8 +601,6 @@ def evolution_dev2():
 	print('best_model ', best_model)
 	print('best_score ', best_score)
 	print(bcolors.WARNING + 'best_score' + best_score + bcolors.ENDC)
-	from termcolor import colored
-	print(colored('best_score' + best_score, 'red'))
 	#
 	# Letárolni az adott generáció legjobbját egy globális változóba
 	# global generation_best_score
