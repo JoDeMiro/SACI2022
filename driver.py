@@ -431,6 +431,14 @@ def check_received_responses_count():
 		# két helyen nem biztos, hogy jó ötlet
 		print('X >> elegendő számú válaszunk van ki fogjuk léptetni a while loopból, mert átállítom az enough értékét')
 
+global generation_holder
+generation_holder = []
+def add_result(result):
+	generation_holder.append(result)
+	print(generation_holder)
+
+
+
 @app.route('/receiveresult', methods=['GET'])
 def receive_result():
 	received_value = request.args.get('value')
@@ -442,6 +450,10 @@ def receive_result():
 	# print('received_value from worker =', received_value)
 	print('received_gain from worker  =', received_gain)
 	print('received_model_id from worker =', received_model_id)
+	print('---------------------------------------TEGYÜK LISTÁBA AZ EREDMÉNYT----------------------------')
+	result = []
+	result = [received_model_id, received_gain]
+	add_result(result)
 	print('---------------------------------------CHECK_RECEIVED_RESPONSE_COUNT--------------------------')
 	check_received_responses_count()
 	print('---------------------------------------END CHECK_RECEIVED_RESPONSE_COUNT----------------------')
