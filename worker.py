@@ -74,6 +74,8 @@ from sklearn.preprocessing import MinMaxScaler
 
 from sklearn.neural_network import MLPRegressor
 
+from flask import Flask,jsonify,request,make_response,url_for,redirect
+
 print('Python version:{}'.format(sys.version))
 print('Numpy version:{}'.format(np.__version__))
 print('Pandas version:{}'.format(pd.__version__))
