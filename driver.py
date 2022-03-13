@@ -125,7 +125,7 @@ print(parameters)
 
 
 # A Driver program néhány változóját hozzuk létre vele, pl az első neurális hálót amit el küld majd
-def initialize_driver(_nRowsRead):
+def initialize_driver(_nRowsRead, _window):
 
 	print('---------------------------------------------------------------')
 	print('                         INITIALIZE_DRIVER()                   ')
@@ -788,7 +788,8 @@ def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dum
 @app.route('/initilaize')
 def initialize():
 	_nRowsRead = (int)(request.args.get('_nRowsRead'))
-	initialize_driver(_nRowsRead)
+	_window = (int)(request.args.get('_window'))
+	initialize_driver(_nRowsRead, _window)
 	return 'Driver initilize method has been called'
 
 # ------------
