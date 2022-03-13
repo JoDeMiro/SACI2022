@@ -830,7 +830,7 @@ def upload_file():
       if( file_name == 'model.joblib'):  # todo visszaírni
         print('received_file_name = ', f.filename)
         print(type(f.filename))
-        cut_file_name = file_name[:5]
+        cut_file_name = file_name[:-6]
         print('cut = ', cut_file_name)
         cut_file_name = cut_file_name[:6]
         print('cuted file name = ', cut_file_name)
