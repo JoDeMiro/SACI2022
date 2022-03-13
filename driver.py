@@ -27,6 +27,8 @@ driver_ip_address = 'http://192.168.0.114:8080'
 
 workers_addresses = ['http://192.168.0.54:8080/', 'http://192.168.0.32:8080/', 'http://192.168.0.247:8080/']
 
+population_size = len(workers_addresses)
+
 workers = []
 
 for i,v in enumerate(workers_addresses):
@@ -417,7 +419,8 @@ def check_received_responses_count():
 	received_response_count += 1
 	print('1  >> received_response_count =', received_response_count)
 	print('Az eddig beérkezett válaszok száma =', received_response_count)
-	if( received_response_count >= 3 ):
+	# if( received_response_count >= 3 ):
+	if( received_response_count >= population_size ):								# ToDo: Ellenőrizni
 		print('2  >> received_response_count =', received_response_count)
 		# reseteljük az számlálót
 		# nem ne ő resetelje, hanem a while ciklus akkor amikor kiakad
@@ -578,7 +581,8 @@ def evolution_dev2():
 			tmp += 1
 			if(tmp > 20000):
 				enough = True
-			if(received_response_count >= 3):
+			# if(received_response_count >= 3):
+			if(received_response_count >= population_size):							# ToDo: Ellenőrizni
 				enough = True
 				received_response_count = 0
 				print('>>>> Ebben a körben érkezett be az utolsó válasz is: ', tmp)
