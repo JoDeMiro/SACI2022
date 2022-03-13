@@ -823,6 +823,8 @@ def upload_file():
    if request.method == 'POST':
       f = request.files['file']
       m = request.files['model_id']
+      p = request.id['model_id']
+      print('--------p--------', p)
       print('received_file_name = ', f.filename)
       print(type(f.filename))
       file_name = f.filename
