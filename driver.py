@@ -599,8 +599,9 @@ def evolution_dev2():
 	best_model = best_result[0]
 	best_score = best_result[1]
 	print('best_model ', best_model)
+	print(bcolors.WARNING + 'best_model ' + best_model + bcolors.ENDC)
 	print('best_score ', best_score)
-	print(bcolors.WARNING + 'best_score' + best_score + bcolors.ENDC)
+	print(bcolors.WARNING + 'best_score ' + best_score + bcolors.ENDC)
 	#
 	# Letárolni az adott generáció legjobbját egy globális változóba
 	# global generation_best_score
@@ -611,8 +612,9 @@ def evolution_dev2():
 	reloaded_model_name = 'model' + str(best_model) + '.joblib'
 	print('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
 	print('ezt fogjuk betölteni, remélem van ilyen valahol és elmentettem amikor készült!')
-	print('ezt ', reloaded_model_name)
+	print(bcolors.WARNING + 'ezt töltjük be ' + reloaded_model_name + bcolors.ENDC)
 	reloaded_best_model = joblib.load(reloaded_model_name)
+	print(bcolors.OKBLUE + '# Model betöltve a joblibből' + bcolors.ENDC)
 	print('# Model betöltve a joblib-ből')
 	print(reloaded_best_model.get_params())
 	print('ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
