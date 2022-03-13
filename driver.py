@@ -362,7 +362,7 @@ print('---------------------------------------------------------------')
 
 
 from flask import Flask
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 
 
