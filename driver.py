@@ -477,7 +477,7 @@ def evolution_dev2():
 	print('-------------------------------------------START EVOLUTION2---------------------------------------')
 	print('--------------------------------------------------------------------------------------------------')
 	basic_clf = deepcopy(clf)
-	for g in range(1):
+	for g in range(2):						# generációk száma, ki kell majd vezetni
 		print('--------------------------------------------------------------------------------------------------')
 		print(bcolors.OKBLUE + '                                           GENERATION ' + str(g) + '' + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
@@ -639,6 +639,7 @@ def evolution_dev2():
 		# generációra változni fog.
 		basic_clf = deepcopy(reloaded_best_model)
 		# kérdés, hogy globális-e? Illetve ki fogja legközelebb használni, ha itt felülcsapom?
+		# most több generációt engedek neki.
 		#
 		# Vége a generáción belüli itárációnak (az egyedek iterációjának)
 		print('_____Vége egy adott generációnak generációnak____')
