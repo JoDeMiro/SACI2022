@@ -156,6 +156,9 @@ Nem érdemes bíbelődni az API tanulmányozásával. A Driver.ipynb Jupyter Not
   
 Magát a programot is elláttam a megjegyzéseimmel. Ez a mértékadó.
   
+A Workereken soha nem kell paraméterezni a Neurális Hálót, mert a Driver a komplett modelt átküldi.<br>
+A Worker oldalon csak ileszti a modelt az adatokra.
+  
 # ToDo
 Csinálni egy olyan tesztet, hogy az egész párhuzamos helyett szekvenciálisan fut le.<br>
 Ezt könnyen megtehetem, hiszen csak a workereknél az evaluation() metodust kell az uploader API-ban kivezetnem a külön szálról és akkor az API hívás bevárja a választ, ezáltal szekvenciálisan fut le.
