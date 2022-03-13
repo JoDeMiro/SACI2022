@@ -823,7 +823,20 @@ def upload_file():
    if request.method == 'POST':
       f = request.files['file']
       m = request.files['model_id']
+      print('received_file_name = ', f.filename)
+      print(type(f.filename))
+      file_name = f.filename
+      cut_file_name = file_name[:4]
+      print('cut = ', cut_file_name)
+      cut_file_name = cut_file_name[:6]
+      print('cuted = ', cut_file_name)
+      print(type(f))
+      print()
       print('\n\n\n\n\n xxxx amit a worker az uploader apiban fogadott model_id:', m, '\n\n\n\n\n')
+      z = request.files[]
+      print(type(z))
+      print(z)
+      b = request.form.get('model_id')
       print(f.filename)
       print(type(f.filename))
       print('úgy kéne, hogy mindig egy adott néven metse le. model.joblib mondjuk')
