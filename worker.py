@@ -673,7 +673,7 @@ def evaluate_model(mlp, model_id):
     gain = result.get('gain')
 
     # a küldendő csomagbe be kell tenni a model_id-t is
-    print('\n\n\n\n\n ezzel a model_id-el fogjuk visszaküldeni a csomagot,' model_id, '\n\n\n\n\n\n')
+    print('\n\n\n\n\n ezzel a model_id-el fogjuk visszaküldeni a csomagot', model_id, '\n\n\n\n\n\n')
     
     # küldjük el az eredményt a Drivernek, Dev: tovább lehet fejleszteni, hogy az egész resultot küldje el
     data_sender.send_to_driver(data=gain, model_id=model_id)
