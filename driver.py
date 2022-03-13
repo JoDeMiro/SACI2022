@@ -600,6 +600,9 @@ def evolution_dev2():
 	best_score = best_result[1]
 	print('best_model ', best_model)
 	print('best_score ', best_score)
+	print(bcolors.WARNING + 'best_score' + best_score + bcolors.ENDC)
+	from termcolor import colored
+	print(colored('best_score' + best_score, 'red'))
 	#
 	# Letárolni az adott generáció legjobbját egy globális változóba
 	# global generation_best_score
@@ -743,6 +746,16 @@ def princ(text: str):
 	output = '\033[38;5;208m' + str(text) + '\033[0;0m'
 	print(output)
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 
 
