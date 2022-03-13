@@ -830,9 +830,9 @@ def upload_file():
       if( file_name == 'model.joblib'):  # todo visszaírni
         print('received_file_name = ', f.filename)
         print(type(f.filename))
-        cut_file_name = file_name[4:]
+        cut_file_name = file_name[5:]      # model.joblib -> .joblib
         print('jobbról = ', cut_file_name)
-        cut_file_name = cut_file_name[-4:]
+        cut_file_name = cut_file_name[:-4] # .joblib -> .jo
         print('ballról = ', cut_file_name)
 
       print('m :::', m)
