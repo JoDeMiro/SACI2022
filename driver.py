@@ -137,7 +137,9 @@ def initialize_driver(_nRowsRead, _window):
 	# fontos, hogy számos paraméter szinkronizálva legyen, különben ami model itt előáll az a Worker oldalon eltörik
 	arch = (2,2)                                # <-- nn(arch)
 	global window 
-	window = 21  
+	# window = 21
+	print('áááááááá ', _window)
+	window = 21
 	global nRowsRead                            # <-- bementi változók száma
 	nRowsRead = 98765
 	nRowsRead = (int)(_nRowsRead)
