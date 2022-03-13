@@ -826,19 +826,17 @@ def upload_file():
    if request.method == 'POST':
       f = request.files['file']
       m = request.files['model_id']
-      print('m :::', m)
-      t_id = request.json['id']
-      print(t_id)
-      print('-------------------------')
-      print('received_file_name = ', f.filename)
-      print(type(f.filename))
       file_name = f.filename
-      cut_file_name = file_name[:4]
-      print('cut = ', cut_file_name)
-      cut_file_name = cut_file_name[:6]
-      print('cuted = ', cut_file_name)
-      print(type(f))
-      print()
+      if( file_name == 'model.joblib'):  # todo visszaírni
+        print('received_file_name = ', f.filename)
+        print(type(f.filename))
+        cut_file_name = file_name[:5]
+        print('cut = ', cut_file_name)
+        cut_file_name = cut_file_name[:6]
+        print('cuted file name = ', cut_file_name)
+
+      print('m :::', m)
+      print('-------------------------')
       print('\n\n\n\n\n xxxx amit a worker az uploader apiban fogadott model_id:', m, '\n\n\n\n\n')
       z = request.files.keys()
       print(type(z))
