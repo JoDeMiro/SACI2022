@@ -652,7 +652,7 @@ def evolution_dev2():
 		print('best_score        ->>>> best score in this genereation = ', best_score)
 		print('global_best_score ->>>> curent all time best score     = ', global_best_score)
 		find_better_solution = 0
-		if( best_score > global_best_score):
+		if( float(best_score) > global_best_score):
 			basic_clf = deepcopy(reloaded_best_model)
 			find_better_solution = 1
 		generation_find_better_solution_holder.append(find_better_solution)
