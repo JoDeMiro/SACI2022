@@ -822,8 +822,8 @@ def initialize(_parameters=parameters):
 def upload_file():
    if request.method == 'POST':
       f = request.files['file']
-      model_id = request.files['model_id']
-      print('\n\n\n\n\n model_id:', model_id, '\n\n\n\n\n')
+      m = request.files['model_id']
+      print('\n\n\n\n\n xxxx amit a worker az uploader apiban fogadott model_id:', m, '\n\n\n\n\n')
       print(f.filename)
       print(type(f.filename))
       print('úgy kéne, hogy mindig egy adott néven metse le. model.joblib mondjuk')
@@ -840,7 +840,7 @@ def upload_file():
       # megoldás az alábbi kód amire kicseréltem.
       
       # na ezt most kiteszem egy külön szálra
-      thread = threading.Thread(target=evaluate_model, args=(mlp,model_id,))
+      thread = threading.Thread(target=evaluate_model, args=(mlp,m,))
       thread.start()
       # https://zoltan-varadi.medium.com/flask-api-how-to-return-response-but-continue-execution-828da40881e7
 
