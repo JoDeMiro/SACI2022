@@ -294,6 +294,10 @@ def call_worker_uploader(worker_address):
 	    "file": fileFp,
 	    "model_id": 99999,													# <-- dummy értéket kap
 	}
+	print('uuuuuuuuuuuuuuuuuuuuuuuu1uuuuuuuuuuuuuuuuuuuuuuu')
+	print('mit küld át a fileInfoDict??')
+	print('fileInfoDict')
+	print('uuuuuuuuuuuuuuuuuuuuuuuu3uuuuuuuuuuuuuuuuuuuuuuuu')
 	resp = requests.post(uploadResultUrl, files=fileInfoDict)
 	print('<<< response >>> uploader   ', resp)
 	print('<<< sended model_id was === ', fileInfoDict.get('model_id'))
