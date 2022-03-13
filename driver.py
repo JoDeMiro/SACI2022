@@ -612,8 +612,8 @@ def evolution_dev2():
 	print('ezt fogjuk betölteni, remélem van ilyen valahol és elmentettem amikor készült!')
 	print('ezt ', reloaded_model_name)
 	reloaded_best_model = joblib.load(reloaded_model_name)
-    print('# Model betöltve a joblib-ből')
-    print(reloaded_best_model.get_params())
+	print('# Model betöltve a joblib-ből')
+	print(reloaded_best_model.get_params())
     print('ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
 	#
 	#
