@@ -313,6 +313,7 @@ def call_worker_sender(worker_address, new_clf_file_name, model_id):
 	fileFp = open(filePath, 'rb')
 	fileInfoDict = {
 	    "file": fileFp,
+	    "model_id": model_id,
 	}
 	resp = requests.post(uploadResultUrl, files=fileInfoDict)
 	print('uploader   ', resp)
@@ -486,6 +487,7 @@ def evolution_dev2():
 		# a ciklus számláló értékét, ez lesz az azonosító, amely alapján azonosítjuk a lementett filét és a küldést is.
 		# a call_worker_sender(worker_address, new_clf_file_name, model_id)
 		model_id = i
+		print('\n\n\n\n\n\n  model_id:', model_id, '\n\n\n\n\n\n')
 		print('az aktuális worker címe akinek küldünk:', worker_address)
 		print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
 		call_worker_sender(worker_address, new_clf_file_name, model_id)
