@@ -125,7 +125,7 @@ print(parameters)
 
 
 # A Driver program néhány változóját hozzuk létre vele, pl az első neurális hálót amit el küld majd
-def initialize_driver(_nRowsRead, _window):
+def initialize_driver(_nRowsRead, _window, _arch):
 
 	print('---------------------------------------------------------------')
 	print('                         INITIALIZE_DRIVER()                   ')
@@ -136,6 +136,8 @@ def initialize_driver(_nRowsRead, _window):
 	# ezeket az értékeket sajnos a Driver oldalon is ki kell számolnunk, ha úgy csináljuk, hogy a modelt küldjük át
 	# fontos, hogy számos paraméter szinkronizálva legyen, különben ami model itt előáll az a Worker oldalon eltörik
 	arch = (2,2)                                # <-- nn(arch)
+	arch = (2,2)
+	print('arch = ', _arch)
 	global window
 	window = 21
 	window = (int)(_window)						# <-- 21
@@ -792,7 +794,9 @@ def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dum
 def initialize():
 	_nRowsRead = (int)(request.args.get('_nRowsRead'))
 	_window = (int)(request.args.get('_window'))
-	initialize_driver(_nRowsRead, _window)
+	_arch = (tuple)(request.args.get('_arch'))
+	print('törölhető arch print', _arch)
+	initialize_driver(_nRowsRead, _window, _arch)
 	return 'Driver initilize method has been called'
 
 # ------------
