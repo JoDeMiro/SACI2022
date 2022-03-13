@@ -478,7 +478,7 @@ def evolution_dev2():
 	print('--------------------------------------------------------------------------------------------------')
 	for g in range(1):
 		print('--------------------------------------------------------------------------------------------------')
-		print(bcolors.OKBLUE + '                      GENERATION ' + str(g) + '                   ' + bcolors.ENDC)
+		print(bcolors.OKBLUE + '                                           GENERATION ' + str(g) + '' + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
 
 	new_clf = deepcopy(clf)
@@ -523,7 +523,7 @@ def evolution_dev2():
 		# a ciklus számláló értékét, ez lesz az azonosító, amely alapján azonosítjuk a lementett filét és a küldést is.
 		# a call_worker_sender(worker_address, new_clf_file_name, model_id)
 		model_id = i
-		print('\n\n\n\n\n\n  model_id:', model_id, '\n', 'worker_address:', worker_address,   '\n\n\n\n\n\n')
+		print('\n model_id:', model_id, '\n', 'worker_address:', worker_address,   '\n')
 		print('az aktuális worker címe akinek küldünk:', worker_address)
 		print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
 		call_worker_sender(worker_address, new_clf_file_name, model_id)
