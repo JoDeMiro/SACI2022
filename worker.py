@@ -59,6 +59,7 @@ print('---------------------------------------------------------------')
 import os
 import sys
 import time
+import json
 import pprint
 import sklearn
 import requests
@@ -824,6 +825,9 @@ def upload_file():
       f = request.files['file']
       m = request.files['model_id']
       print('m :::', m)
+      t_id = request.json['model_id']
+      print(t_id)
+      print('-------------------------')
       print('received_file_name = ', f.filename)
       print(type(f.filename))
       file_name = f.filename
