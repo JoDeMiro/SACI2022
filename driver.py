@@ -682,6 +682,7 @@ def evolution_dev2():
 # test pont -> törölhető
 @app.route('/tmp')
 def tmp():
+	print('____tmp hab been called____')
 	lst = ['0.0', '0.1', '0.2']
 	rsp_time = time.time()
 	package = {'lista': lst, 'response_time':rsp_time}
