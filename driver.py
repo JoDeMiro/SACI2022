@@ -796,6 +796,7 @@ def initialize():
 	_window = (int)(request.args.get('_window'))
 	_arch = (tuple)(request.args.get('_arch'))
 	print('törölhető arch print', _arch)
+	print('type(arch)', type(_arch))
 	initialize_driver(_nRowsRead, _window, _arch)
 	return 'Driver initilize method has been called'
 
