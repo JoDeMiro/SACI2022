@@ -299,7 +299,7 @@ def call_worker_uploader(worker_address):
 
 
 # Egy konkrét workernek küldi át egy konkrét modelt
-def call_worker_sender(worker_address, new_clf_file_name):
+def call_worker_sender(worker_address, new_clf_file_name, model_id):
 
 	# --> ennek a hatására a worker vissza fog hívni a receive_result() api-ra
 
@@ -479,15 +479,16 @@ def evolution_dev2():
 		# A ciklus számláló alapján azonosítható legyen a filé
 		#new_clf_file_name = 'model3.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
 		new_clf_file_name = 'model' + str(i) + '.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
-		print('\n\n\n\n\n new_clf_file_name = ', new_clf_file_name, '\n\n\n\n')
 		joblib.dump(new_clf, new_clf_file_name)         # el kéne küldeni egy adott workingernek (speckó nevet kell adni neki)
 		# worker_address = 'http://192.168.0.247:8080' # ezt majd mindíg váltogatni kell
 		worker_address = workers_addresses[i]
 		# hagyjuk a worker_id-t mivel itt hozzuk létre és mentjük le filébe a modelt, egyszerűen csatoljuk a küldött filé mellé
 		# a ciklus számláló értékét, ez lesz az azonosító, amely alapján azonosítjuk a lementett filét és a küldést is.
+		# a call_worker_sender(worker_address, new_clf_file_name, model_id)
+		model_id = i
 		print('az aktuális worker címe akinek küldünk:', worker_address)
 		print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
-		call_worker_sender(worker_address, new_clf_file_name)
+		call_worker_sender(worker_address, new_clf_file_name, model_id)
 		print('------------------------------------------------------->>>>>>>>>>>>> 4_____ enough = ', enough)
 		if( enough == True ):
 			print('\n\n\n\n\n\n valami hiba történt \n\n\n\n\n\n\n')
