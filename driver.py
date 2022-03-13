@@ -324,7 +324,7 @@ def call_worker_sender(worker_address, new_clf_file_name, model_id):
 	resp = requests.post(uploadResultUrl, files=fileInfoDict)
 	print('<<< response >>> uploader   ', resp)
 	print('<<< sended model_id was ===', model_id)
-	print('_______call_worker_uploader_______')
+	print('_______call_worker_sender_______')
 
 
 
@@ -481,158 +481,162 @@ def evolution_dev2():
 		print(bcolors.OKBLUE + '                                           GENERATION ' + str(g) + '' + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
 
-	new_clf = deepcopy(clf)
-	old_coefs_ = deepcopy(new_clf.coefs_)
-	# print('--------------- OLD COEFS -------------')
-	# print(old_coefs_)
-	print(workers_addresses)
-	print('--------------------------------------------------------------------------------------------------')
-	print('                                           START FOR LOOP                                         ')
-	print('--------------------------------------------------------------------------------------------------')
-	global received_response_count
-	received_response_count = 0 			# be kell állítani 0-ra, hogy tényleg azt számolja amit kell
-	# Feltételezzük, hogy ezen a ponton még nem érkezett egyetlen válasz sem, de ez egy hibás feltételezés
-	# nem így kéne ezt itt lekezelni, hogy simán felül csapom ezt az értéket.
-	print('received_response_count:', received_response_count)
+		new_clf = deepcopy(clf)
+		old_coefs_ = deepcopy(new_clf.coefs_)
+		# print('--------------- OLD COEFS -------------')
+		# print(old_coefs_)
+		print(workers_addresses)
+		print('--------------------------------------------------------------------------------------------------')
+		print('                                           START FOR LOOP                                         ')
+		print('--------------------------------------------------------------------------------------------------')
+		global received_response_count
+		received_response_count = 0 			# be kell állítani 0-ra, hogy tényleg azt számolja amit kell
+		# Feltételezzük, hogy ezen a ponton még nem érkezett egyetlen válasz sem, de ez egy hibás feltételezés
+		# nem így kéne ezt itt lekezelni, hogy simán felül csapom ezt az értéket.
+		print('received_response_count:', received_response_count)
 
 
-	print('--------------------------------------------------------------------------------------------------')
-	print('-------------------------------------------RESET GLOBAL generation_holder-------------------------')
-	print('--------------------------------------------------------------------------------------------------')
-	global generation_holder
-	generation_holder = []
-	print('--------------------------------------------------------------------------------------------------')
-	print('-------------------------------------------RESET GLOBAL received_response_count-------------------')
-	print('--------------------------------------------------------------------------------------------------')
-	global enough
-	enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
-	print('------------------------------------------------------->>>>>>>>>>>>> 1_____ enough = ', enough)
-	for i in range(len(workers_addresses)):
-		print('_________a cikluson belül itt tartunk : ', i)
-		new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = parameters.factor)
-		# print('--------------- NEW COEFS -------------')
-		# print(new_coefs_)
-		new_clf.coefs_ = new_coefs_        # el kéne küldeni a workereknek az új modelt.
-		# A ciklus számláló alapján azonosítható legyen a filé
-		#new_clf_file_name = 'model3.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
-		new_clf_file_name = 'model' + str(i) + '.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
-		joblib.dump(new_clf, new_clf_file_name)         # el kéne küldeni egy adott workingernek (speckó nevet kell adni neki)
-		# worker_address = 'http://192.168.0.247:8080' # ezt majd mindíg váltogatni kell
-		worker_address = workers_addresses[i]
-		# hagyjuk a worker_id-t mivel itt hozzuk létre és mentjük le filébe a modelt, egyszerűen csatoljuk a küldött filé mellé
-		# a ciklus számláló értékét, ez lesz az azonosító, amely alapján azonosítjuk a lementett filét és a küldést is.
-		# a call_worker_sender(worker_address, new_clf_file_name, model_id)
-		model_id = i
-		print('\n model_id:', model_id, '\n', 'worker_address:', worker_address,   '\n')
-		print('az aktuális worker címe akinek küldünk:', worker_address)
-		print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
-		call_worker_sender(worker_address, new_clf_file_name, model_id)
-		print('------------------------------------------------------->>>>>>>>>>>>> 4_____ enough = ', enough)
-		if( enough == True ):
-			print('\n\n\n\n\n\n valami hiba történt \n\n\n\n\n\n\n')
-			raise Exception("\n\n\n\n\nEzen  a ponton az enough érétéke nem lehet True, mert ha igen akkor valahol hiba van\n\n\n\n\n")
-		# A lényeg, hogy cikluson belül figyeljünk oda, hogy az enough értéke soha sem lehet True,
-		# mert akkor valamit rosszul csinálunk, azt jelentené, hogy már megérkezeett az összes válasz miközben
-		# még nem küldük el az összes kérést.
-		# az van, hogy a fenti metodus elküldi az anyagot a workernek-> a tuloldalon ez a hívás azt eredményezi, hogy számol és
-		# vissza is küldi ugyan erre a gépre, de egy másik végpontra az eredményt.
-	# Itt azt kéne megvizsgálni, hogy visszajött-e a három eredmény -> és csak akkor engedni tovább a progit, ha az ottani számláló 3.
-	# na ez egy nagy kérdés, hogy a közben, miközben még a for ciklus fent küldözget, már lehet, hogy bejön egy válasz
-	# de elvileg az nem fog bezavarni.
-	#
-	#
-	#
-	# Az a baj, hogy szinkron a REST hivás, vagyis amikor meghívjuk fent a ciklusban a 'call_worker_sender()' metodust
-	# az abba rejtett küldő olyan, hogy megvárja, a Worker válaszát.!!!!
-	# Ezért a FENTI FOR LOOP sorrendben fog lefutni.
-	#
-	# A helyes megoldás az, ha a Worker úgy van megírva, hogy külön szálon elindítja a kiszámolást,
-	# amikor végez akkor tovább lépne és meghívná a Driver REST API-t amin az erdményeket küldi.
-	# Ezzel viszont egy pontenciális hiba forrást nyitok, ugyanis ha sokáig tart a válasz, és függetlenül müködik az később bezavarhat.
-	print('---------------------------------------------------------------------------------------------')
-	print('-------------------------------------------START WHILE---------------------------------------')
-	print('---------------------------------------------------------------------------------------------')
-	tmp = 0
-	prev_received_response_count = 0
-	start_time = time.time()
-	while (enough == False):
-		# bizonyos ideig fogjuk ezt a ciklust különben nagyon gyorsan lefut
-		time.sleep( 0.001 )
-		# csak akkor irjuk ki az eredményt, ha változás van a beérkezett válaszok számában
-		# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
-		if( prev_received_response_count != received_response_count or received_response_count is None ):
-			print('>>>> Beérkezett egy érték a Workertől hurráááááááááááááááááááááááááá')
-			print('>>>> Ekkor a tmp értéke a következő volt = ', tmp)
-			print('>>>> Ekkor a received_response_count = ', received_response_count)
-			print('>>>> ennyi idő telt el a while indítása óta: ', time.time() - start_time)
-			prev_received_response_count = received_response_count
-		# vizgálja meg, hogy megkvan-e a három eredmény.
-		# ha igen akkor engedje tovább futni a programot.
-		# ha nem akkor tartsa ebben a ciklusban
-		tmp += 1
-		if(tmp > 20000):
-			enough = True
-		if(received_response_count >= 3):
-			enough = True
-			received_response_count = 0
-			print('>>>> ebben a körben érkezett be az utolsó válasz is: ', tmp)
-			print('>>>> ennyi idő telt el a while indítása óta: ', time.time() - start_time)
-	print('-----------------------------------------------------')
-	print('#### Ebben a körben jöttünk ki a while loopból: ', tmp)
-	print('vége kijöttünk a while loopból.......................')
-	print('#### Ennyi időbe telt kijönni a while loopból: ', time.time()-start_time)
-	#
-	# Rendben, nos akkor most az van, hogy visszakaptuk az eredményket ki kéne választani, hogy melyik volt a legjobb
-	# 1) probléma egy, hogy a workertől visszaküldöt érték alapján nem tudom azonosítani, hogy melyik workertől jött
-	# vagyis, hogy melyik model produkálta ezt az értéket. Ezért a model küldésénél valahogy be kell tennem egy értéket
-	# a filé mellé, hogy tudjam azonosítani, ezt az értéket kérem majd visszafelé is amikor a worker küldi a drivernek
-	# az eredményt
-	#
-	# Rendben elvileg látható generation_holder lista amiben benne van az azonosító is és az eredmény is.
-	# Kiiratni, rendezni (ToDo ellenőrizni, hogy egyébként tényleg jó e a rendezés)
-	print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
-	print('generation_holder       ', generation_holder)
-	sorted_generation_holder = sorted(generation_holder, key = lambda x:(x[1], x[0]))
-	print('sorted_generation_holder', sorted_generation_holder)
-	print('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
-	#
-	# Ki kell választani a legjobb értéket, ami az utolsó lesz
-	best_result = sorted_generation_holder[-1]
-	print('best_result ', best_result)
-	print('best_result[0] ', best_result[0])
-	print('best_result[1] ', best_result[1])
-	best_model = best_result[0]
-	best_score = best_result[1]
-	print('best_model ', best_model)
-	print(bcolors.WARNING + 'best_model ' + best_model + bcolors.ENDC)
-	print('best_score ', best_score)
-	print(bcolors.WARNING + 'best_score ' + best_score + bcolors.ENDC)
-	#
-	# Letárolni az adott generáció legjobbját egy globális változóba
-	# global generation_best_score
-	generation_best_score.append(best_score)
-	print('generation_best_score ', generation_best_score)
-	#
-	# Rendben most már tudjuk, hogy ki a legjobb model az adott generációban. Töltsük be, hogy aztán mutálni tudjuk
-	reloaded_model_name = 'model' + str(best_model) + '.joblib'
-	print('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
-	print('ezt fogjuk betölteni, remélem van ilyen valahol és elmentettem amikor készült!')
-	print(bcolors.WARNING + 'ezt töltjük be ' + reloaded_model_name + bcolors.ENDC)
-	reloaded_best_model = joblib.load(reloaded_model_name)
-	print(bcolors.OKBLUE + '# Model betöltve a joblib-ből' + bcolors.ENDC)
-	print(reloaded_best_model.get_params())
-	print('ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
-	princ('ááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááá')
-	#
-	#
-	# Ha ez megvan akkor a legjobb modelt ismét előkaparni -> reloaded_best_model
-	# Betölteni mint parent_model, vagy parnet_clf, vagy parnet_mlp
-	#
-	# Meg kell mutálni őkegyelmességét
-	#
-	#
-	#
-	#
+		print('--------------------------------------------------------------------------------------------------')
+		print('-------------------------------------------RESET GLOBAL generation_holder-------------------------')
+		print('--------------------------------------------------------------------------------------------------')
+		global generation_holder
+		generation_holder = []
+		print('--------------------------------------------------------------------------------------------------')
+		print('-------------------------------------------RESET GLOBAL received_response_count-------------------')
+		print('--------------------------------------------------------------------------------------------------')
+		global enough
+		enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
+		print('------------------------------------------------------->>>>>>>>>>>>> 1_____ enough = ', enough)
+		print('--------------------------------------------------------------------------------------------------')
+		print('                                           START FOR LOOP NEW CLF AND SENDING MODEL               ')
+		print('--------------------------------------------------------------------------------------------------')
+		for i in range(len(workers_addresses)):
+			print('_________a cikluson belül itt tartunk : ', i)
+			new_coefs_ = randomer.randomize(coefs = old_coefs_, factor = parameters.factor)
+			# print('--------------- NEW COEFS -------------')
+			# print(new_coefs_)
+			new_clf.coefs_ = new_coefs_        # el kéne küldeni a workereknek az új modelt.
+			# A ciklus számláló alapján azonosítható legyen a filé
+			#new_clf_file_name = 'model3.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
+			new_clf_file_name = 'model' + str(i) + '.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
+			joblib.dump(new_clf, new_clf_file_name)         # el kéne küldeni egy adott workingernek (speckó nevet kell adni neki)
+			# worker_address = 'http://192.168.0.247:8080' # ezt majd mindíg váltogatni kell
+			worker_address = workers_addresses[i]
+			# hagyjuk a worker_id-t mivel itt hozzuk létre és mentjük le filébe a modelt, egyszerűen csatoljuk a küldött filé mellé
+			# a ciklus számláló értékét, ez lesz az azonosító, amely alapján azonosítjuk a lementett filét és a küldést is.
+			# a call_worker_sender(worker_address, new_clf_file_name, model_id)
+			model_id = i
+			print('\n model_id:', model_id, '\n', 'worker_address:', worker_address)
+			print(' az aktuális worker címe akinek küldünk:', worker_address)
+			print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
+			call_worker_sender(worker_address, new_clf_file_name, model_id)
+			print('------------------------------------------------------->>>>>>>>>>>>> 4_____ enough = ', enough)
+			if( enough == True ):
+				print('\n\n\n\n\n\n valami hiba történt \n\n\n\n\n\n\n')
+				raise Exception("\n\n\n\n\nEzen  a ponton az enough érétéke nem lehet True, mert ha igen akkor valahol hiba van\n\n\n\n\n")
+			# A lényeg, hogy cikluson belül figyeljünk oda, hogy az enough értéke soha sem lehet True,
+			# mert akkor valamit rosszul csinálunk, azt jelentené, hogy már megérkezeett az összes válasz miközben
+			# még nem küldük el az összes kérést.
+			# az van, hogy a fenti metodus elküldi az anyagot a workernek-> a tuloldalon ez a hívás azt eredményezi, hogy számol és
+			# vissza is küldi ugyan erre a gépre, de egy másik végpontra az eredményt.
+		print('--------------------------------------------------------------------------------------------------')
+		print('                                           END FOR LOOP NEW CLF AND SENDING MODEL                 ')
+		print('--------------------------------------------------------------------------------------------------')
+		# Megvizsálom, hogy visszajött-e az összes eredmény
+		# Közben a fenti for ciklus még küldözgethet
+		#
+		# A Worker úgy van megírva, hogy külön szálon elindítja a kiszámolást,
+		# amikor végez akkor tovább lépne és meghívná a Driver REST API-t amin az erdményeket küldi.
+		# Ezzel viszont egy pontenciális hiba forrást nyitok, ugyanis ha sokáig tart a válasz, és függetlenül müködik az később bezavarhat.
+		print('---------------------------------------------------------------------------------------------')
+		print('-------------------------------------------START WHILE---------------------------------------')
+		print('---------------------------------------------------------------------------------------------')
+		tmp = 0
+		prev_received_response_count = 0
+		start_time = time.time()
+		while (enough == False):
+			# bizonyos ideig fogjuk ezt a ciklust különben nagyon gyorsan lefut
+			time.sleep( 0.001 )
+			# csak akkor irjuk ki az eredményt, ha változás van a beérkezett válaszok számában
+			# látjuk egyáltalán a received_response_count globális változó értékét? Hogy tudjuk azt innen elérni?
+			if( prev_received_response_count != received_response_count or received_response_count is None ):
+				print('>>>> Beérkezett egy érték a Workertől hurráááááááááááááááááááááááááá')
+				print('>>>> Ekkor a tmp értéke a következő volt = ', tmp)
+				print('>>>> Ekkor a received_response_count = ', received_response_count)
+				print('>>>> Ennyi idő telt el a while indítása óta: ', time.time() - start_time)
+				prev_received_response_count = received_response_count
+			# vizgálja meg, hogy megvan-e a három eredmény.
+			# ha igen akkor engedje tovább futni a programot.
+			# ha nem akkor tartsa ebben a ciklusban
+			tmp += 1
+			if(tmp > 20000):
+				enough = True
+			if(received_response_count >= 3):
+				enough = True
+				received_response_count = 0
+				print('>>>> Ebben a körben érkezett be az utolsó válasz is: ', tmp)
+				print('>>>> Ennyi idő telt el a while indítása óta: ', time.time() - start_time)
+		print('-----------------------------------------------------')
+		print('#### Ebben a körben jöttünk ki a while loopból: ', tmp)
+		print('vége kijöttünk a while loopból.......................')
+		print('#### Ennyi időbe telt kijönni a while loopból: ', time.time()-start_time)
+		#
+		# Rendben, nos akkor most az van, hogy visszakaptuk az eredményket ki kéne választani, hogy melyik volt a legjobb
+		# 1) A model küldésénél a file névből tudjuk, hogy melyik modelt küldtük, visszafelé is ezt küldi a Worker ez alapján azonosítom
+		#
+		# Rendben, a generation_holder listahoz adogatom az a generáción belül az egyes eredményeket
+		# Kiiratni
+		print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
+		print('generation_holder       ', generation_holder)
+		# Növekvő sorba rendezni a fitness score alapján (második elem a listában)
+		sorted_generation_holder = sorted(generation_holder, key = lambda x:(x[1], x[0]))
+		print('sorted_generation_holder', sorted_generation_holder)
+		print('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
+		#
+		# Ki kell választani a legjobb értéket, ami a listában az utolsó elem lesz
+		best_result = sorted_generation_holder[-1]
+		print('best_result ', best_result)
+		print('best_result[0] ', best_result[0])
+		print('best_result[1] ', best_result[1])
+		best_model = best_result[0]
+		best_score = best_result[1]
+		print('best_model ', best_model)
+		print(bcolors.WARNING + 'best_model ' + best_model + bcolors.ENDC)
+		print('best_score ', best_score)
+		print(bcolors.WARNING + 'best_score ' + best_score + bcolors.ENDC)
+		#
+		# Letárolni az adott generáció legjobbját egy globális változóba
+		# global generation_best_score
+		generation_best_score.append(best_score)
+		print('generation_best_score ', generation_best_score)
+		#
+		# Rendben most már tudjuk, hogy ki a legjobb model az adott generációban. Töltsük be, hogy aztán mutálni tudjuk
+		reloaded_model_name = 'model' + str(best_model) + '.joblib'
+		print('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
+		print('ezt a model filét fogjuk betölteni, remélem van ilyen valahol és elmentettem amikor készült!')
+		print(bcolors.WARNING + 'ezt töltjük be ' + reloaded_model_name + bcolors.ENDC)
+		reloaded_best_model = joblib.load(reloaded_model_name)
+		print(bcolors.OKBLUE + '# Model betöltve a joblib-ből' + bcolors.ENDC)
+		print(reloaded_best_model.get_params())
+		print('ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
+		princ('ááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááá')
+		#
+		#
+		# Ha ez megvan akkor a legjobb modelt ismét előkaparni -> reloaded_best_model
+		# Betölteni mint parent_model, vagy parnet_clf, vagy parnet_mlp
+		#
+		# Meg kell mutálni őkegyelmességét
+		# Most itt tartok.
+		# A lényeg, hogy mutációt elvileg fent elvégezzük, ezért itt nem mutálni kell, hanem ezt a modelt valahogy
+		# kiszervezni egy globális változóba.
+		# Továbbá úgy kell megírni ennek a forciklusnak az elejét, hogy ott már legyen egy ilyen model,
+		# amit itt ebben a szent pillanatban felül csap.
+		# Tehát csak az elején kell valahogy elérhetővé tennem utána folyamatosan felül csapom generácioról generációra
+		#
+		# elöször is tördeljük be úgy, hogy generáió alá kerüljenek
+		#
+	# Vége a generációnak
+	print('_____Vége a generációnak____')
 	#
 	# Majd az egész eddigi cuccot amit írtam ebbe az API-ba azt egyel beljebb tenni és berakni egy for cikluba ami a generation
 	new_clf = 10
