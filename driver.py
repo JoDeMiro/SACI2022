@@ -476,10 +476,16 @@ def evolution_dev2():
 		# print('--------------- NEW COEFS -------------')
 		# print(new_coefs_)
 		new_clf.coefs_ = new_coefs_        # el kéne küldeni a workereknek az új modelt.
-		new_clf_file_name = 'model3.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
+		# A ciklus számláló alapján azonosítható legyen a filé
+		#new_clf_file_name = 'model3.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
+		new_clf_file_name = 'model' + str(i) + '.joblib'           # ezt is váltogatni kell kérdés, hogy a tuloldalon milyen néven menti el?
+		print('\n\n\n\n\n new_clf_file_name = ', new_clf_file_name, '\n\n\n\n')
 		joblib.dump(new_clf, new_clf_file_name)         # el kéne küldeni egy adott workingernek (speckó nevet kell adni neki)
 		# worker_address = 'http://192.168.0.247:8080' # ezt majd mindíg váltogatni kell
 		worker_address = workers_addresses[i]
+		# hagyjuk a worker_id-t mivel itt hozzuk létre és mentjük le filébe a modelt, egyszerűen csatoljuk a küldött filé mellé
+		# a ciklus számláló értékét, ez lesz az azonosító, amely alapján azonosítjuk a lementett filét és a küldést is.
+		print(worker_id)
 		print('az aktuális worker címe akinek küldünk:', worker_address)
 		print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
 		call_worker_sender(worker_address, new_clf_file_name)
@@ -533,13 +539,28 @@ def evolution_dev2():
 			received_response_count = 0
 			print('>>>> ebben a körben érkezett be az utolsó válasz is: ', tmp)
 			print('>>>> ennyi idő telt el a while indítása óta: ', time.time() - start_time)
-		#print('prev_received_response_count = ', prev_received_response_count)
-		#print('     received_response_count = ', received_response_count)
-		#print('a while loopban vagyunk, tmp = ', tmp)
 	print('-----------------------------------------------------')
 	print('#### Ebben a körben jöttünk ki a while loopból: ', tmp)
 	print('vége kijöttünk a while loopból.......................')
 	print('#### Ennyi időbe telt kijönni a while loopból: ', time.time()-start_time)
+	#
+	# Rendben, nos akkor most az van, hogy visszakaptuk az eredményket ki kéne választani, hogy melyik volt a legjobb
+	# 1) probléma egy, hogy a workertől visszaküldöt érték alapján nem tudom azonosítani, hogy melyik workertől jött
+	# vagyis, hogy melyik model produkálta ezt az értéket. Ezért a model küldésénél valahogy be kell tennem egy értéket
+	# a filé mellé, hogy tudjam azonosítani, ezt az értéket kérem majd visszafelé is amikor a worker küldi a drivernek
+	# az eredményt
+	#
+	#
+	# Ha ez megvan akkor a legjobb modelt ismét előkaparni valahonnan (mondjuk a filenév alapján)
+	# Betölteni mint parent_model, vagy parnet_clf, vagy parnet_mlp
+	#
+	#
+	#
+	# Meg kell mutálni őkegyelmességét
+	#
+	#
+	#
+	# Majd az egész eddigi cuccot amit írtam ebbe az API-ba azt egyel beljebb tenni és berakni egy for cikluba ami a generation
 	new_clf = 10
 	abc = empty_func()
 	print('_____végig mentünk az össezs worker initializejan____')
