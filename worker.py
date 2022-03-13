@@ -833,7 +833,7 @@ def upload_file():
       print(type(f))
       print()
       print('\n\n\n\n\n xxxx amit a worker az uploader apiban fogadott model_id:', m, '\n\n\n\n\n')
-      z = request.files[]
+      z = request.files.keys()
       print(type(z))
       print(z)
       b = request.form.get('model_id')
