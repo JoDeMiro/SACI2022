@@ -477,7 +477,9 @@ def evolution_dev2():
 	print('-------------------------------------------START EVOLUTION2---------------------------------------')
 	print('--------------------------------------------------------------------------------------------------')
 	basic_clf = deepcopy(clf)
-	for g in range(2):						# generációk száma, ki kell majd vezetni
+	for g in range(parameters.generation):						# generációk száma, ki kell majd vezetni
+		print(bcolors.WARNING + parameters + bcolors.ENDC)
+		print(bcolors.WARNING + parameters.generation + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
 		print(bcolors.OKBLUE + '                                           GENERATION ' + str(g) + '' + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
@@ -707,7 +709,6 @@ def initialize_params(_parameters=parameters, _generation=3000, _factor=20, _dum
     print('-------------------------------SETUP---------------------------------')
 
     received_generation = (int)(request.args.get('generation'))
-    # received_factor     = (int)(request.args.get('factor'))
     received_factor     = (float)(request.args.get('factor'))
     received_dummy      = (float)(request.args.get('dummy'))
 
