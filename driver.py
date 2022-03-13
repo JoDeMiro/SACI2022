@@ -671,7 +671,10 @@ def evolution_dev2():
 	new_clf = 10
 	abc = empty_func()
 	print('_____Vége az Evolution2nek_____')
-	my_result = 'mumbapa'
+	# my_result = 'mumbapa'
+	my_result =  jsonify(generation_best_score)
+	#
+	# Na most kitalálhatom, hogy mivel akarok visszatérni a juypter notebookba
 	return my_result
 
 
