@@ -63,6 +63,11 @@ Ez alól egy kivétel van, hogy melyik adat fájlt olvassa be a rendszer. Ez fix
 - generation (int) ennyi generáicón keresztül fog futni a program
 - factor (float) (2) ennyivel fogja leosztani a standard normális eloszlásból származó értékeket (kisebb érték nagyobb mutációt eredményez 0.2 azt jelenti, hogy a súlyokhoz adható véletlen szám (-5, +5) között fog mozogni. Ez már egy nagyon radikális mutáció. Eddig [1,2,10] értékeket használtan (erős, közepes, gyenge) mutáció imitálására.
 
+## Hogyan állíthatom be a populáció számát
+Röviden sehogy. Bővebben: Az van, hogy worker_addresses lista elemszámával egyenlő a populáció száma.
+
+Más szavakkal a populáció szám nem választható, hanem rá van kötve a driver programban elhelyezett cimeket tartalmazó lista hosszával.
+
 ## Egy fontos észrevétel a beolvasott adatok méretével kapcsolatban (ToDo)
 Jelenleg nem jártam alaposan utána, hogy mi az okat annak a jelenségnek, hogy 490 ezer sornál többet olvasok be akkor a Worker meghal, kinyirja magát a Flask.
 
