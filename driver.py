@@ -435,11 +435,13 @@ def check_received_responses_count():
 def receive_result():
 	received_value = request.args.get('value')
 	received_gain = request.args.get('gain')
+	received_model_id = request.args.get('model_id')
 	print('----------------------------------------------------------------------------------------------')
 	print('                                       RECEIVED VALUE FROM WORKER                             ')
 	print('----------------------------------------------------------------------------------------------')
 	# print('received_value from worker =', received_value)
 	print('received_gain from worker  =', received_gain)
+	print('received_model_id from worker =', received_model_id)
 	print('---------------------------------------CHECK_RECEIVED_RESPONSE_COUNT--------------------------')
 	check_received_responses_count()
 	print('---------------------------------------END CHECK_RECEIVED_RESPONSE_COUNT----------------------')

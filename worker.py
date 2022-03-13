@@ -543,13 +543,13 @@ class DataSender():
     '''
     print('------------>>    send_to_driver(self, data)    data is sending to the driver')
     print('------------>>    self.driver_ip_address', self.driver_ip_address)
-    print('------------>>    model_id', model_id)
+    print('------------>>    sended from worker to drive model_id', model_id)
     print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
 
     # aaaaa
     # na itt kéne meghívni egy sima requestes szar
     # Átküldök egy értéket a Drivernek
-    resp = requests.get(self.driver_ip_address + '/receiveresult?gain=' + (str)(data))
+    resp = requests.get(self.driver_ip_address + '/receiveresult?gain=' + (str)(data) + '&model_id=' + str(model_id))
     print('receiveresult  ', resp)
     
     pass
