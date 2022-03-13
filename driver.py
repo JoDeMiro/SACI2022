@@ -615,6 +615,7 @@ def evolution_dev2():
 	print('# Model betöltve a joblib-ből')
 	print(reloaded_best_model.get_params())
 	print('ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
+	princ('ááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááá')
 	#
 	#
 	# Ha ez megvan akkor a legjobb modelt ismét előkaparni valahonnan (mondjuk a filenév alapján)
@@ -738,7 +739,9 @@ def initialize():
 
 
 
-
+def princ(text: str):
+	output = '\033[38;5;208m' + str(text) + '\033[0;0m'
+	print(output)
 
 
 
