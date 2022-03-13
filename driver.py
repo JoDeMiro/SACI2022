@@ -478,7 +478,8 @@ def evolution_dev2():
 	print('--------------------------------------------------------------------------------------------------')
 	basic_clf = deepcopy(clf)
 	for g in range(parameters.generation):						# generációk száma, ki kell majd vezetni
-		print(bcolors.WARNING + parameters + bcolors.ENDC)
+		print(parameters)
+		print(type(parameters.generation))
 		print(bcolors.WARNING + parameters.generation + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
 		print(bcolors.OKBLUE + '                                           GENERATION ' + str(g) + '' + bcolors.ENDC)
