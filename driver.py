@@ -296,7 +296,8 @@ def call_worker_uploader(worker_address):
 	resp = requests.post(uploadResultUrl, files=fileInfoDict)
 	print('uploader   ', resp)
 	print('_______call_worker_uploader_______')
-
+# ToDo kétszer van megírva szinte ugyan az. Gondolom a felsőt még régen írtam, de ha már nem kell akkor ki kéne venni mert közben
+# átírtam a túloldalon a fogad api-t és ebből még lehet gond. Mindkét metódus ugyan azt az apit hívja csak mást küld el neki.
 
 # Egy konkrét workernek küldi át egy konkrét modelt
 def call_worker_sender(worker_address, new_clf_file_name, model_id):
@@ -487,7 +488,7 @@ def evolution_dev2():
 		# a ciklus számláló értékét, ez lesz az azonosító, amely alapján azonosítjuk a lementett filét és a küldést is.
 		# a call_worker_sender(worker_address, new_clf_file_name, model_id)
 		model_id = i
-		print('\n\n\n\n\n\n  model_id:', model_id, '\n\n\n\n\n\n')
+		print('\n\n\n\n\n\n  model_id:', model_id, '\n', 'worker_address:', worker_address,   '\n\n\n\n\n\n')
 		print('az aktuális worker címe akinek küldünk:', worker_address)
 		print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
 		call_worker_sender(worker_address, new_clf_file_name, model_id)

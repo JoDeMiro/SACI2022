@@ -817,6 +817,8 @@ def initialize(_parameters=parameters):
 def upload_file():
    if request.method == 'POST':
       f = request.files['file']
+      m = request.files['model_id']
+      print('\n\n\n\n\n model_id:', m, '\n\n\n\n\n')
       print(f.filename)
       print(type(f.filename))
       print('úgy kéne, hogy mindig egy adott néven metse le. model.joblib mondjuk')
