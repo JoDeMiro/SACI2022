@@ -480,7 +480,8 @@ def evolution_dev2():
 	for g in range(parameters.generation):						# generációk száma, ki kell majd vezetni
 		print(parameters)
 		print(type(parameters.generation))
-		print(bcolors.WARNING + parameters.generation + bcolors.ENDC)
+		print(bcolors.WARNING + str(parameters.generation) + bcolors.ENDC)
+		print(bcolors.WARNING + str(parameters) + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
 		print(bcolors.OKBLUE + '                                           GENERATION ' + str(g) + '' + bcolors.ENDC)
 		print('--------------------------------------------------------------------------------------------------')
