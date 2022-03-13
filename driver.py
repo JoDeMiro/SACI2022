@@ -485,7 +485,6 @@ def evolution_dev2():
 		worker_address = workers_addresses[i]
 		# hagyjuk a worker_id-t mivel itt hozzuk létre és mentjük le filébe a modelt, egyszerűen csatoljuk a küldött filé mellé
 		# a ciklus számláló értékét, ez lesz az azonosító, amely alapján azonosítjuk a lementett filét és a küldést is.
-		print(worker_id)
 		print('az aktuális worker címe akinek küldünk:', worker_address)
 		print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
 		call_worker_sender(worker_address, new_clf_file_name)
