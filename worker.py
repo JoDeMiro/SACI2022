@@ -697,7 +697,6 @@ def evaluate_model(mlp, model_id):
     # print(pred)
     end_time_pred   = time.time()
     eval_time_pred  = end_time_pred - start_time_pred
-    print('----------------------< eval_time_pred {:.3f}   >---------------------'.format(eval_time_pred))
 
     print('----------------------< ' + bcolors.WARNING + 'eval_time_pred '  + str(round(eval_time_pred, 3)) + bcolors.ENDC + '   >---------------------')
 
@@ -714,6 +713,9 @@ def evaluate_model(mlp, model_id):
     end_time_trader   = time.time()
     eval_time_trader  = end_time_trader - start_time_trader
     print('----------------------< eval_time_trader {:.3f} >---------------------'.format(eval_time_trader))
+
+    print('----------------------< ' + bcolors.WARNING + 'eval_time_trader '  + str(round(eval_time_trader, 3)) + bcolors.ENDC + '  >---------------------')
+
 
 
     print('----------------------< trader befejezte mérni >---------------------')
