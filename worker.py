@@ -694,11 +694,17 @@ def evaluate_model(mlp, model_id):
     pred = mlp.predict(data_reader.x_train)
     # print(pred)
 
+    print('------------------------< külön szálon fut most  >------------------------')
+
     print('------------------------< túlélte a predcitiont  >------------------------')
+
+    print('------------------------< trader elkezdte mérni  >------------------------')
     
     # mérje vissza a hibát, számolja ki a keresekedéseket
     result = trader.calculator(pred)
     print(result)
+
+    print('------------------------< trader befejezte mérni >------------------------')
 
     del(trader)                                                                       # <-- Check
 
