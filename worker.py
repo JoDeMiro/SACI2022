@@ -171,6 +171,15 @@ class DataReader():
     self.data = self.df.filter(['BC'])                     # <-- select only the BC column
     self.dataset = self.data.values                        # --> from pandas.series -> numpy.ndarray
 
+    # Check
+    # Töröljük a Pandas Dataframet mert többé már nincs szükségem rá
+    if hasattr(self, 'df'):
+      print('df nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
+      # del self.foo1
+    if hasattr(self, 'df2'):
+      print('df2 nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
+      # del self.foo1
+
     # For all column (I do not use it)
     # data_full = self.df.filter(['BO', 'BH', 'BL', 'BC', 'BCh', 'AO', 'AH', 'AL', 'AC', 'ACh'])
     # self.dataset_full = data_full.values                   # --> from pandas.series -> numpy.ndarray
