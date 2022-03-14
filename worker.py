@@ -174,15 +174,21 @@ class DataReader():
     # Check
     # Töröljük a Pandas Dataframet mert többé már nincs szükségem rá
     if hasattr(self, 'df'):
-      print('df nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
+      print('----------------> töröljük a self.df-t mert már nincs rá szükség')
       del self.df
     if hasattr(self, 'df2'):
-      print('df2 nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
+      print('----------------> töröljük a self.df2-t is mert már arra sincs szükség')
       del self.df2
+    if hasattr(self, 'data'):
+      print('----------------> töröljük a self.data-t is mert már arra sincs szükség')
+      del self.data
     if hasattr(self, 'df'):
-      print('még mindíg bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+      print('----------------> ' + bcolors.WARNING + 'ha ez az üzenet látszódik akkor nem törlődött a self.df  ' + bcolors.ENDC)
     if hasattr(self, 'df2'):
-      print('még mindíg vvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+      print('----------------> ' + bcolors.WARNING + 'ha ez az üzenet látszódik akkor nem törlődött a self.df2 ' + bcolors.ENDC)
+    if hasattr(self, 'data'):
+      print('----------------> ' + bcolors.WARNING + 'ha ez az üzenet látszódik akkor nem törlődött a self.data' + bcolors.ENDC)
+
 
 
 
