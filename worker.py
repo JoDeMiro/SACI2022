@@ -105,6 +105,10 @@ print('---------------------------------------------------------------')
 os.system('gzip -f -d ./Input/eurusd_minute_1000000.csv.gz')
 os.system('mv ./Input/eurusd_minute_1000000.csv ./Input/eurusd_minute.csv')
 
+# problémás, hogy itt felül csapom mert a git nem fogja a pull hatására újra lehuzni!
+# ezért az './Input/eurusd_minute_1000000.csv.gz' már nincs ott és panadszodik.
+# nem baj, de jó észben tartani
+
 os.system('rm ./Input/eurusd_minute_2000000.gz')
 os.system('cat ./Input/eurusd_minute_2000000.csv.gz.* >./Input/eurusd_minute_2000000.gz')
 os.system('gzip -f -d ./Input/eurusd_minute_2000000.gz')
@@ -128,7 +132,7 @@ class DataReader():
     self.nRowsRead = nRowsRead
     self.dataset = None
     self.dataset_full = None
-    self.window = NonUniformImage
+    self.window = None                      # <- Check (rosszul volt korábban beállítva)
 
 # ------------------------------------------------------------------------------
 
@@ -687,10 +691,14 @@ def evaluate_model(mlp, model_id):
     result = trader.calculator(pred)
     print(result)
 
+    del(pred)                                                                         # <-- Check
+
     print('9')                                                                        # <-- Check mem and cpu usage!
     
     # ki kéne venni a resultból, csak a 'gain' értéket
     gain = result.get('gain')
+
+    del(result)                                                                       # <-- Check
 
     print('10')                                                                       # <-- Check mem and cpu usage!
 
