@@ -164,6 +164,8 @@ Viszont az adatbeolvasáshoz szükséges paramétereket(nRowsRead, window) és a
 Csinálni egy olyan tesztet, hogy az egész párhuzamos helyett szekvenciálisan fut le.<br>
 Ezt könnyen megtehetem, hiszen csak a workereknél az evaluation() metodust kell az uploader API-ban kivezetnem a külön szálról és akkor az API hívás bevárja a választ, ezáltal szekvenciálisan fut le.
 
+A Setup-ot átirni JSON-re változók helyett. (https://stackoverflow.com/questions/20001229/how-to-get-posted-json-in-flask)
+
 # Further Work
 Ha majd egyszer sok időm lesz akkor még a következő dolgokat lehet érdemes kipróbálni, a teljesség igénye nélkül:
 - A Trader osztály statisztikáit is visszakértni a Jupyter Notebookba elemzés céljából
