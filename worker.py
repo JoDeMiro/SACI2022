@@ -175,10 +175,16 @@ class DataReader():
     # Töröljük a Pandas Dataframet mert többé már nincs szükségem rá
     if hasattr(self, 'df'):
       print('df nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
-      # del self.foo1
+      del self.df
     if hasattr(self, 'df2'):
       print('df2 nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
-      # del self.foo1
+      del self.df2
+    if hasattr(self, 'df'):
+      print('még mindíg bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+    if hasattr(self, 'df2'):
+      print('még mindíg vvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+
+
 
     # For all column (I do not use it)
     # data_full = self.df.filter(['BO', 'BH', 'BL', 'BC', 'BCh', 'AO', 'AH', 'AL', 'AC', 'ACh'])
