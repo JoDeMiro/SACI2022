@@ -72,6 +72,7 @@ print('                         IMPORT                                ')
 print('---------------------------------------------------------------')
 
 
+import gc
 import os
 import sys
 import time
@@ -701,6 +702,8 @@ def evaluate_model(mlp, model_id):
     gain = result.get('gain')
 
     del(result)                                                                       # <-- Check
+
+    gc.collect()                                                                      # <-- Check
 
     print('10')                                                                       # <-- Check mem and cpu usage!
 
