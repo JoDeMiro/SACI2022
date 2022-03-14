@@ -690,9 +690,14 @@ def evaluate_model(mlp, model_id):
 
     print('----------------------< itt szokott meghasalni >---------------------')
     
+    
     # számolja ki a becslést
+    start_time_pred = time.time()
     pred = mlp.predict(data_reader.x_train)
     # print(pred)
+    end_time_pred   = time.time()
+    eval_time_pred  = end_time_pred - start_time_pred
+    print('----------------------< ', eval_time_pred,    '>---------------------')
 
     print('----------------------< külön szálon fut most  >---------------------')
 
@@ -701,8 +706,13 @@ def evaluate_model(mlp, model_id):
     print('----------------------< trader elkezdte mérni  >---------------------')
     
     # mérje vissza a hibát, számolja ki a keresekedéseket
+    start_time_trader = time.time()
     result = trader.calculator(pred)
     print(result)
+    end_time_trader   = time.time()
+    eval_time_trader  = end_time_trader - start_time_trader
+    print('----------------------< ', eval_time_trader,  '>---------------------')
+
 
     print('----------------------< trader befejezte mérni >---------------------')
 
