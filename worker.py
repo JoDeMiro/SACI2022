@@ -309,11 +309,11 @@ def cpu_print()  -> None:
   pid = os.getpid()
   python_process = psutil.Process(pid)
   python_process_memory_use = python_process.memory_info()[0]/2.**30
-  print(bcolors.WARNING + 'Python PID Memory use:' + str(python_process_memory_use) + bcolors.ENDC)
+  print(bcolors.WARNING + 'RAM ' + str(python_process_memory_use) + ' GB' + bcolors.ENDC)
   # gives a single float value
   print(bcolors.OKBLUE + 'CPU % ' + str(psutil.cpu_percent()) + bcolors.ENDC)
   # gives an object with many fields
-  print(bcolors.OKBLUE + 'CPU VM' + str(psutil.virtual_memory()) + bcolors.ENDC)
+  print(bcolors.OKBLUE + 'RAM VM' + str(psutil.virtual_memory()) + bcolors.ENDC)
   # you can convert that object to a dictionary 
   cpu_dict = dict(psutil.virtual_memory()._asdict())
   print(cpu_dict)
