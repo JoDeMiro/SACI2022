@@ -652,6 +652,14 @@ def evaluate_model(mlp, model_id):
     A data_reader és a parameters objektumok amiket használ ez a függvény globalisok
     '''
     
+    print('-------------------------------GC COLLECT----------------------------')
+
+    gc.collect()
+    gc.collect(0)
+    gc.collect(1)
+    gc.collect(2)
+
+
     print('-------------------------------EVALUATE MODEL------------------------')
     
     # A globalis data_readert látja ez a függvény
@@ -681,6 +689,8 @@ def evaluate_model(mlp, model_id):
     # elötte lefut a load_model()
     # ami visszaad egy modelt
     # a modell ennek a függvénynek a bemenete
+
+    print('------------------------< itt szokott meghasalni >----------------------------')
     
     # számolja ki a becslést
     pred = mlp.predict(data_reader.x_train)
