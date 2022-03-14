@@ -691,6 +691,8 @@ def evaluate_model(mlp, model_id):
     result = trader.calculator(pred)
     print(result)
 
+    del(trader)                                                                       # <-- Check
+
     del(pred)                                                                         # <-- Check
 
     print('9')                                                                        # <-- Check mem and cpu usage!
