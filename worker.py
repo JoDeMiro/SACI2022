@@ -699,7 +699,7 @@ def evaluate_model(mlp, model_id):
     eval_time_pred  = end_time_pred - start_time_pred
     print('----------------------< eval_time_pred {:.3f}   >---------------------'.format(eval_time_pred))
 
-    print('----------------------< ' + bcolors.WARNING + ' eval_time_pred {:.3f}  ' + bcolors.ENDC + ' >---------------------'.format(eval_time_pred))
+    print('----------------------< ' + bcolors.WARNING + ' eval_time_pred'  + str(round(eval_time_pred, 3)) + bcolors.ENDC + ' >---------------------')
 
     print('----------------------< külön szálon fut most  >---------------------')
 
