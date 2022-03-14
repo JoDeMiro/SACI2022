@@ -529,7 +529,7 @@ def evolution_dev2():
 		print('--------------------------------------------------------------------------------------------------')
 		global enough
 		enough = False					# ez az érték legyen valahogy elérhető a másik REST számára is, hogy át tudja állítani
-		print('------------------------------------------------------->>>>>>>>>>>>> 1_____ enough = ', enough)
+		# print('------------------------------------------------------->>>>>>>>>>>>> 1_____ enough = ', enough)
 		print('--------------------------------------------------------------------------------------------------')
 		print('                                           START FOR LOOP NEW CLF AND SENDING MODEL               ')
 		print('--------------------------------------------------------------------------------------------------')
@@ -551,9 +551,9 @@ def evolution_dev2():
 			model_id = i
 			print('\n model_id:', model_id, '\n', 'worker_address:', worker_address)
 			print(' az aktuális worker címe akinek küldünk:', worker_address)
-			print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
+			# print('------------------------------------------------------->>>>>>>>>>>>> 3_____ enough = ', enough)
 			call_worker_sender(worker_address, new_clf_file_name, model_id)
-			print('------------------------------------------------------->>>>>>>>>>>>> 4_____ enough = ', enough)
+			# print('------------------------------------------------------->>>>>>>>>>>>> 4_____ enough = ', enough)
 			if( enough == True ):
 				print('\n\n\n\n\n\n valami hiba történt \n\n\n\n\n\n\n')
 				raise Exception("\n\n\n\n\nEzen  a ponton az enough érétéke nem lehet True, mert ha igen akkor valahol hiba van\n\n\n\n\n")
