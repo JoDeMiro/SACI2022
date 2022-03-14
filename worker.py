@@ -243,7 +243,7 @@ class DataReader():
 
     if hasattr(self, 'x_train_list'):
       print('----------------> töröljük a self.x_train_list-t is mert már nincs rá szükség')
-      del self.y_train_list
+      del self.x_train_list
     if hasattr(self, 'y_train_list'):
       print('----------------> töröljük a self.y_train_list-t is mert már nincs rá szükség')
       del self.y_train_list
