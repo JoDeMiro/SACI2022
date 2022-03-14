@@ -146,17 +146,17 @@ class DataReader():
     self.dataset = self.data.values                        # --> from pandas.series -> numpy.ndarray
 
     # For all column (I do not use it)
-    data_full = self.df.filter(['BO', 'BH', 'BL', 'BC', 'BCh', 'AO', 'AH', 'AL', 'AC', 'ACh'])
-    self.dataset_full = data_full.values                   # --> from pandas.series -> numpy.ndarray
+    # data_full = self.df.filter(['BO', 'BH', 'BL', 'BC', 'BCh', 'AO', 'AH', 'AL', 'AC', 'ACh'])
+    # self.dataset_full = data_full.values                   # --> from pandas.series -> numpy.ndarray
 
 # ------------------------------------------------------------------------------
 
   def show_dataset_info(self):
     self.println()
     print(type(self.dataset))
-    print(type(self.dataset_full))
+    # print(type(self.dataset_full))
     print(self.dataset.shape)
-    print(self.dataset_full.shape)
+    # print(self.dataset_full.shape)
     self.println()
 
 # ------------------------------------------------------------------------------
@@ -166,8 +166,8 @@ class DataReader():
     self.scaler        = MinMaxScaler(feature_range=(-1, 1))                        # <-- (0, 1) vagy (-1, 1)
     self.scaled_data   = self.scaler.fit_transform(self.dataset)
 
-    self.scaler_full        = MinMaxScaler(feature_range=(-1, 1))                   # <-- (0, 1) vagy (-1, 1)
-    self.scaled_data_full   = self.scaler_full.fit_transform(self.dataset_full)
+    # self.scaler_full        = MinMaxScaler(feature_range=(-1, 1))                   # <-- (0, 1) vagy (-1, 1)
+    # self.scaled_data_full   = self.scaler_full.fit_transform(self.dataset_full)
 
 # ------------------------------------------------------------------------------
 
@@ -212,16 +212,16 @@ class DataReader():
 
     # --------------------------------------------------------------------------    # <-- ToDo: ezt itt hagyom de nem használom
 
-    x_train_full = []                                                               # <-- Create list of Windows
-    y_train_full = []
+    # x_train_full = []                                                               # <-- Create list of Windows
+    # y_train_full = []
 
-    for i in range(self.window, len(self.scaled_data_full)):
-        x_train_full.append(self.scaled_data_full[i-self.window:i, :])
-        y_train_full.append(self.scaled_data_full[i, 0])
+    # for i in range(self.window, len(self.scaled_data_full)):
+    #     x_train_full.append(self.scaled_data_full[i-self.window:i, :])
+    #     y_train_full.append(self.scaled_data_full[i, 0])
 
     # print('The train dataset {}, and the labels {}'.format(len(x_train_full), len(y_train_full)))
 
-    x_train_full, y_train_full = np.array(x_train_full), np.array(y_train_full)     # <-- Convert list to Numpy Array
+    # x_train_full, y_train_full = np.array(x_train_full), np.array(y_train_full)     # <-- Convert list to Numpy Array
 
     # print(x_train_full.shape)
     # print(y_train_full.shape)
