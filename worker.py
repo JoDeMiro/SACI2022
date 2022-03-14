@@ -690,7 +690,6 @@ def evaluate_model(mlp, model_id):
 
     print('----------------------< itt szokott meghasalni >---------------------')
     
-    
     # számolja ki a becslést
     start_time_pred = time.time()
     pred = mlp.predict(data_reader.x_train)
@@ -712,11 +711,8 @@ def evaluate_model(mlp, model_id):
     print(result)
     end_time_trader   = time.time()
     eval_time_trader  = end_time_trader - start_time_trader
-    print('----------------------< eval_time_trader {:.3f} >---------------------'.format(eval_time_trader))
 
-    print('----------------------< ' + bcolors.WARNING + 'eval_time_trader '  + str(round(eval_time_trader, 3)) + bcolors.ENDC + '  >---------------------')
-
-
+    print('----------------------< ' + bcolors.WARNING + 'eval_time_trader '  + str(round(eval_time_trader, 3)) + bcolors.ENDC + ' >---------------------')
 
     print('----------------------< trader befejezte mérni >---------------------')
 
