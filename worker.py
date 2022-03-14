@@ -265,6 +265,11 @@ class DataReader():
     print(self.y_train.shape)
     self.println()
 
+    gc.collect()
+    gc.collect(0)
+    gc.collect(1)
+    gc.collect(2)
+
 
     # --------------------------------------------------------------------------    # <-- ToDo: ezt itt hagyom de nem használom
 
