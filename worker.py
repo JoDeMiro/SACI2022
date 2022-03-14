@@ -677,8 +677,6 @@ def evaluate_model(mlp, model_id):
 
     threshold = parameters.threshold
     trader = Trader(threshold = threshold, data_reader = data_reader)
-
-    print('7')                                                                        # <-- Check mem and cpu usage!
     
     
     # elöször is az NN alapján csinálunk egy predictiont
@@ -690,13 +688,13 @@ def evaluate_model(mlp, model_id):
     # ami visszaad egy modelt
     # a modell ennek a függvénynek a bemenete
 
-    print('------------------------< itt szokott meghasalni >----------------------------')
+    print('------------------------< itt szokott meghasalni >------------------------')
     
     # számolja ki a becslést
     pred = mlp.predict(data_reader.x_train)
     # print(pred)
 
-    print('8')                                                                        # <-- Check mem and cpu usage!
+    print('------------------------< túlélte a predcitiont  >------------------------')
     
     # mérje vissza a hibát, számolja ki a keresekedéseket
     result = trader.calculator(pred)
@@ -705,8 +703,6 @@ def evaluate_model(mlp, model_id):
     del(trader)                                                                       # <-- Check
 
     del(pred)                                                                         # <-- Check
-
-    print('9')                                                                        # <-- Check mem and cpu usage!
     
     # ki kéne venni a resultból, csak a 'gain' értéket
     gain = result.get('gain')
@@ -715,7 +711,6 @@ def evaluate_model(mlp, model_id):
 
     gc.collect()                                                                      # <-- Check
 
-    print('10')                                                                       # <-- Check mem and cpu usage!
 
     # a küldendő csomagbe be kell tenni a model_id-t is
     print('\n\n\n\n\n !!!!!!!!!!!!!!ezzel a model_id-el fogjuk visszaküldeni a csomagot', model_id, '\n\n\n\n\n\n')
