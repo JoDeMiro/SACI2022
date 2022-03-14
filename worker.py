@@ -688,23 +688,23 @@ def evaluate_model(mlp, model_id):
     # ami visszaad egy modelt
     # a modell ennek a függvénynek a bemenete
 
-    print('------------------------< itt szokott meghasalni >------------------------')
+    print('----------------------< itt szokott meghasalni >----------------------')
     
     # számolja ki a becslést
     pred = mlp.predict(data_reader.x_train)
     # print(pred)
 
-    print('------------------------< külön szálon fut most  >------------------------')
+    print('----------------------< külön szálon fut most  >----------------------')
 
-    print('------------------------< túlélte a predcitiont  >------------------------')
+    print('----------------------< túlélte a predcitiont  >----------------------')
 
-    print('------------------------< trader elkezdte mérni  >------------------------')
+    print('----------------------< trader elkezdte mérni  >----------------------')
     
     # mérje vissza a hibát, számolja ki a keresekedéseket
     result = trader.calculator(pred)
     print(result)
 
-    print('------------------------< trader befejezte mérni >------------------------')
+    print('----------------------< trader befejezte mérni >----------------------')
 
     del(trader)                                                                       # <-- Check
 
