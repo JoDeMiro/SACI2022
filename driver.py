@@ -573,7 +573,6 @@ def evolution_dev2():
 		# Közben a fenti for ciklus még küldözgethet
 		#
 		# Amig várakozunk a válaszokra kiiratom az eddigi legjobb eredményt, hogy lássuk a dolgok alakulását
-		print('best_score  in this generation:', best_score)
 		print('generation_holder    :', generation_holder)
 		print('generation_best_score:', generation_best_score)
 		#
