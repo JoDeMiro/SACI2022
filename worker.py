@@ -61,6 +61,7 @@ import sys
 import time
 import json
 import pprint
+import psutil
 import sklearn
 import requests
 import threading
@@ -288,12 +289,34 @@ def initialize_data_reader(_nRowsRead=1000, _window=2):
 
 
 
+print('---------------------------------------------------------------')
+print('                       CPU LOG                                 ')
+print('---------------------------------------------------------------')
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
-
-
-
-
+def cpu_print()  -> None:
+  # get the current python process data
+  pid = os.getpid()
+  python_process = psutil.Process(pid)
+  python_process_memory_use = python_process.memory_info()[0]/2.**30
+  print(bcolors.WARNING + 'Python PID Memory use:' + str(python_process_memory_use) + bcolors.ENDC)
+  # gives a single float value
+  print(bcolors.OKBLUE + 'CPU % ' + str(psutil.cpu_percent()) + bcolors.ENDC)
+  # gives an object with many fields
+  print(bcolors.OKBLUE + 'CPU VM' + str(psutil.virtual_memory()) + bcolors.ENDC)
+  # you can convert that object to a dictionary 
+  cpu_dict = dict(psutil.virtual_memory()._asdict())
+  print(cpu_dict)
 
 
 
@@ -502,6 +525,7 @@ print('---------------------------------------------------------------')
 
 new_trader = Trader(threshold = -0.0, data_reader = data_reader)                    # <-- Ebben a formában kell majd használni
 
+cpu_print()                                                                         # <-- Check mem and cpu usage!
 
 pred = nn.create_prediction()
 
