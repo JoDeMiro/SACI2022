@@ -45,6 +45,22 @@ parameters = Parameters()
 print(parameters)
 
 
+print('---------------------------------------------------------------')
+print('                         BCOLORS ENUM                          ')
+print('---------------------------------------------------------------')
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
 
 print('---------------------------------------------------------------')
 print('                         HELLO WORKER                          ')
@@ -61,7 +77,6 @@ import sys
 import time
 import json
 import pprint
-import psutil
 import sklearn
 import requests
 import threading
@@ -286,37 +301,6 @@ def initialize_data_reader(_nRowsRead=1000, _window=2):
     
     return data_reader
 
-
-
-
-print('---------------------------------------------------------------')
-print('                       CPU LOG                                 ')
-print('---------------------------------------------------------------')
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-def cpu_print()  -> None:
-  # get the current python process data
-  pid = os.getpid()
-  python_process = psutil.Process(pid)
-  python_process_memory_use = python_process.memory_info()[0]/2.**30
-  print(bcolors.WARNING + 'RAM ' + str(python_process_memory_use) + ' GB' + bcolors.ENDC)
-  # gives a single float value
-  print(bcolors.OKBLUE + 'CPU % ' + str(psutil.cpu_percent()) + bcolors.ENDC)
-  # gives an object with many fields
-  print(bcolors.OKBLUE + 'RAM VM' + str(psutil.virtual_memory()) + bcolors.ENDC)
-  # you can convert that object to a dictionary 
-  cpu_dict = dict(psutil.virtual_memory()._asdict())
-  print(cpu_dict)
 
 
 
@@ -676,7 +660,7 @@ def evaluate_model(mlp, model_id):
     threshold = parameters.threshold
     trader = Trader(threshold = threshold, data_reader = data_reader)
 
-    print('7')                                                                         # <-- Check mem and cpu usage!
+    print('7')                                                                        # <-- Check mem and cpu usage!
     
     
     # elöször is az NN alapján csinálunk egy predictiont
@@ -692,7 +676,7 @@ def evaluate_model(mlp, model_id):
     pred = mlp.predict(data_reader.x_train)
     # print(pred)
 
-    print('8')                                                                       # <-- Check mem and cpu usage!
+    print('8')                                                                        # <-- Check mem and cpu usage!
     
     # mérje vissza a hibát, számolja ki a keresekedéseket
     result = trader.calculator(pred)
