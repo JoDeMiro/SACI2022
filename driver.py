@@ -574,7 +574,6 @@ def evolution_dev2():
 		#
 		# Amig várakozunk a válaszokra kiiratom az eddigi legjobb eredményt, hogy lássuk a dolgok alakulását
 		print('generation_holder    :', generation_holder)
-		print('generation_best_score:', generation_best_score)
 		#
 		# A Worker úgy van megírva, hogy külön szálon elindítja a kiszámolást,
 		# amikor végez akkor tovább lépne és meghívná a Driver REST API-t amin az erdményeket küldi.
