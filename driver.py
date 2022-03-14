@@ -573,7 +573,9 @@ def evolution_dev2():
 		# Közben a fenti for ciklus még küldözgethet
 		#
 		# Amig várakozunk a válaszokra kiiratom az eddigi legjobb eredményt, hogy lássuk a dolgok alakulását
-		print('generation_holder    :', generation_holder)
+		print('\n')
+		print(bcolors.OKGREEN + 'global_best_score    :' + str(global_best_score) + bcolors.ENDC)
+		print('\n')
 		#
 		# A Worker úgy van megírva, hogy külön szálon elindítja a kiszámolást,
 		# amikor végez akkor tovább lépne és meghívná a Driver REST API-t amin az erdményeket küldi.
