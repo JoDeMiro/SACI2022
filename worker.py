@@ -105,6 +105,10 @@ print('---------------------------------------------------------------')
 os.system('gzip -f -d ./Input/eurusd_minute_1000000.csv.gz')
 os.system('mv ./Input/eurusd_minute_1000000.csv ./Input/eurusd_minute.csv')
 
+os.system('rm ./Input/eurusd_minute_2000000.gz')
+os.system('cat ./Input/eurusd_minute_2000000.csv.gz.* >./Input/eurusd_minute_2000000.gz')
+os.system('mv ./Input/eurusd_minute_2000000.csv ./Input/eurusd_minute.csv')
+
 
 print('---------------------------------------------------------------')
 print('                       DATA READER CLASS                       ')
