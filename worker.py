@@ -230,16 +230,25 @@ class DataReader():
 # ------------------------------------------------------------------------------
 
   def create_train_set(self):
-    self.x_train = []                                                               # <-- Create list of Windows
-    self.y_train = []
+    self.x_train_list = []                                                               # <-- Create list of Windows
+    self.y_train_list = []
 
     for i in range(self.window, len(self.scaled_data)):
-        self.x_train.append(self.scaled_data[i-self.window:i, 0])
-        self.y_train.append(self.scaled_data[i, 0])
+        self.x_train_list.append(self.scaled_data[i-self.window:i, 0])
+        self.y_train_list.append(self.scaled_data[i, 0])
 
-    print('The train dataset {}, and the labels {}'.format(len(self.x_train), len(self.y_train)))
+    print('The train dataset {}, and the labels {}'.format(len(self.x_train_list), len(self.y_train_list)))
 
-    self.x_train, self.y_train = np.array(self.x_train), np.array(self.y_train)     # <-- Convert list to Numpy Array
+    self.x_train, self.y_train = np.array(self.x_train_list), np.array(self.y_train_list)     # <-- Convert list to Numpy Array
+
+    if hasattr(self, 'x_train_list'):
+      print('----------------> töröljük a self.x_train_list-t is mert már nincs rá szükség')
+      del self.y_train_list
+    if hasattr(self, 'y_train_list'):
+      print('----------------> töröljük a self.y_train_list-t is mert már nincs rá szükség')
+      del self.y_train_list
+
+
 
     print(self.x_train.shape)
     print(self.y_train.shape)
