@@ -661,6 +661,8 @@ def evaluate_model(mlp, model_id):
     '''
     
     print('-------------------------------EVALUATE MODEL------------------------')
+
+    cpu_print()                                                                         # <-- Check mem and cpu usage!
     
     # A globalis data_readert látja ez a függvény
     # data_reader.show_dataset_info()
