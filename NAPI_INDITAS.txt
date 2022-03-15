@@ -118,6 +118,23 @@ source worker/bin/activate; cd SACI2022; git pull
 kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
 
 
+# ---------------------------------------------------
+
+df -h
+
+free -h -w -s 3
+
+top
+
+htop
+
+cat /proc/meminfo
+
+# ----
+
+git clone https://github.com/aristocratos/bashtop
+cd bashtop
+bash bashtop
 
 
 
