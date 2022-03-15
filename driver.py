@@ -813,6 +813,19 @@ def initialize():
 
 # ------------
 
+# a Workereken csinálunk egy törlést
+@app.route('/clean')
+def clean():
+	for worker in workers:
+	print('---------------------------------------------------------------------')
+	worker_address = worker.get('add')
+	print('worker_address =', worker.get('add'))
+	print('worker_address =', worker_address)
+	print('---------------------------------------------------------------------')
+	resp = requests.get(worker_address + '/clean')
+	print(resp)
+	return 'Driver clean method has been called'
+
 
 
 

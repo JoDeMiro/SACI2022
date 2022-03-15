@@ -190,8 +190,6 @@ class DataReader():
       print('----------------> ' + bcolors.WARNING + 'ha ez az üzenet látszódik akkor nem törlődött a self.data' + bcolors.ENDC)
 
 
-
-
     # For all column (I do not use it)
     # data_full = self.df.filter(['BO', 'BH', 'BL', 'BC', 'BCh', 'AO', 'AH', 'AL', 'AC', 'ACh'])
     # self.dataset_full = data_full.values                   # --> from pandas.series -> numpy.ndarray
@@ -289,6 +287,21 @@ class DataReader():
 
     # print('x_train_full.nbytes = ', x_train_full.nbytes/1000, 'Kbyte')
     # print('x_train_full.nbytes = ', x_train_full.nbytes/1000/1000, 'Mbyte')
+
+# ------------------------------------------------------------------------------
+
+  def clean(self):
+          deletable_variables = ['df', 'df2', 'data', 'dataset', 'dataset_full', 'sclaer', 'scaled_data', 'window',
+                                 'x_train_list', 'y_train_list', 'x_train', 'y_train', 'x_train_reshaped']
+          print(deletable_variables)
+          for var_str in deletable_variables:
+              print(var_str)
+              # Check
+              # Töröljük a Pandas Dataframet mert többé már nincs szükségem rá
+              if hasattr(self, var_str):
+                  print('----------------> töröljük a ', var_str, ' mert már nincs rá szükség')
+                  delattr(self, var_str)
+                  # del(self.ketto)
 
 # ------------------------------------------------------------------------------
 
@@ -902,12 +915,12 @@ def initialize_params(_parameters=parameters, _worker_id=123, _nRowsRead=3000, _
     
     return 'initialize_params method has been called'
 
+
 @app.route('/initilaize')
 def initialize(_parameters=parameters):
     initialize_worker(_parameters=_parameters)
     return 'Worker initilize method has been called'
 
-# ------------
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
@@ -948,12 +961,20 @@ def upload_file():
 
       return 'file uploaded successfully'
 
-# ------------
 
-# Feltöltöttük a filét valamit kezdeni kéne vele mondjuk töltsük be.
+def clean():
+  print('-------------------------------CLEAN --------------------------------')
+  data_reader.clean()
+  gc.collect()
+  del data_reader
+  print('-------------------------------CLEAN +-------------------------------')
+  pass
 
 
-# Ez már egy új bejegyzés a sáját gépről
+@app.route('/clean')
+def clean_api():
+    clean()
+    return 'Worker clean method has been called'
 
 
 
