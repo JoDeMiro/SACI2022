@@ -301,7 +301,6 @@ class DataReader():
               if hasattr(self, var_str):
                   print('----------------> töröljük a ', var_str, ' mert már nincs rá szükség')
                   delattr(self, var_str)
-                  # del(self.ketto)
 
 # ------------------------------------------------------------------------------
 
@@ -556,6 +555,21 @@ class Trader():
     result = {'buy_stat': buy_stat.get(True), 'sell_stat': sell_stat.get(True), 'buy_count': buy_count, 'sell_count': sell_count, 'gain': gain}
 
     return result
+
+# ------------------------------------------------------------------------------
+
+  def clean(self):
+          deletable_variables = ['data_reader']
+          print(deletable_variables)
+          for var_str in deletable_variables:
+              print(var_str)
+              # Check
+              # Töröljük az alábbi változókat
+              if hasattr(self, var_str):
+                  print('----------------> töröljük a ', var_str, ' mert már nincs rá szükség')
+                  delattr(self, var_str)
+
+# ---------------------------------------------------------------------------
 
 
 print('---------------------------------------------------------------')
@@ -967,11 +981,10 @@ def upload_file():
 @app.route('/clean')
 def clean_api():
   print('-------------------------------CLEAN --------------------------------')
-  print('---xxxxxxxxxxxxxxxx --', data_reader.x_train.shape)
   data_reader.clean()
-  print('---pppppppppppppppp---')
   gc.collect()
   print('-------------------------------CLEAN +-------------------------------')
+  print(new_trader.data_reader.x_train.shape)
   # del data_reader
   return 'Worker clean method has been called'
 
