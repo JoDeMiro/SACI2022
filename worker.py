@@ -980,6 +980,7 @@ def upload_file():
 
 @app.route('/clean')
 def clean_api():
+  global data_reader
   print('-------------------------------CLEAN --------------------------------')
   print(locals())
   print('---------------------------------------------------------------------')
