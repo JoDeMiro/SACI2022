@@ -33,7 +33,7 @@ workers_addresses = ['http://192.168.0.54:8080/', 'http://192.168.0.32:8080/', '
 
 
 # M2.Medium <2VCPU, 4GB>
-# workers_addresses = ['http://192.168.0.123:8080/', 'http://192.168.0.73:8080/', 'http://192.168.0.252:8080/', 'http://192.168.0.200:8080/']
+workers_addresses = ['http://192.168.0.123:8080/', 'http://192.168.0.73:8080/', 'http://192.168.0.252:8080/']
 
 
 population_size = len(workers_addresses)
