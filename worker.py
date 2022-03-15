@@ -981,11 +981,18 @@ def upload_file():
 @app.route('/clean')
 def clean_api():
   print('-------------------------------CLEAN --------------------------------')
-  data_reader.clean()
+  print(locals())
+  print('---------------------------------------------------------------------')
+  print(globals())
+  print('-------------------------------CLEAN --------------------------------')
+  if 'data_reader' in globals():
+    data_reader.clean()
   gc.collect()
   print('-------------------------------CLEAN +-------------------------------')
-  print(new_trader.data_reader.x_train.shape)
-  # del data_reader
+  if 'data_reader' in globals():
+    del data_reader
+    print('----> del data_reader, ----> data_reader has been deleted')
+  print('-------------------------------CLEAN ++------------------------------')
   return 'Worker clean method has been called'
 
 
