@@ -87,7 +87,7 @@ csak az egyik ipy a másik py
 # ---------------------------------------------------
 
 
-A workerek
+A workerek (m2.small)
 
 ssh -A ubuntu@192.168.0.247
 source worker/bin/activate; cd SACI2022; git pull
@@ -104,6 +104,7 @@ kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
 
 # ---------------------------------------------------
 
+További (m2.small) workerek
 
 ssh -A ubuntu@192.168.0.231
 source worker/bin/activate; cd SACI2022; git pull
@@ -119,6 +120,28 @@ kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
 
 
 # ---------------------------------------------------
+
+Az m2.meidum workerek
+
+ssh -A ubuntu@192.168.0.123
+source worker/bin/activate; cd SACI2022; git pull
+kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
+
+ssh -A ubuntu@192.168.0.73
+source worker/bin/activate; cd SACI2022; git pull
+kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
+
+ssh -A ubuntu@192.168.0.252
+source worker/bin/activate; cd SACI2022; git pull
+kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
+
+ssh -A ubuntu@192.168.0.200
+source worker/bin/activate; cd SACI2022; git pull
+kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
+
+
+# ---------------------------------------------------
+
 
 df -h
 
