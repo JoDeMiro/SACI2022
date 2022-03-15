@@ -574,7 +574,7 @@ def evolution_dev2():
 		#
 		# Amig várakozunk a válaszokra kiiratom az eddigi legjobb eredményt, hogy lássuk a dolgok alakulását
 		print('\n')
-		print(bcolors.OKGREEN + 'global_best_score    :' + str(global_best_score) + bcolors.ENDC)
+		print(bcolors.OKGREEN + 'global_best_score in generation ' + str(g) +  '    :' + str(global_best_score) + bcolors.ENDC)
 		print('\n')
 		#
 		# A Worker úgy van megírva, hogy külön szálon elindítja a kiszámolást,
