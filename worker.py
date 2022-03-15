@@ -987,13 +987,15 @@ def clean_api():
   print('-------------------------------CLEAN --------------------------------')
   if 'data_reader' in globals():
     print('Ahoz képest, hogy látnie kéne mégsem látja')
-    # data_reader.clean()
+    global data_reader
+    data_reader.clean()
   gc.collect()
   print('-------------------------------CLEAN +-------------------------------')
   if 'data_reader' in globals():
     global data_reader
     del data_reader
     print('----> del data_reader, ----> data_reader has been deleted')
+  gc.collect()
   print('-------------------------------CLEAN ++------------------------------')
   return 'Worker clean method has been called'
 
