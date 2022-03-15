@@ -988,7 +988,7 @@ def clean_api():
   print('-------------------------------CLEAN --------------------------------')
   if 'data_reader' in globals():
     print('Ahoz képest, hogy látnie kéne mégsem látja')
-    # data_reader.clean()
+    data_reader.clean()
   data_reader.clean()
   gc.collect()
   print('-------------------------------CLEAN +-------------------------------')
