@@ -962,19 +962,17 @@ def upload_file():
       return 'file uploaded successfully'
 
 
-def clean():
-  print('-------------------------------CLEAN --------------------------------')
-  data_reader.clean()
-  gc.collect()
-  del data_reader
-  print('-------------------------------CLEAN +-------------------------------')
-  pass
 
 
 @app.route('/clean')
 def clean_api():
+  print('-------------------------------CLEAN --------------------------------')
   print('---xxxxxxxxxxxxxxxx --', data_reader.x_train.shape)
-  clean()
+  data_reader.clean()
+  print('---pppppppppppppppp---')
+  gc.collect()
+  print('-------------------------------CLEAN +-------------------------------')
+  # del data_reader
   return 'Worker clean method has been called'
 
 
