@@ -986,8 +986,7 @@ def clean_api():
   print(globals())
   print('-------------------------------CLEAN --------------------------------')
   if 'data_reader' in globals():
-    global data_reader
-    data_reader.clean()
+    globals()data_reader.clean()
   gc.collect()
   print('-------------------------------CLEAN +-------------------------------')
   if 'data_reader' in globals():
