@@ -973,7 +973,7 @@ def clean():
 
 @app.route('/clean')
 def clean_api():
-  data_reader.info()
+  print('---xxxxxxxxxxxxxxxx --', data_reader.x_train.shape)
   clean()
   return 'Worker clean method has been called'
 
