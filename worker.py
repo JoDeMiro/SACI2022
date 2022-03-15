@@ -972,10 +972,10 @@ def clean():
 
 
 @app.route('/clean')
-def clean_api(data_reader):
-    data_reader.info()
-    clean()
-    return 'Worker clean method has been called'
+def clean_api():
+  data_reader.info()
+  clean()
+  return 'Worker clean method has been called'
 
 
 
