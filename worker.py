@@ -991,7 +991,7 @@ def clean_api():
   gc.collect()
   print('-------------------------------CLEAN +-------------------------------')
   if 'data_reader' in globals():
-    global data_reader
+    # global data_reader
     del data_reader
     print('----> del data_reader, ----> data_reader has been deleted')
   gc.collect()
