@@ -102,6 +102,7 @@ kill -9 $(pgrep waitress); waitress-serve --port=8080 --call worker:create_app
 
 # ---------------------------------------------------
 
+
 További (m2.small) workerek
 
 ssh -A ubuntu@192.168.0.231
