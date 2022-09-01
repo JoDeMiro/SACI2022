@@ -1,2 +1,8 @@
+__pycache__
+.ipynb_checkpoints
+input
+MLPPlot.py
 worker.sublime-workspace
+*.joblib
+SACI22_019.ipynb
 .gitignore
