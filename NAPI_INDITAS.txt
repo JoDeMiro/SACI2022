@@ -16,8 +16,6 @@ git pull
 # ezeket szoktam itt kiadni, mivel ebben a könyvtárban szerkesztek mindent
 
 
-
-
 # ---------------------------------------------------
 
 a lényeg, hogy Driver ELKH gépen elindítok egy notebookot
