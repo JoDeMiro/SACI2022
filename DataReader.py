@@ -43,11 +43,10 @@ class DataReader():
   
   Attributes
   ----------
-
   nRowsRead : int
       the number of rows that is read from the csv
   window : int
-      the number of the lookback period the dataset has (default 10)
+      the number of the lookback period the dataset has
   dataset : pandas.DataFrame
       a dataframe object that stores the data readed from csv
   pdf : pd.DataFrame
