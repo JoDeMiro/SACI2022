@@ -32,9 +32,9 @@ write_files:
     sudo apt install ffmpeg -y
     sudo apt install graphviz -y
 
-    sudo apt autoclean
-    sudo apt autoremove
-    sudo apt purge
+    sudo apt autoclean -y
+    sudo apt autoremove -y
+    sudo apt purge -y
     echo "---------------> Installing base tools as admin finished."
   permissions: '755'
 
