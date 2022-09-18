@@ -19,8 +19,8 @@ write_files:
     #!/bin/bash
     echo "---------------> Installing base tools as admin"
     
-    sudo apt update -y
-    sudo apt upgrade -y
+    # sudo apt update -y
+    # sudo apt upgrade -y
     
     sudo apt install zip -y
     sudo apt install unzip -y
