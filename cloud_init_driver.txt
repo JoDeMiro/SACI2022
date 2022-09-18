@@ -4,7 +4,6 @@ packages:
   - git
   - openssh-client
 
-
 write_files:
 - path: /bin/jupyter-add-user.sh
   content: |
@@ -15,10 +14,36 @@ write_files:
     echo "---------------> Creating user \"$USR\" finished."
   permissions: '755'
 
+- path: /bin/jupyter-base-tools.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Installing base tools as admin"
+    
+    sudo apt update -y
+    sudo apt upgrade -y
+    
+    sudo apt install zip -y
+    sudo apt install unzip -y
+    sudo apt install fish -y
+
+    sudo apt install libc6-dev -y
+    sudo apt install libsm6 -y
+    sudo apt install libxext6 -y
+    sudo apt install ffmpeg -y
+    sudo apt install graphviz -y
+
+    sudo apt autoclean
+    sudo apt autoremove
+    sudo apt purge
+    echo "---------------> Installing base tools as admin finished."
+  permissions: '755'
+
 - path: /bin/jupyter-add-base-tools.sh
   content: |
     #!/bin/bash
     echo "---------------> Installing base tools (pip,venv) starts."
+    pip3 install --upgrade pip
+    pip3 install virtualenv
     echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
@@ -26,8 +51,8 @@ write_files:
   content: |
     #!/bin/bash
     echo "---------------> Install Python stuffs for me."
-    pip3 install --upgrade pip
-    pip3 install virtualenv
+    # pip3 install --upgrade pip
+    # pip3 install virtualenv
     ls -l /home/ubuntu/.local/bin
     export PATH=$PATH:/home/ubuntu/.local/bin
     virtualenv notebook
@@ -37,9 +62,22 @@ write_files:
     echo "---------------> Install Jupyter, Scikit, etc finished."
   permissions: '755'
 
+- path: /bin/jupyter-extention-install.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Install Jupyter extentions for me."
+    source notebook/bin/activate
+    jupyter contrib
+    jupyter contrib --version
+    jupyter contrib nbextension install --user
+    jupyter nbextensions_configurator enable --user
+    echo "---------------> Install Jupyter extentions for me finished."
+  permissions: '755'
 
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
-- /bin/jupyter-add-base-tools.sh
+- /bin/jupyter-base-tools.sh
+- su - ubuntu -c /bin/jupyter-add-base-tools.sh
 - su - ubuntu -c /bin/jupyter-install.sh
+- su - ubuntu -c /bin/jupyter-extention-install.sh
 - echo "---------------> JoDeMiro Deployment finished."
