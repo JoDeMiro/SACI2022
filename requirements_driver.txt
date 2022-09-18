@@ -12,11 +12,17 @@ pandas-datareader==0.9.0
 psutil==5.9.1
 pydot==1.4.2
 scikit-learn==1.0.2
+scikit-image==0.19.3
 sklearn==0.0
 sklearn-pandas==1.8.0
 jupyter
 jupyter_contrib_nbextensions
 jupyter_nbextensions_configurator
 waitress
+
+# autopep8==0.8
+# termcolor==2.0.1
+# SciencePlots==1.0.9
+
 # Pillow==9.2.0
 # tensorflow==2.10.0
