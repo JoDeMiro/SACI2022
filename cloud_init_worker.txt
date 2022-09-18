@@ -4,39 +4,96 @@ packages:
   - git
   - openssh-client
 
-
 write_files:
 - path: /bin/worker-add-user.sh
   content: |
     #!/bin/bash
     export USR='ubuntu'
+    echo " "
     echo "---------------> Creating user \"$USR\" starts."
+    echo " "
     adduser --disabled-password --gecos "" $USR
+    echo " "
     echo "---------------> Creating user \"$USR\" finished."
+    echo " "
   permissions: '755'
 
-- path: /bin/worker-add-base-tools.sh
+- path: /bin/worker-install-base-tools.sh
   content: |
     #!/bin/bash
+    echo " "
+    echo "---------------> Installing base tools as admin"
+    echo " "
+    
+    sudo apt update -y
+    # sudo apt upgrade -y
+    
+    sudo apt install zip -y
+    sudo apt install unzip -y
+
+    sudo apt install libc6-dev -y
+    sudo apt install libsm6 -y
+    sudo apt install libxext6 -y
+
+    sudo apt autoclean -y
+    sudo apt autoremove -y
+    sudo apt purge -y
+    echo " "
+    echo "---------------> Installing base tools as admin finished."
+    echo " "
+  permissions: '755'
+
+- path: /bin/worker-add-virtual-env.sh
+  content: |
+    #!/bin/bash
+    echo " "
     echo "---------------> Installing base tools (pip,venv) starts."
+    echo " "
+    export PATH=$PATH:/home/ubuntu/.local/bin
+    pip3 install --upgrade pip
+    pip3 install virtualenv
+    echo " "
     echo "---------------> Installing base tools (pip,venv) finished."
+    echo " "
+  permissions: '755'
+
+- path: /bin/worker-create-virtual-env.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Create Python Virtual Environment with Dependencies."
+    echo " "
+    export PATH=$PATH:/home/ubuntu/.local/bin
+    virtualenv worker
+    source worker/bin/activate
+    
+    # --------------------------------------------------------------------------------------------
+    
+    # Erre oda kell figyelni, hogy mit veszek le
+    
+    # --------------------------------------------------------------------------------------------
+    #
+    #
+    
+    wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/requirements_worker.txt
+    
+    pip3 install -r requirements_worker.txt
+    
+    # --------------------------------------------------------------------------------------------
+    
+    echo " "
+    echo "---------------> Create Python Virtual Environment with Dependencies finished."
+    echo " "
   permissions: '755'
 
 - path: /bin/worker-install.sh
   content: |
     #!/bin/bash
-    echo "---------------> Install Python stuffs for me."
-    pip3 install --upgrade pip
-    pip3 install virtualenv
-    ls -l /home/ubuntu/.local/bin
+    echo "---------------> Get/Install/Start SACI2022 Worker ."
+    
     export PATH=$PATH:/home/ubuntu/.local/bin
-    virtualenv worker
+    
     source worker/bin/activate
-    wget --no-cache https://raw.githubusercontent.com/JoDeMiro/SACI2022/main/requirements_worker.txt
-    pip3 install -r requirements_worker.txt
-    echo "---------------> Install Jupyter, Scikit, etc finished."
-
-    echo "---------------> Get SACI2022 Project"
 
     git clone https://github.com/JoDeMiro/SACI2022.git
 
@@ -48,10 +105,11 @@ write_files:
   permissions: '755'
 
 
-
-
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
-- /bin/worker-add-base-tools.sh
+- /bin/worker-add-user.sh
+- /bin/worker-install-base-tools.sh
+- su - ubuntu -c /bin/worker-add-virtual-env.sh
+- su - ubuntu -c /bin/worker-create-virtual-env.sh
 - su - ubuntu -c /bin/worker-install.sh
 - echo "---------------> JoDeMiro Deployment finished."
