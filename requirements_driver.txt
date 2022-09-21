@@ -15,6 +15,7 @@ scikit-learn==1.0.2
 scikit-image==0.19.3
 sklearn==0.0
 sklearn-pandas==1.8.0
+tqdm==4.64.1
 jupyter
 jupyter_contrib_nbextensions
 jupyter_nbextensions_configurator
