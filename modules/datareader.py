@@ -1,3 +1,30 @@
+# -*- coding: utf-8 -*-
+
+"""
+------------------------------------------------------------------------------
+Copyright (C) 2023 SZTAKI (Pintye István), Hungary.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+------------------------------------------------------------------------------
+ "datareader.py" - Construction of arbitrary network topologies.
+ 
+ Project: SACI2022 - Evolutionary approach train Forex Robot
+ Authors:  I. Pintye SZTAKI, 02/2022
+ Cite/paper: I. Pintye, R. Lovas and J. Kovacs,
+             "Evolutionary approach for neural network based agents applied on time series data in the Cloud"
+             IEEE 16th International Symposium on Applied Computational Intelligence and Informatics SACI 2022
+             10.1109/SACI55618.2022.9919475
+------------------------------------------------------------------------------
+"""
+
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -96,6 +123,12 @@ class DataReader():
 
 # ------------------------------------------------------------------------------
 
+  def create_input(self):
+    self.input = self.array.copy()
+
+# ------------------------------------------------------------------------------
+
+
   def create_diff(self, emphasize):
     """
     Create diff n=1.
@@ -128,6 +161,15 @@ class DataReader():
     '''
     self.input = self.input[:, 1]
     self.input = self.input.reshape(-1, 1)
+    print(self.input.shape)
+
+# ------------------------------------------------------------------------------
+
+  def drop_price(self):
+    '''
+    Drop price new
+    '''
+    self.input = self.input[:, 1:]
     print(self.input.shape)
 
 # ------------------------------------------------------------------------------
@@ -172,29 +214,24 @@ class DataReader():
     # ----------------
     if extended:
         
-        if 'ROC1' in indicators:
+        rocs = [x for x in indicators if 'ROC' in x]       # -> ROC1, ROC2, stb formában
         
-            _indicator = talib.ROC(original, timeperiod=1) # -> ez a diff tulajdonképen
-            _indicator[:4] = _indicator[4]
+        for i in range(len(rocs)):
+            _ = int(rocs[i][3:])
+            _indicator = talib.ROC(original, timeperiod=_) # -> ez a diff tulajdonképen
+            _indicator[:_] = _indicator[_]
             _indicator = _indicator.reshape(-1, 1)
-
+            
             self.input = np.hstack((self.input, _indicator))
-
-        if 'ROC2' in indicators:
-
-            _indicator = talib.ROC(original, timeperiod=2)
-            _indicator[:5] = _indicator[5]
-            _indicator = _indicator.reshape(-1, 1)
-
-            self.input = np.hstack((self.input, _indicator))
-
-        if 'ROC3' in indicators:
         
-            _indicator = talib.ROC(original, timeperiod=3)
-            _indicator[:6] = _indicator[6]
-            _indicator = _indicator.reshape(-1, 1)
+#        if 'ROC1' in indicators:
+#        
+#            _indicator = talib.ROC(original, timeperiod=1) # -> ez a diff tulajdonképen
+#            _indicator[:1] = _indicator[1]
+#            _indicator = _indicator.reshape(-1, 1)
+#
+#            self.input = np.hstack((self.input, _indicator))
 
-            self.input = np.hstack((self.input, _indicator))
 
         if 'RSI14' in indicators:
             

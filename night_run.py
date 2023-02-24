@@ -1,3 +1,34 @@
+# -*- coding: utf-8 -*-
+
+"""
+------------------------------------------------------------------------------
+Copyright (C) 2023 SZTAKI (Pintye István), Hungary.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+------------------------------------------------------------------------------
+ "main.py" - Main file for training fully-connected and convolutional networks using evolution selection (ES).
+    Example: use the following command to train Agents on the test set of EURUSD using ES:
+         python main.py --dataset EURUSD --train-mode ES --generation 200 --freeze-conv-layers
+                        --dropout 0.05 --topology CONV_64_3_1_1_CONV_256_3_1_1_FC_2000_FC_10
+                        --loss CE --output-act none --lr 5e-4
+ 
+ Project: SACI2022 - Evolutionary approach train Forex Robot
+ Authors:  I. Pintye SZTAKI, 02/2022
+ Cite/paper: I. Pintye, R. Lovas and J. Kovacs,
+             "Evolutionary approach for neural network based agents applied on time series data in the Cloud"
+             IEEE 16th International Symposium on Applied Computational Intelligence and Informatics SACI 2022
+             10.1109/SACI55618.2022.9919475
+------------------------------------------------------------------------------
+"""
+
+
 import os
 import sys
 import glob
@@ -39,8 +70,6 @@ print('Pandas version:{}'.format(pd.__version__))
 print('Keras version:{}'.format(keras.__version__))
 print('Tensorflow version:{}'.format(tf.__version__))
 print('Sci-Kit Learn version:{}'.format(sklearn.__version__))
-
-
 
 import logging
 log_name = 'night_run_' + datetime.now().strftime('%Y%m%d-%H%M%S') + '.log'
@@ -102,16 +131,28 @@ FROM = 0
 # ROW = int(ROW)
 # print('ROW =', ROW)
 
-DIFF_MULTIPLIER = 10
-INPUT_MULTIPLIER = 10
+DIFF_MULTIPLIER = 1
+INPUT_MULTIPLIER = 1
 
-WINDOW = 10
+WINDOW = 1
 
 INDICATORS = ['ROC1', 'ROC2', 'ROC3', 'RSI14', 'RSI28',
               'MACD',
               'MA50BIN', 'MA50DIS', 'MA100BIN', 'MA100DIS', 'MA200BIN', 'MA200DIS',
               'LIN30', 'LIN50',
               'RSIHL']
+
+INDICATORS = ['ROC1', 'ROC2', 'ROC3', 'ROC4', 'ROC5', 'ROC6', 'ROC7', 'ROC8', 'ROC9', 'ROC10',
+              'ROC11', 'ROC12', 'ROC13', 'ROC14', 'ROC15', 'ROC16', 'ROC17', 'ROC18', 'ROC19', 'ROC20',
+              'ROC21', 'ROC22', 'ROC23', 'ROC24', 'ROC25', 'ROC26', 'ROC27', 'ROC28', 'ROC29', 'ROC30',
+              'MACD',
+              'MA50DIS', 'MA100DIS', 'MA200BIN', 'MA200DIS',
+              'LIN30', 'LIN50',
+              'RSIHL']
+
+
+
+
 
 setup = dict()
 setup['INDICATORS'] = INDICATORS
@@ -127,20 +168,32 @@ data_reader.df['Date'] = np.arange(0, data_reader.df['BC'].size, 1) # az elötte
 
 data_reader.cut(FROM, ROW)
 data_reader.set_target()
-data_reader.create_diff(DIFF_MULTIPLIER)
-data_reader.remove_price()
-data_reader.input = data_reader.input * INPUT_MULTIPLIER
+
+# Depricated ->
+# data_reader.create_diff(DIFF_MULTIPLIER)
+
+# New
+data_reader.create_input()
+
 data_reader.create_indicators(extended=True, indicators=INDICATORS)
+
+# Depricated ->
+# data_reader.remove_price()
+data_reader.drop_price()
+
+# visszavágtam float 64-ről 16-ra
+data_reader.retard()
+
+# data_reader.normalize_values()       # experiment
+# data_reader.normalize_values()       # experiment
+
 data_reader.set_window(WINDOW)
-
-data_reader.normalize_values()       # experiment -> most normalizálva próbálom meg (egyébként anélkül futtatom)
-
 data_reader.create_train_set()
 data_reader.create_test_set()
 
 # --
 
-FIRST = 10
+FIRST = 15
 SECOND = 5
 
 # Scikit

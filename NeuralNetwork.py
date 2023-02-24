@@ -114,13 +114,13 @@ class NN():
         mlp = MLPRegressor(hidden_layer_sizes=(_first, _second),
                           activation='tanh',                                # -------> ha (MinMax(-1,1) vagy StandardScaler())
                           solver='sgd',
-                          batch_size=100000,                                # <-- legyen nagy, nehogy végig iteráljon
+                          batch_size=1000000000,                            # <-- legyen nagy, nehogy végig iteráljon
                           max_iter=1,                                       # <-- sajnos legalább 1 kell hogy legyen
                           shuffle=False,
                           random_state=1,
                           learning_rate_init=0.00000001,                    # >- lehetőleg ne tanuljon semmit GD alapján
                           validation_fraction=0.0,
-                          n_iter_no_change=99999999)
+                          n_iter_no_change=2)
     
         # ----->                                         Behoztam ide az első illesztést is, hogy meglegyenek neki a súlyok
 
