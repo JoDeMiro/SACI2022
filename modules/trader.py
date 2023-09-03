@@ -38,9 +38,9 @@ class Trader():
         self.result = dict()
         
         self.hossz = data_reader.y_train.shape[0]
-        self.xx = np.arange(0, self.hossz, 1)
-        self.buy_idx = np.empty((self.hossz))
-        self.sell_idx = np.empty((self.hossz))
+        # self.xx = np.arange(0, self.hossz, 1, dtype='uint32')
+        # self.buy_idx = np.empty((self.hossz))
+        # self.sell_idx = np.empty((self.hossz))
         
         logger.info('__init__ Trader')
 
@@ -244,26 +244,25 @@ class Trader():
         
         # ________________________brand__________________new
         
-        # hossz = pred.shape[0]
-        # xx = np.arange(0, hossz, 1)
+        xx = np.arange(0, self.hossz, 1)
 
         # Hol van az, hogy a buy == 1 azaz buy signal
         # buy_idx = np.empty((self.hossz))                  # <-- ki lett szervezve az initbe
-        self.buy_idx = np.empty((self.hossz))
-        self.buy_idx[:] = np.nan
-        self.buy_idx[buy==1] = self.xx[buy==1]
-        self.buy_idx = self.buy_idx[~np.isnan(self.buy_idx)]
-        self.buy_idx = self.buy_idx.astype('int')
+        buy_idx = np.empty((self.hossz))
+        buy_idx[:] = np.nan
+        buy_idx[buy==1] = xx[buy==1]
+        buy_idx = buy_idx[~np.isnan(buy_idx)]
+        buy_idx = buy_idx.astype('int')
         # print('buy_idx: ', buy_idx)
         self.ex[12] = (time.time()-begin)
         
         # Hol van az, hogy a sell == 1 azaz sell signal
         # sell_idx = np.empty((self.hossz))                  # <-- ki lett szervezve az initbe
-        self.sell_idx = np.empty((self.hossz))
-        self.sell_idx[:] = np.nan
-        self.sell_idx[sell==1] = self.xx[sell==1]  
-        self.sell_idx = self.sell_idx[~np.isnan(self.sell_idx)]
-        self.sell_idx = self.sell_idx.astype('int')
+        sell_idx = np.empty((self.hossz))
+        sell_idx[:] = np.nan
+        sell_idx[sell==1] = xx[sell==1]  
+        sell_idx = sell_idx[~np.isnan(sell_idx)]
+        sell_idx = sell_idx.astype('int')
         # print('sell_idx: ', sell_idx)
         self.ex[13] = (time.time()-begin)
         
@@ -289,7 +288,7 @@ class Trader():
         # print('sell_idx ', sell_idx)
         
         # sell_idx és buy_idx alapján megállapítom a trade hosszát
-        trade_length = self.sell_idx - self.buy_idx
+        trade_length = sell_idx - buy_idx
         # print('trade_length: ', trade_length)
         self.ex[16] = (time.time()-begin)
         
@@ -308,8 +307,8 @@ class Trader():
             print('len(sell_price) = ', len(sell_price))
             print('buy_price  = ', buy_price)
             print('sell_price = ', sell_price)
-            print('buy_index  = ', self.buy_idx)
-            print('sell_index = ', self.sell_idx)
+            print('buy_index  = ', buy_idx)
+            print('sell_index = ', sell_idx)
             print(self.signal)
             print(pred)
             print(diff)
@@ -342,16 +341,16 @@ class Trader():
             print('len(sell_price) = ', len(sell_price))
             print('buy_price  = ', buy_price)
             print('sell_price = ', sell_price)
-            print('buy_index  = ', self.buy_idx)
-            print('sell_index = ', self.sell_idx)
+            print('buy_index  = ', buy_idx)
+            print('sell_index = ', sell_idx)
             # print('gains      = ', gains)
             print('gain       = ', gain)
 
         self.result = {
             'buy_price': buy_price,
             'sell_price': sell_price,
-            'buy_index': self.buy_idx,
-            'sell_index': self.sell_idx,
+            'buy_index': buy_idx,
+            'sell_index': sell_idx,
             'trade_length': trade_length
         }
         self.ex[20] = (time.time()-begin)
@@ -371,6 +370,8 @@ class Trader():
         del(diff)
         del(buy)
         del(sell)
+        del(buy_idx)
+        del(sell_idx)
         del(buy_price)
         del(sell_price)
         del(trade_length)

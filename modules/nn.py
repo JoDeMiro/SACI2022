@@ -21,11 +21,11 @@ class NN():
 
     def __init__(self, x_train, y_train):
         self.mlp = None
-        # self.x_train = np.squeeze(x_train, axis=-1)
         self.x_train = x_train
         self.y_train = y_train
         self.random_seed = 1
         self.prediction = None
+        self.sample_size = 10
 
 # ------------------------------------------------------------------------------
 
@@ -36,18 +36,23 @@ class NN():
             self.random_seed = random_seed
 
         np.random.seed(self.random_seed)
+        
+        # Take a sample
+        idx = np.random.randint(self.x_train.shape[0], size=self.sample_size)
+        x_sample = self.x_train[idx,:]
+        y_sample = self.y_train[idx,:]
 
         mlp = MLPRegressor(
             hidden_layer_sizes=(_first, _second),
             activation=activation,                     # -------> ha (MinMax(-1,1) vagy StandardScaler())
             # solver='sgd',
             solver='lbfgs',
-            batch_size=9900000,         # <<-- v.017 bug fixed
-            max_iter=1,                 # <-- sajnos legalább 1 kell hogy legyen
+            batch_size=987654321,         # <<-- v.017 bug fixed
+            max_iter=1,                   # <-- sajnos legalább 1 kell hogy legyen
             shuffle=False,
             random_state=self.random_seed,
             learning_rate_init=
-            0.0000000001,               # >- lehetőleg ne tanuljon semmit GD alapján
+            0.0000000001,                 # >- lehetőleg ne tanuljon semmit GD alapján
             validation_fraction=0.0,
             max_fun=1,
             momentum=0.0,
@@ -56,15 +61,20 @@ class NN():
 
         np.random.seed(self.random_seed)
 
-        y_random = np.zeros(
-            (self.y_train.shape[0])
-        ) * 0.0123                      # --> tök random adaton tanítom, hogy még véletlenül se tanuljon
+#        y_random = np.zeros(
+#            (self.y_train.shape[0])
+#        ) * 0.0123                      # --> tök random adaton tanítom, hogy még véletlenül se tanuljon
+
+        y_random = np.random.rand(y_sample.shape[0],)
 
         mlp.fit(
-            self.x_train, y_random
+#            self.x_train, y_random
+            x_sample, y_random
         )                               # --> nem akarjuk mi semmire megtanítani csak kell az inithez
 
         self.mlp = mlp
+        
+        print('_________________WAU___________________')
 
         return mlp
 
@@ -151,6 +161,7 @@ class KerasMLP():
         self.y_train = y_train
         self.random_seed = 1
         self.prediction = None
+        self.sample_size = 10
         tf.random.set_seed(1)
 
 # ------------------------------------------------------------------------------
@@ -162,8 +173,13 @@ class KerasMLP():
             self.random_seed = random_seed
 
         np.random.seed(self.random_seed)
+        
+        # Take a sample
+        idx = np.random.randint(self.x_train.shape[0], size=self.sample_size)
+        x_sample = self.x_train[idx,:]
+        y_sample = self.y_train[idx,:]
 
-        _input_shape = self.x_train.shape[1]  # <----------------------ezzel lesznek gondok, ha majd az indiket is hozzáadom
+        _input_shape = self.x_train.shape[1]
 
         mlp = Sequential()
         mlp.add(Dense(_first, input_shape=(_input_shape, ), activation=activation))
@@ -175,7 +191,8 @@ class KerasMLP():
         np.random.seed(self.random_seed)
 
         y_random = np.zeros(
-            (self.y_train.shape[0])
+            # (self.y_train.shape[0])
+            (y_sample.shape[0])
         ) * 0.0123  # --> tök random adaton tanítom, hogy még véletlenül se tanuljon
 
         mlp.compile(
@@ -183,7 +200,8 @@ class KerasMLP():
             loss='mean_absolute_error')
 
         history = mlp.fit(
-            self.x_train,
+            # self.x_train,
+            x_sample,
             y_random,  # --> y_random és nem self.y_train, hogy véletlen adatokra illeszen
             epochs=1,
             batch_size=y_random.shape[0],   # az összes adaton egyszerre

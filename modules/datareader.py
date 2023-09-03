@@ -52,6 +52,8 @@ class DataReader():
     """
     self.nRowsRead = nRowsRead
     self.window = None
+    self.float_type = 'float32'
+    self.float_type = np.float32
 
 # ------------------------------------------------------------------------------
 
@@ -115,9 +117,12 @@ class DataReader():
 # ------------------------------------------------------------------------------
 
   def retard(self):
-    # self.array = self.array.astype(np.float16)
+    '''
+    Feleslegessé vált ez a függvény, a self.inputot törlöm miután létrehoztam
+    belőle a self.x_train tömböt
+    '''
+    self.input = self.input.astype(self.float_type)
     
-    self.input = self.input.astype(np.float16)
     pass
 
 
@@ -125,6 +130,8 @@ class DataReader():
 
   def create_input(self):
     self.input = self.array.copy()
+    
+    self.input = self.input.astype(self.float_type)
 
 # ------------------------------------------------------------------------------
 
@@ -192,11 +199,14 @@ class DataReader():
     original = original.flatten()    # az original és a self.array is mindíg 1D de (n, 1)
     
     
-    print(original.shape)
-    print(self.input.shape)
-    
     print('indcator section')
 
+    print(original.shape)
+    print(self.input.shape)
+    print(original.dtype)
+    print(self.input.dtype)
+    
+    
     #_indicator = talib.SMA(real = original, timeperiod = 30)
     #_indicator[:30] = _indicator[30]
     #_indicator = _indicator.reshape(-1, 1)
@@ -223,14 +233,6 @@ class DataReader():
             _indicator = _indicator.reshape(-1, 1)
             
             self.input = np.hstack((self.input, _indicator))
-        
-#        if 'ROC1' in indicators:
-#        
-#            _indicator = talib.ROC(original, timeperiod=1) # -> ez a diff tulajdonképen
-#            _indicator[:1] = _indicator[1]
-#            _indicator = _indicator.reshape(-1, 1)
-#
-#            self.input = np.hstack((self.input, _indicator))
 
 
         if 'RSI14' in indicators:
@@ -274,6 +276,10 @@ class DataReader():
             self.input = np.hstack((self.input, _mac))
             self.input = np.hstack((self.input, _dif))
             
+            del(_sig)
+            del(_mac)
+            del(_dif)
+            
         if 'STDDEV10' in indicators:
             
             _indicator = talib.STDDEV(real = original, timeperiod = 10)
@@ -288,8 +294,8 @@ class DataReader():
             
             _indicator = talib.MA(original, timeperiod = 50)
             _indicator[:50] = _indicator[50]
-            _in = _indicator < original
-            _indicator = _in.astype('float')
+            _indicator = _indicator < original
+            _indicator = _indicator.astype('float')
             _indicator = _indicator.reshape(-1, 1)
             
             _indicator = ((_indicator - 0.5) * 2)
@@ -310,8 +316,8 @@ class DataReader():
             
             _indicator = talib.MA(original, timeperiod = 100)
             _indicator[:100] = _indicator[100]
-            _in = _indicator < original
-            _indicator = _in.astype('float')
+            _indicator = _indicator < original
+            _indicator = _indicator.astype('float')
             _indicator = _indicator.reshape(-1, 1)
             
             _indicator = ((_indicator - 0.5) * 2)
@@ -332,8 +338,8 @@ class DataReader():
             
             _indicator = talib.MA(original, timeperiod = 200)
             _indicator[:200] = _indicator[200]
-            _in = _indicator < original
-            _indicator = _in.astype('float')
+            _indicator = _indicator < original
+            _indicator = _indicator.astype('float')
             _indicator = _indicator.reshape(-1, 1)
             
             _indicator = ((_indicator - 0.5) * 2)
@@ -402,11 +408,9 @@ class DataReader():
 
                 self.input = np.hstack((self.input, _indicator))
     
-    
-    
     del(original)
     del(_indicator)
-    del(_in)
+
     # ----------------
     # ----------------
     # ----------------
@@ -464,20 +468,26 @@ class DataReader():
     self.x_train = []
     self.y_train = []    # --> soha nem fogjuk használni emiatt csak az nn weigth inithez kell
     
-    self.y_train = self.array[self.window:,] # le kell vágni az y_train-t hogy az x_trainel azonos h. legyen
+    # le kell vágni az y_train-t hogy az x_trainel azonos h. legyen
+    self.y_train = self.array[self.window:,]
+    # visszavesszük float32-re
+    self.y_train = self.y_train.astype(self.float_type)
 
 
     for i in range(self.window, len(self.input)):
-        # self.x_train.append(self.input[i-self.window:i, 0])               # egy konkrét oszlop -> nem jó
-        # self.x_train.append(self.input[i-self.window:i, 0:2])             # új   [, 0:2]  az első két oszlop
+        # self.x_train.append(self.input[i-self.window:i, 0])             # egy konkrét oszlop -> nem jó
+        # self.x_train.append(self.input[i-self.window:i, 0:2])           # új   [, 0:2]  az első két oszlop
         self.x_train.append(self.input[i-self.window:i, :])               # új [, :] az összes oszlop
-        # self.y_train.append(self.array[i, 0])                           # felesleges a self.y_train nem használjuk
-
+    
+    # Nem használjuk többé a self.input-ot ezért törölöm
+    del(self.input)
+    
     print('The train x_train {}, and the labels {}'.format(len(self.x_train), len(self.y_train)))
 
     self.x_train, self.y_train = np.array(self.x_train), np.array(self.y_train)   # <-- Convert list to Numpy Array
 
     print(self.x_train.shape, self.y_train.shape)
+    print(self.x_train.dtype, self.y_train.dtype)
     
     print('x_train.nbytes = ', self.x_train.nbytes/1000, 'Kbyte')
     print('x_train.nbytes = ', self.x_train.nbytes/1000/1000, 'Mbyte')
@@ -491,7 +501,7 @@ class DataReader():
     _ = tuple(_)
     self.x_train = np.hstack(_)
 
-    self.x_train
+    print(self.x_train.shape)
     
     del(_)
 
