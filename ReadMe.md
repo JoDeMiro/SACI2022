@@ -173,3 +173,24 @@ Ha majd egyszer sok időm lesz akkor még a következő dolgokat lehet érdemes 
 - Mutáció vagyis a Randomer osztály továbbfejlesztése: (Mutation selection rate, Crossover, PointSplit vs. Coub inheritance)
 - Az se lenne rossz ha minden egyet fitness score értéket visszaadná a Jupyternek elemzés céljából
 
+# Background
+A SACI2022 cikk folytatásához egy érdekes adalék.
+Most hogy tanulmányozom a Python (Concurency, RaceCondition, Sync, Async) dolgokat
+kiderült és világos lettt számomra, hogy amit implementáltam az elosztott programban
+az egy ASYNCRON megoldás, vagyis a program (Driver) csinálhat dolgokat amíg vár
+a válaszra a Workertől. (Ez olyan mint HTTP Async request)
+Továbbá foglalkoztam még a MultiProcessing, MultiTasking, kérsésekkel.
+Ime két videó ami kapcsolódik a témához:
+https://www.youtube.com/watch?v=lUwZ9rS0SeM
+https://www.youtube.com/watch?v=xeeUgn08F94
+https://www.youtube.com/watch?v=R4Oz8JUuM4s
+https://www.youtube.com/watch?v=AZnGRKFUU0c
+Hozzáteszem, hogy ezt az egészet én már implementáltam a programomban, szóval
+nincs további teendőm vele, csak az elméleti okfejtés miatt érdkes, amit
+viszont kihagytam az első cikkből úgyhogy érdemes lenne hangsúlyoznom
+a másodikban.
+
+Rájöttem, hogy egy olyan neurális hálót kéne csinálni ami azt próbálja meg megbecsülni,
+hogy az idősorban egy adott időpont mennyire számít kockázatos belépési pontnak.
+A kockázatos itt azt jelenti, hogy az adott időponttól mért N lépésen belül, mennyire megy alá,
+illetve egy másik esetben azt mérve, hogy mennyire megy alá az árfolyam az adott pontnak.
